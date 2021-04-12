@@ -30,7 +30,7 @@ Server is connected to your localhost, it can be configured to use any ip addres
 ## Issues
 Nickname in harmburger menu doesn't fully align at times, issue is ebing worked on
 
-##Plans
+## Plans
 Add custom labels like in whatsapp/telegram (actively being worked on)
 
 ## License
