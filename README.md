@@ -31,7 +31,8 @@ Server is connected to your localhost, it can be configured to use any ip addres
 Nickname in harmburger menu doesn't fully align at times, issue is being worked on
 
 ##Screenshots
-<img src="/Screenshots/Screen-01_EnterUsername.png" alt="ChooseUsername Screenshot">
+<p>
+<img width="100" src="/Screenshots/Screen-01_EnterUsername.png" alt="ChooseUsername Screenshot">
 
 ## Plans
 Add custom labels like in whatsapp/telegram (actively being worked on)
