@@ -32,13 +32,13 @@ Nickname in harmburger menu doesn't fully align at times, issue is being worked 
 
 ## Screenshots
 <div>
-<img width="100" src="/Screenshots/Screen-01_EnterUsername.png" alt="ChooseUsername Screenshot">
-<img width="100" src="/Screenshots/Screen-02_ConnectedServer.png" alt="Connected to server">
+<img width="500" src="/Screenshots/Screen-01_EnterUsername.png" alt="ChooseUsername Screenshot">
+<img width="500" src="/Screenshots/Screen-02_ConnectedServer.png" alt="Connected to server">
 </div>
 
 <div>
-<img width="100" src="/Screenshots/Screen-03_ChatExample.png" alt="Flash Gordon">
-<img width="100" src="/Screenshots/Screen-04_SlidingMenu.png" alt="SlidingMenu">
+<img width="500" src="/Screenshots/Screen-03_ChatExample.png" alt="Flash Gordon">
+<img width="500" src="/Screenshots/Screen-04_SlidingMenu.png" alt="SlidingMenu">
 </div>
 
 ## Plans
