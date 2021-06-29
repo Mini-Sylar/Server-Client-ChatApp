@@ -44,7 +44,7 @@ class Ui_Dialog(object):
         self.ShowGif.setObjectName("ShowGif")
 
         ##Show Gif Movie
-        self.movie = QMovie(":/Pulsing/PulsingGradiant.gif", QByteArray(),self.LeftPane)
+        self.movie = QMovie(":/Pulsing/PulsingGradiant.gif", QByteArray(), self.LeftPane)
         self.ShowGif.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.ShowGif.setAlignment(Qt.AlignCenter)
         self.movie.setCacheMode(QMovie.CacheAll)
@@ -67,8 +67,7 @@ class Ui_Dialog(object):
                                     "")
         self.ShowGifLayout.addWidget(self.UserIcon)
 
-
-        self.UserName = QLabel("Username",self.ShowGif)
+        self.UserName = QLabel("Username", self.ShowGif)
         self.UserName.setAlignment(Qt.AlignHCenter)
         self.UserName.setStyleSheet(u"QLabel {\n"
                                     "color: white;\n"
@@ -105,7 +104,8 @@ class Ui_Dialog(object):
                                     "border-left:none;\n"
                                     "border-right:none;\n"
                                     "border-bottom: 1px solid silver;\n"
-                                    "border-bottom-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0.00568182 rgba(17, 241, 155, 225), stop:0.892045 rgba(9, 72, 54, 255));\n"
+                                    "border-bottom-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, "
+                                    "stop:0.00568182 rgba(17, 241, 155, 225), stop:0.892045 rgba(9, 72, 54, 255));\n "
                                     "background:transparent;\n"
                                     "}\n"
                                     "")
@@ -115,31 +115,31 @@ class Ui_Dialog(object):
         self.lineEdit.setCursorMoveStyle(QtCore.Qt.VisualMoveStyle)
         self.lineEdit.setClearButtonEnabled(False)
         self.lineEdit.setObjectName("lineEdit")
-        #Connect Line Edit to Label
+        # Connect Line Edit to Label
         self.lineEdit.textChanged.connect(self.UserName.setText)
         self.verticalLayout.addWidget(self.lineEdit)
         self.SaveDetails = QtWidgets.QPushButton(self.RightPane)
         self.SaveDetails.setStyleSheet("QPushButton {\n"
-"        font-size: 12pt;\n"
-"        color: silver;\n"
-"        background-color: #333;\n"
-"        padding-top: 5px;\n"
-"        padding-bottom: 5px;\n"
-"          border-radius: 5px;\n"
-"        border: none\n"
-"    }\n"
-"    \n"
-"    QPushButton:hover {\n"
-"        background-color: rgba(255, 255, 255, 30);\n"
-"        /*border-radius: 5px;*/\n"
-"        color: white;\n"
-"    }\n"
-"    \n"
-"    QPushButton:pressed {\n"
-"        background-color: transparent;\n"
-"        border: 1px solid #777;\n"
-"        border-radius: 5px;\n"
-"    }")
+                                       "        font-size: 12pt;\n"
+                                       "        color: silver;\n"
+                                       "        background-color: #333;\n"
+                                       "        padding-top: 5px;\n"
+                                       "        padding-bottom: 5px;\n"
+                                       "          border-radius: 5px;\n"
+                                       "        border: none\n"
+                                       "    }\n"
+                                       "    \n"
+                                       "    QPushButton:hover {\n"
+                                       "        background-color: rgba(255, 255, 255, 30);\n"
+                                       "        /*border-radius: 5px;*/\n"
+                                       "        color: white;\n"
+                                       "    }\n"
+                                       "    \n"
+                                       "    QPushButton:pressed {\n"
+                                       "        background-color: transparent;\n"
+                                       "        border: 1px solid #777;\n"
+                                       "        border-radius: 5px;\n"
+                                       "    }")
         self.SaveDetails.setCheckable(False)
         self.SaveDetails.setChecked(False)
         self.SaveDetails.setDefault(False)
@@ -151,17 +151,12 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-
-
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        Dialog.setGeometry(0,0,548,200)
+        Dialog.setGeometry(0, 0, 548, 200)
         self.lineEdit.setPlaceholderText(_translate("Dialog", "Enter Username"))
         self.SaveDetails.setText(_translate("Dialog", "Confirm"))
 
-
-import PulsingGradient_rc
-
-
+import Client.Username.PulsingGradient_rc
 

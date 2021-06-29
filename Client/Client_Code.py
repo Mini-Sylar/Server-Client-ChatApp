@@ -1,18 +1,20 @@
 import socket
 import threading
-
+import sys
 from PyQt5 import QtCore
 from PyQt5.QtCore import QPropertyAnimation, Qt
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
 import Icons_Resource_rc
+from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME,USER_THEM
+from Client.Username.Choose_Draggable import Draggable
 from Client_UI import Ui_MainWindow
-from Choose_Draggable import Draggable
 
 HOST = '127.0.0.1'
 PORT = 9090
 
+
 class Client_Code(Ui_MainWindow, QMainWindow):
-    def __init__(self,host,port):
+    def __init__(self, host, port):
         super(Client_Code, self).__init__()
         self.setupUi(self)
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -20,12 +22,19 @@ class Client_Code(Ui_MainWindow, QMainWindow):
         # Accept Username here
         self.windowAvailable = None
         self.getUsername()
-        #Set threading here
+        # Set threading here
         self.gui_done = True
         self.running = True
         self.uiFunctions()
         self.threading()
-
+        """
+        Uncomment the following lines if you want to test the bubbles
+        line 34  - self.bubbleChat()
+        line 61  - self.model.add_message(USER_ME, message)
+        line 76  - self.model.add_message(USER_THEM, message)
+        line 130 - def resizeEvent(self, e)
+        """
+        # self.bubbleChat()
 
     def threading(self):
         # gui_thread = threading.Thread(target=self.setupUi(self))
@@ -37,20 +46,19 @@ class Client_Code(Ui_MainWindow, QMainWindow):
         self.Hamburger.clicked.connect(self.slide_left_menu)
         self.Send_Button.clicked.connect(self.write)
 
-
     def getUsername(self):
         if self.windowAvailable is None:
             self.windowAvailable = Draggable()
         if self.windowAvailable.exec_():
-            self.nickname=self.windowAvailable.lineEdit.text()
+            self.nickname = self.windowAvailable.lineEdit.text()
             self.UserNickname.setText(self.nickname)
         self.windowAvailable = None
-
 
     def write(self):
         '''This function gets the message and sends it to the server which broadcasts it'''
         message = f"{self.nickname}:{self.textEdit.toPlainText()}\n"
         self.sock.send(message.encode('UTF-8'))
+        # self.model.add_message(USER_ME, message)
         self.textEdit.clear()
 
     def receive(self):
@@ -65,6 +73,7 @@ class Client_Code(Ui_MainWindow, QMainWindow):
                 else:
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
+                        # self.model.add_message(USER_THEM, message)
             except ConnectionAbortedError:
                 break
             except:
@@ -73,44 +82,57 @@ class Client_Code(Ui_MainWindow, QMainWindow):
                 break
 
     def closeEvent(self, event):
-        '''Close Sock and Exit application'''
+        """Close Sock and Exit application"""
         self.running = False
         self.sock.close()
         QMainWindow.closeEvent(self, event)
         exit(0)
 
     def slide_left_menu(self):
-            '''Function To create Sliding Left Menu With QFrame'''
-            width = self.SlidingMenu.width()
-            if width == 50:
-                newwidth = 180
-                if ' ' in self.UserNickname.text():
-                    self.UserNickname.setFixedWidth(110)
-                    self.UserNickname.setContentsMargins(0, 0, 30, 0)
-                    self.UserNickname.setWordWrap(True)
-                    self.UserNickname.setAlignment(Qt.AlignHCenter)
-                else:
-                    self.UserNickname.setFixedWidth(150)
-                    self.UserNickname.setContentsMargins(0, 0, 0, 0)
-                    self.UserNickname.setAlignment(Qt.AlignAbsolute)
-
+        """Function To create Sliding Left Menu With QFrame"""
+        width = self.SlidingMenu.width()
+        if width == 50:
+            newwidth = 180
+            if ' ' in self.UserNickname.text():
+                self.UserNickname.setFixedWidth(110)
+                self.UserNickname.setContentsMargins(0, 0, 30, 0)
+                self.UserNickname.setWordWrap(True)
+                self.UserNickname.setAlignment(Qt.AlignHCenter)
             else:
-                newwidth = 50
+                self.UserNickname.setFixedWidth(150)
+                self.UserNickname.setContentsMargins(23, 0, 0, 0)
+                self.UserNickname.setAlignment(Qt.AlignJustify)
 
-            # Animate the transiton
-            self.animation = QPropertyAnimation(self.SlidingMenu, b"minimumWidth")
-            self.animation.setDuration(250)
-            self.animation.setStartValue(width)
-            self.animation.setEndValue(newwidth)
-            self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
-            self.animation.start()
+        else:
+            newwidth = 50
 
+        # Animate the transition
+        self.animation = QPropertyAnimation(self.SlidingMenu, b"minimumWidth")
+        self.animation.setDuration(250)
+        self.animation.setStartValue(width)
+        self.animation.setEndValue(newwidth)
+        self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+        self.animation.start()
+
+    ## ---------BUBBLE STUFF--------------
+    def bubbleChat(self):
+        self.textBrowser.setDisabled(True)
+        # Start listview here
+        self.messagesView = QListView(self.MainChat)
+        self.messagesView.setResizeMode(QListView.Adjust)
+        # Use our delegate to draw items in this view.
+        self.messagesView.setItemDelegate(MessageDelegate())
+        # Add layout to grid here Done
+        self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
+        self.model = MessageModel(self.MainChat)
+        self.messagesView.setModel(self.model)
+
+    # def resizeEvent(self, e):
+    #     self.model.layoutChanged.emit()
 
 
 if __name__ == "__main__":
-    import sys
-
     app = QApplication(sys.argv)
-    clientCode = Client_Code(HOST,PORT)
+    clientCode = Client_Code(HOST, PORT)
     clientCode.show()
     sys.exit(app.exec_())

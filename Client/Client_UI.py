@@ -12,7 +12,6 @@ from PyQt5.QtCore import Qt
 
 
 class Ui_MainWindow(object):
-
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
@@ -136,9 +135,10 @@ class Ui_MainWindow(object):
         self.textBrowser.setFont(font)
 
         self.textBrowser.setStyleSheet("color: rgb(255, 255, 255);""background-color: rgb(85, 85, 85);\n"
-"border:none")
+ "border:none")
         self.textBrowser.setObjectName("textBrowser")
         self.gridLayout.addWidget(self.textBrowser, 0, 0, 1, 2)
+
         self.textEdit = QtWidgets.QTextEdit(self.MainChat)
         self.textEdit.setMaximumSize(QtCore.QSize(16777215, 64))
         font = QtGui.QFont()
