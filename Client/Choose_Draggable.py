@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt, QPoint
 from PyQt5.QtWidgets import QApplication, QDialog, QDesktopWidget, QMessageBox
-
-from ChooseUsername import Ui_Dialog
+from Username_UI import Ui_Dialog
 
 
 class Draggable(Ui_Dialog, QDialog):
