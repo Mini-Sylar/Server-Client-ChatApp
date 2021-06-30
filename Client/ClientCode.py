@@ -1,21 +1,24 @@
 import socket
-import threading
 import sys
+import threading
+
 from PyQt5 import QtCore
 from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer
 from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
-import Icons_Resource_rc
+
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM
 from Client.Username.Choose_Draggable import Draggable
 from Client_UI import Ui_MainWindow
+
+import Icons_Resource_rc
 
 HOST = '127.0.0.1'
 PORT = 9090
 
 
-class Client_Code(Ui_MainWindow, QMainWindow):
+class ClientCode(Ui_MainWindow, QMainWindow):
     def __init__(self, host, port):
-        super(Client_Code, self).__init__()
+        super(ClientCode, self).__init__()
         self.setupUi(self)
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((host, port))
@@ -28,15 +31,18 @@ class Client_Code(Ui_MainWindow, QMainWindow):
         self.uiFunctions()
         self.threading()
         self.bubbleChat()
+
     def threading(self):
-        # gui_thread = threading.Thread(target=self.setupUi(self))
         receive_thread = threading.Thread(target=self.receive)
-        # gui_thread.start()
         receive_thread.start()
 
     def uiFunctions(self):
         self.Hamburger.clicked.connect(self.slide_left_menu)
         self.Send_Button.clicked.connect(self.write)
+        # Add a timer to keep refreshing the qlistview
+        self.timer = QTimer()
+        self.timer.timeout.connect(lambda: self.model.layoutChanged.emit())
+        self.timer.start(0)
 
     def getUsername(self):
         if self.windowAvailable is None:
@@ -55,7 +61,6 @@ class Client_Code(Ui_MainWindow, QMainWindow):
             self.model.add_message(USER_ME, message)
         self.textEdit.clear()
 
-
     def receive(self):
         """While client is running decode every message from the server and insert it as plain text
         Close connection if there is a disconnect or error"""
@@ -68,9 +73,7 @@ class Client_Code(Ui_MainWindow, QMainWindow):
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
                         if self.nickname != message.split(':')[0]:
-                            self.model.add_message(USER_THEM,message)
-                            self.updateGeometry()
-                        # print("Other nickname is", message.split(':')[0])
+                            self.model.add_message(USER_THEM, message)
             except ConnectionAbortedError:
                 break
             except:
@@ -128,10 +131,8 @@ class Client_Code(Ui_MainWindow, QMainWindow):
         self.model.layoutChanged.emit()
 
 
-
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    clientCode = Client_Code(HOST, PORT)
+    clientCode = ClientCode(HOST, PORT)
     clientCode.show()
     sys.exit(app.exec_())

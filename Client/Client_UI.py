@@ -41,13 +41,13 @@ class Ui_MainWindow(object):
         self.Button_layout_side.setObjectName("Button_layout_side")
         self.Hamburger = QtWidgets.QPushButton(self.SlidingMenu)
         self.Hamburger.setStyleSheet("QPushButton{\n"
-"border:none;\n"
-"border-radius:5px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(38, 38, 38);\n"
-"}")
+                                     "border:none;\n"
+                                     "border-radius:5px;\n"
+                                     "}\n"
+                                     "\n"
+                                     "QPushButton:hover{\n"
+                                     "    background-color: rgb(38, 38, 38);\n"
+                                     "}")
         self.Hamburger.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/Icons/white-menu-icon-12.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -62,14 +62,14 @@ class Ui_MainWindow(object):
         font.setPointSize(9)
         self.Settings_button.setFont(font)
         self.Settings_button.setStyleSheet("QPushButton{\n"
-"border:none;\n"
-"color: rgb(255, 255, 255);\n"
-"padding:10px;\n"
-"padding-left:50px;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(38, 38, 38);\n"
-"}")
+                                           "border:none;\n"
+                                           "color: rgb(255, 255, 255);\n"
+                                           "padding:10px;\n"
+                                           "padding-left:50px;\n"
+                                           "}\n"
+                                           "QPushButton:hover{\n"
+                                           "    background-color: rgb(38, 38, 38);\n"
+                                           "}")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/Icons/setting-icon-png-18.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Settings_button.setIcon(icon1)
@@ -90,7 +90,7 @@ class Ui_MainWindow(object):
         self.UserIcon.setScaledContents(True)
         self.UserIcon.setAlignment(QtCore.Qt.AlignCenter)
         self.UserIcon.setWordWrap(False)
-        self.UserIcon.setContentsMargins(0,0,20,0)
+        self.UserIcon.setContentsMargins(0, 0, 20, 0)
         self.UserIcon.setIndent(0)
         self.UserIcon.setObjectName("UserIcon")
         self.verticalLayout_4.addWidget(self.UserIcon)
@@ -98,18 +98,18 @@ class Ui_MainWindow(object):
         self.UserNickname.setMinimumSize(QtCore.QSize(0, 0))
         self.UserNickname.setMaximumSize(QtCore.QSize(16777214, 20))
         self.UserNickname.setStyleSheet(u"QLabel {\n"
-                                    "color: white;\n"
-                                    "font: 12pt \"MS Shell Dlg 2\";\n"    
-                                    "border-top:none;\n"
-                                    "border-left:none;\n"
-                                    "border-right:none;\n"
-                                    "border-bottom: none;\n"
-                                    "background-color:none;\n"
-                                    "}\n"
-                                    "")
-        #self.UserNickname.setStyleSheet("color: rgb(255, 255, 255);")
+                                        "color: white;\n"
+                                        "font: 12pt \"MS Shell Dlg 2\";\n"
+                                        "border-top:none;\n"
+                                        "border-left:none;\n"
+                                        "border-right:none;\n"
+                                        "border-bottom: none;\n"
+                                        "background-color:none;\n"
+                                        "}\n"
+                                        "")
+        # self.UserNickname.setStyleSheet("color: rgb(255, 255, 255);")
         self.UserNickname.setIndent(0)
-        self.UserNickname.setContentsMargins(0,0,59,0)
+        self.UserNickname.setContentsMargins(0, 0, 59, 0)
         self.UserNickname.setObjectName("UserNickname")
         self.UserNickname.setAlignment(Qt.AlignHCenter)
         self.UserNickname.setWordWrap(True)
@@ -119,7 +119,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.Button_layout_side)
         self.horizontalLayout.addWidget(self.SlidingMenu)
         self.MainChat = QtWidgets.QFrame(self.centralwidget)
-        self.MainChat.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.455, y2:0.920455, stop:0.00568182 rgba(17, 111, 75, 225), stop:1 rgba(0, 0, 0, 255));")
+        self.MainChat.setStyleSheet(
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.455, y2:0.920455, stop:0.00568182 rgba(17, 111, 75, 225), stop:1 rgba(0, 0, 0, 255));")
         self.MainChat.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.MainChat.setFrameShadow(QtWidgets.QFrame.Raised)
         self.MainChat.setObjectName("MainChat")
@@ -135,7 +136,7 @@ class Ui_MainWindow(object):
         self.textBrowser.setFont(font)
 
         self.textBrowser.setStyleSheet("color: rgb(255, 255, 255);""background-color: rgb(85, 85, 85);\n"
- "border:none")
+                                       "border:none")
         self.textBrowser.setObjectName("textBrowser")
         self.gridLayout.addWidget(self.textBrowser, 0, 0, 1, 2)
 
@@ -146,9 +147,9 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.textEdit.setFont(font)
         self.textEdit.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(65, 65, 65);\n"
-"border:none")
-        self.textEdit.setInputMethodHints(QtCore.Qt.ImhMultiLine|QtCore.Qt.ImhSensitiveData)
+                                    "background-color: rgb(65, 65, 65);\n"
+                                    "border:none")
+        self.textEdit.setInputMethodHints(QtCore.Qt.ImhMultiLine | QtCore.Qt.ImhSensitiveData)
         self.textEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.textEdit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.textEdit.setObjectName("textEdit")
@@ -157,16 +158,17 @@ class Ui_MainWindow(object):
         # self.Send_Button.clicked.connect(self.write)
         self.Send_Button.setBaseSize(QtCore.QSize(6, 0))
         self.Send_Button.setStyleSheet("QPushButton{\n"
-"background-color: rgb(60, 60, 60);\n"
-"color: rgb(255, 255, 255);\n"
-"border:none;\n"
-"padding-right:60px;\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(38, 38, 38);\n"
-"}")
+                                       "background-color: rgb(60, 60, 60);\n"
+                                       "color: rgb(255, 255, 255);\n"
+                                       "border:none;\n"
+                                       "padding-right:60px;\n"
+                                       "}\n"
+                                       "QPushButton:hover{\n"
+                                       "    background-color: rgb(38, 38, 38);\n"
+                                       "}")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/Icons/content+send+icon-1320087227200139227.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/Icons/content+send+icon-1320087227200139227.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.Send_Button.setIcon(icon2)
         self.Send_Button.setIconSize(QtCore.QSize(64, 64))
         self.Send_Button.setObjectName("Send_Button")
@@ -178,11 +180,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.Settings_button.setText(_translate("MainWindow", "Settings"))
         # self.UserNickname.setText(_translate("MainWindow", self.nickname))
         self.Send_Button.setText(_translate("MainWindow", "SEND"))
-

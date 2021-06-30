@@ -1,5 +1,5 @@
 from PyQt5 import QtCore
-from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt
+from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QColor, QTextDocument, QTextOption
 # from PyQt5.QtGui import
 from PyQt5.QtWidgets import (
@@ -14,6 +14,7 @@ USER_TRANSLATE = {USER_ME: QPoint(20, 0), USER_THEM: QPoint(0, 0)}
 
 BUBBLE_PADDING = QMargins(15, 5, 35, 5)
 TEXT_PADDING = QMargins(25, 15, 45, 15)
+
 
 class MessageDelegate(QStyledItemDelegate):
     """
