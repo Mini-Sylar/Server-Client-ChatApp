@@ -2,10 +2,10 @@ import socket
 import threading
 import sys
 from PyQt5 import QtCore
-from PyQt5.QtCore import QPropertyAnimation, Qt
+from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer
 from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
 import Icons_Resource_rc
-from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME,USER_THEM
+from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM
 from Client.Username.Choose_Draggable import Draggable
 from Client_UI import Ui_MainWindow
 
@@ -27,15 +27,7 @@ class Client_Code(Ui_MainWindow, QMainWindow):
         self.running = True
         self.uiFunctions()
         self.threading()
-        """
-        Uncomment the following lines if you want to test the bubbles
-        line 34  - self.bubbleChat()
-        line 61  - self.model.add_message(USER_ME, message)
-        line 76  - self.model.add_message(USER_THEM, message)
-        line 130 - def resizeEvent(self, e)
-        """
-        # self.bubbleChat()
-
+        self.bubbleChat()
     def threading(self):
         # gui_thread = threading.Thread(target=self.setupUi(self))
         receive_thread = threading.Thread(target=self.receive)
@@ -58,13 +50,15 @@ class Client_Code(Ui_MainWindow, QMainWindow):
         '''This function gets the message and sends it to the server which broadcasts it'''
         message = f"{self.nickname}:{self.textEdit.toPlainText()}\n"
         self.sock.send(message.encode('UTF-8'))
-        # self.model.add_message(USER_ME, message)
+        # Check if username is in message by splitting up
+        if self.nickname == message.split(':')[0]:
+            self.model.add_message(USER_ME, message)
         self.textEdit.clear()
 
+
     def receive(self):
-        '''While client is running decode every message from the server and insert it as plain text
-        Close connection if there is a disconnect or error
-        '''
+        """While client is running decode every message from the server and insert it as plain text
+        Close connection if there is a disconnect or error"""
         while self.running:
             try:
                 message = self.sock.recv(1024).decode('UTF-8')
@@ -73,7 +67,10 @@ class Client_Code(Ui_MainWindow, QMainWindow):
                 else:
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
-                        # self.model.add_message(USER_THEM, message)
+                        if self.nickname != message.split(':')[0]:
+                            self.model.add_message(USER_THEM,message)
+                            self.updateGeometry()
+                        # print("Other nickname is", message.split(':')[0])
             except ConnectionAbortedError:
                 break
             except:
@@ -122,13 +119,15 @@ class Client_Code(Ui_MainWindow, QMainWindow):
         self.messagesView.setResizeMode(QListView.Adjust)
         # Use our delegate to draw items in this view.
         self.messagesView.setItemDelegate(MessageDelegate())
+        self.model = MessageModel()
+        self.messagesView.setModel(self.model)
         # Add layout to grid here Done
         self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
-        self.model = MessageModel(self.MainChat)
-        self.messagesView.setModel(self.model)
 
-    # def resizeEvent(self, e):
-    #     self.model.layoutChanged.emit()
+    def resizeEvent(self, e):
+        self.model.layoutChanged.emit()
+
+
 
 
 if __name__ == "__main__":

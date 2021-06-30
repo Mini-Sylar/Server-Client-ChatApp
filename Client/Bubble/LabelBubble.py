@@ -1,3 +1,4 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt
 from PyQt5.QtGui import QColor, QTextDocument, QTextOption
 # from PyQt5.QtGui import
@@ -96,9 +97,6 @@ class MessageModel(QAbstractListModel):
         return len(self.messages)
 
     def add_message(self, who, text):
-        """
-        Add an message to our message list, getting the text from the QLineEdit
-        """
         if text:  # Don't add empty strings.
             # Access the list via the model.
             self.messages.append((who, text))
