@@ -3,14 +3,16 @@ import sys
 import threading
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer
+from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer, QThread
 from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
 
-from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM
+from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
 from Client_UI import Ui_MainWindow
 
 import Icons_Resource_rc
+
+from time import time
 
 HOST = '127.0.0.1'
 PORT = 9090
@@ -39,10 +41,11 @@ class ClientCode(Ui_MainWindow, QMainWindow):
     def uiFunctions(self):
         self.Hamburger.clicked.connect(self.slide_left_menu)
         self.Send_Button.clicked.connect(self.write)
-        # Add a timer to keep refreshing the qlistview
+        # Add a timer to keep refreshing the Qlistview
         self.timer = QTimer()
         self.timer.timeout.connect(lambda: self.model.layoutChanged.emit())
-        self.timer.start(0)
+        self.timer.start(150)
+
 
     def getUsername(self):
         if self.windowAvailable is None:
@@ -53,12 +56,12 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.windowAvailable = None
 
     def write(self):
-        '''This function gets the message and sends it to the server which broadcasts it'''
+        """This function gets the message and sends it to the server which broadcasts it"""
         message = f"{self.nickname}:{self.textEdit.toPlainText()}\n"
         self.sock.send(message.encode('UTF-8'))
         # Check if username is in message by splitting up
         if self.nickname == message.split(':')[0]:
-            self.model.add_message(USER_ME, message)
+            self.model.add_message(USER_ME, message, time())
         self.textEdit.clear()
 
     def receive(self):
@@ -69,11 +72,13 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 message = self.sock.recv(1024).decode('UTF-8')
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
+                elif 'connected to the server!' in message:
+                    self.model.add_message(USER_ADMIN, message, time())
                 else:
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
                         if self.nickname != message.split(':')[0]:
-                            self.model.add_message(USER_THEM, message)
+                            self.model.add_message(USER_THEM, message, time())
             except ConnectionAbortedError:
                 break
             except:
@@ -92,7 +97,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         """Function To create Sliding Left Menu With QFrame"""
         width = self.SlidingMenu.width()
         if width == 50:
-            newwidth = 180
+            new_width = 180
             if ' ' in self.UserNickname.text():
                 self.UserNickname.setFixedWidth(110)
                 self.UserNickname.setContentsMargins(0, 0, 30, 0)
@@ -104,17 +109,17 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 self.UserNickname.setAlignment(Qt.AlignJustify)
 
         else:
-            newwidth = 50
+            new_width = 50
 
         # Animate the transition
         self.animation = QPropertyAnimation(self.SlidingMenu, b"minimumWidth")
         self.animation.setDuration(250)
         self.animation.setStartValue(width)
-        self.animation.setEndValue(newwidth)
+        self.animation.setEndValue(new_width)
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
-    ## ---------BUBBLE STUFF--------------
+    # ---------BUBBLE STUFF--------------
     def bubbleChat(self):
         self.textBrowser.setDisabled(True)
         # Start listview here

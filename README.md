@@ -29,15 +29,11 @@ Server is connected to your localhost, it can be configured to use any ip addres
 Code has been cleaned up and separated from UI for easy editing
 Custom Bubbles have been added, there is a duplicated message bug that is being worked on
 to test this feature
-```
-Uncomment the following lines if you want to test the bubbles
-        line 34  - self.bubbleChat()
-        line 61  - self.model.add_message(USER_ME, message)
-        line 76  - self.model.add_message(USER_THEM, message)
-        line 130 - def resizeEvent(self, e)
-        
-        !!! This must be done before running server and client
-```
+[30th June 2021]
+Duplicate bug has been fixed 
+Added timestamps to messages
+Added Bubble for Admin Messages (White)
+Reduced CPU usage when using app
 
 ## Issues
 Nickname in hamburger menu doesn't fully align at times, issue is being worked on
