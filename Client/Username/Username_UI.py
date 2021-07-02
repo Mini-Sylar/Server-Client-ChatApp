@@ -97,6 +97,7 @@ class Ui_Dialog(object):
         self.verticalLayout.setSpacing(6)
         self.verticalLayout.setObjectName("verticalLayout")
         self.lineEdit = QtWidgets.QLineEdit(self.RightPane)
+        self.lineEdit.setMaxLength(20)
         self.lineEdit.setStyleSheet(u"QLineEdit {\n"
                                     "color: white;\n"
                                     "font: 12pt \"MS Shell Dlg 2\";\n"

@@ -3,7 +3,7 @@ import sys
 import threading
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer, QThread
+from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer
 from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
@@ -16,6 +16,8 @@ from time import time
 
 HOST = '127.0.0.1'
 PORT = 9090
+#Server Messages
+s_messages = ('connected to the server!', 'Disconnected from the server!')
 
 
 class ClientCode(Ui_MainWindow, QMainWindow):
@@ -46,7 +48,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.timer.timeout.connect(lambda: self.model.layoutChanged.emit())
         self.timer.start(150)
 
-
     def getUsername(self):
         if self.windowAvailable is None:
             self.windowAvailable = Draggable()
@@ -59,9 +60,11 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         """This function gets the message and sends it to the server which broadcasts it"""
         message = f"{self.nickname}:{self.textEdit.toPlainText()}\n"
         self.sock.send(message.encode('UTF-8'))
+        r_nickname = message.split(':')[0]
+        r_message = message.split(':')[-1]
         # Check if username is in message by splitting up
-        if self.nickname == message.split(':')[0]:
-            self.model.add_message(USER_ME, message, time())
+        if self.nickname == r_nickname:
+            self.model.add_message(USER_ME, message.split(':')[-1], time(),message.split(':')[0])
         self.textEdit.clear()
 
     def receive(self):
@@ -70,15 +73,17 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         while self.running:
             try:
                 message = self.sock.recv(1024).decode('UTF-8')
+                r_nickname = message.split(':')[0]
+                r_message = message.split(':')[-1]
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
-                elif 'connected to the server!' in message:
-                    self.model.add_message(USER_ADMIN, message, time())
+                elif any(check in message for check in s_messages):
+                    self.model.add_message(USER_ADMIN, r_message, time(),r_nickname)
                 else:
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
-                        if self.nickname != message.split(':')[0]:
-                            self.model.add_message(USER_THEM, message, time())
+                        if self.nickname != r_nickname:
+                            self.model.add_message(USER_THEM,r_message, time(), r_nickname)
             except ConnectionAbortedError:
                 break
             except:

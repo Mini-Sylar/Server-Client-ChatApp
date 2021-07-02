@@ -18,6 +18,8 @@ BUBBLE_PADDING = QMargins(15, 5, 35, 5)
 TEXT_PADDING = QMargins(25, 15, 45, 15)
 
 
+# for ADMIN (right down left up)
+
 class MessageDelegate(QStyledItemDelegate):
     """
     Draws each message.
@@ -27,8 +29,8 @@ class MessageDelegate(QStyledItemDelegate):
 
     def paint(self, painter, option, index):
         painter.save()
-        # Retrieve the user,message uple from our model.data method.
-        user, text,timestamp = index.model().data(index, Qt.DisplayRole)
+        # Retrieve the user,message tuple from our model.data method.
+        user, text, timestamp, username = index.model().data(index, Qt.DisplayRole)
         # ... add timestamp param, keep the rest the same until top...
 
         trans = USER_TRANSLATE[user]
@@ -55,31 +57,56 @@ class MessageDelegate(QStyledItemDelegate):
         if user == USER_ADMIN:
             p1 = bubblerect.center()
         painter.drawPolygon(p1 + QPoint(-20, 0), p1 + QPoint(20, 0), p1 + QPoint(0, 20))
-
+        # Set alignment options here
         toption = QTextOption()
         toption.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
+        # Set Alignment Options Here for center
+        coption = QTextOption()
+        coption.setAlignment(Qt.AlignHCenter)
+        coption.setWrapMode(QTextOption.WrapAtWordBoundaryOrAnywhere)
 
-        #draw the timestamp
+        # draw the timestamp
         font = painter.font()
         font.setPointSize(7)
         painter.setFont(font)
         painter.setPen(Qt.black)
         time_str = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
-        painter.drawText(textrect.bottomLeft() + QPoint(0, 5), time_str)
+        # painter timestamp depending on who said
+        if user == USER_ADMIN:
+            painter.drawText(textrect.center() + QPoint(-40, 25), time_str)
+        else:
+            painter.drawText(textrect.bottomLeft() + QPoint(0, 5), time_str)
         # End timestamp Here
+
+        # Draw User-name here
+        font = painter.font()
+        font.setPointSize(8)
+        painter.setFont(font)
+        painter.setPen(Qt.black)
+        if user == USER_ADMIN:
+            painter.drawText(textrect.center(), "")
+        else:
+            painter.drawText(textrect.topLeft() + QPoint(0, 5), username)
 
         # draw the text
         doc = QTextDocument(text)
         doc.setTextWidth(textrect.width())
         doc.setDefaultTextOption(toption)
         doc.setDocumentMargin(0)
+        # Set where text should be drawn
+        # For admin text
+        if user == USER_ADMIN:
+            doc.setDefaultTextOption(coption)
+            painter.translate(textrect.topLeft())
+        else:
+            doc.setDocumentMargin(5)
+            painter.translate(textrect.topLeft())
 
-        painter.translate(textrect.topLeft())
         doc.drawContents(painter)
         painter.restore()
 
     def sizeHint(self, option, index):
-        _, text,_ = index.model().data(index, Qt.DisplayRole)
+        _, text, _, _ = index.model().data(index, Qt.DisplayRole)
         textrect = option.rect.marginsRemoved(TEXT_PADDING)
 
         toption = QTextOption()
@@ -92,8 +119,7 @@ class MessageDelegate(QStyledItemDelegate):
 
         textrect.setHeight(int(doc.size().height()))
         textrect = textrect.marginsAdded(TEXT_PADDING)
-        # return textrect.size()
-        return textrect.size()  + QSize(0, 15)
+        return textrect.size() + QSize(0, 15)
 
 
 class MessageModel(QAbstractListModel):
@@ -112,10 +138,9 @@ class MessageModel(QAbstractListModel):
     def rowCount(self, index):
         return len(self.messages)
 
-    def add_message(self, who, text,timestamp):
+    def add_message(self, who, text, timestamp, username):
         if text:  # Don't add empty strings.
             # Access the list via the model.
-            self.messages.append((who, text,timestamp))
+            self.messages.append((who, text, timestamp, username))
             # Trigger refresh.
             self.layoutChanged.emit()
-
