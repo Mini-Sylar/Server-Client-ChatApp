@@ -42,7 +42,7 @@ Server is connected to your localhost, it can be configured to use any ip addres
 </div>
 
 ## Updates
-Updates have been moved into changelog
+Updates have been moved into
 [Changelog](CHANGELOG.md)
 
 ## Plans
