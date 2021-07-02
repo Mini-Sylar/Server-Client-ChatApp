@@ -24,33 +24,29 @@ pip install PyQt5
 ## Notes
 Server is connected to your localhost, it can be configured to use any ip address you want by changing the values in HOST and PORT
 
-## Updates
-[29th June 2021]
-Code has been cleaned up and separated from UI for easy editing
-Custom Bubbles have been added, there is a duplicated message bug that is being worked on
-to test this feature
-[30th June 2021]
-Duplicate bug has been fixed 
-Added timestamps to messages
-Added Bubble for Admin Messages (White)
-Reduced CPU usage when using app
-
-## Issues
-Nickname in hamburger menu doesn't fully align at times, issue is being worked on
 
 ## Screenshots
 <div>
-<img width="380" src="/Screenshots/Screen-01_EnterUsername.png" alt="ChooseUsername Screenshot">
-<img width="380" src="/Screenshots/Screen-02_ConnectedServer.png" alt="Connected to server">
+<img width="380" src="/Screenshots/001_Bubble_Features.png" alt="Bubble Feature new">
+<img width="380" src="/Screenshots/002_RandomUser_Joined.png" alt="Random User Joined">
 </div>
 
 <div>
-<img width="380" src="/Screenshots/Screen-03_ChatExample.png" alt="Flash Gordon">
-<img width="380" src="/Screenshots/Screen-04_SlidingMenu.png" alt="SlidingMenu">
+<img width="380" src="/Screenshots/003_ConsoleAndBubble.png" alt="Console and bubble">
+<img width="380" src="/Screenshots/004_ConsoleAndBubble_Aftermath.png" alt="Console & bubble2">
 </div>
 
+<div>
+<img width="380" src="/Screenshots/005_IpsumLorem_Scaled.png" alt="IpsumLorem Scaled">
+<img width="380" src="/Screenshots/005_IpsumLorem_Scaled_NOuser.png" alt="Ipsum Lorem Scaled2">
+</div>
+
+## Updates
+Updates have been moved into changelog
+[Changelog](CHANGELOG.md)
+
 ## Plans
-- Add custom labels like in whatsapp/telegram (In Progress) (ADDED!)
+- Add custom labels like in whatsapp/telegram (ADDED!)
 - Make usernames colored in console like chat are (In Progress)
 - Encrypted server messages 
 - Settings menu to change username,profileIcon,text window style etc.
