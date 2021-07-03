@@ -26,7 +26,7 @@ Server is connected to your localhost, it can be configured to use any ip addres
 
 
 ## Screenshots
-<div>
+<div class="center">
 <img width="380" src="/Screenshots/Screen-01_EnterUsername.png" alt="Choose A username">
 </div>
 <hr>
