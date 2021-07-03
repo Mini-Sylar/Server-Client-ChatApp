@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed an issue which was causing text not to align properly when resizing window
 - Some more code cleanup
 - Updated Readme
+- Username can not be more than 20 characters
 ### Issues
 - No major issues found
 <hr>
