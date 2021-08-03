@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Added screenshots of the new labels
 ### Changed
+- Removed the "'b" that shows with server messages
+### Issues
+- No major issues found
+<hr>
+
+
+## [Unreleased] - 2021-07-01
+### Added
+- Added screenshots of the new labels
+### Changed
 - Admin messages are now centered and include timestamps
 - Fixed an issue which was causing text not to align properly when resizing window
 - Some more code cleanup

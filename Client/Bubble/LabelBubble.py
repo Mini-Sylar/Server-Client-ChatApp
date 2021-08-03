@@ -30,7 +30,7 @@ class MessageDelegate(QStyledItemDelegate):
     def paint(self, painter, option, index):
         painter.save()
         # Retrieve the user,message tuple from our model.data method.
-        user, text, timestamp, username = index.model().data(index, Qt.DisplayRole)
+        user, text, timestamp, username, user_color = index.model().data(index, Qt.DisplayRole)
         # ... add timestamp param, keep the rest the same until top...
 
         trans = USER_TRANSLATE[user]
@@ -46,6 +46,12 @@ class MessageDelegate(QStyledItemDelegate):
         # the edge.
         painter.setPen(Qt.NoPen)
         color = QColor(BUBBLE_COLORS[user])
+        painter.setBrush(color)
+        painter.drawRoundedRect(bubblerect, 10, 10)
+
+        # Draw User Colors Here
+        painter.setPen(Qt.NoPen)
+        color = QColor(user_color)
         painter.setBrush(color)
         painter.drawRoundedRect(bubblerect, 10, 10)
 
@@ -106,7 +112,7 @@ class MessageDelegate(QStyledItemDelegate):
         painter.restore()
 
     def sizeHint(self, option, index):
-        _, text, _, _ = index.model().data(index, Qt.DisplayRole)
+        _, text, _, _,_ = index.model().data(index, Qt.DisplayRole)
         textrect = option.rect.marginsRemoved(TEXT_PADDING)
 
         toption = QTextOption()
@@ -138,9 +144,9 @@ class MessageModel(QAbstractListModel):
     def rowCount(self, index):
         return len(self.messages)
 
-    def add_message(self, who, text, timestamp, username):
+    def add_message(self, who, text, timestamp, username,user_color):
         if text:  # Don't add empty strings.
             # Access the list via the model.
-            self.messages.append((who, text, timestamp, username))
+            self.messages.append((who, text, timestamp, username,user_color))
             # Trigger refresh.
             self.layoutChanged.emit()

@@ -12,6 +12,7 @@ server.listen()
 clients = []
 nicknames =[]
 
+
 def broadcast(message):
     '''This function sends a message to all the connected clients'''
     for client in clients:
@@ -43,7 +44,7 @@ def receive():
         print("Connected with ",str(address))
 
         client.send("NICK".encode('utf-8'))
-        nickname = client.recv(1024)
+        nickname = client.recv(1024).decode('utf-8')
 
         nicknames.append(nickname)
         clients.append(client)
