@@ -9,7 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
-
+import Icons_Resource_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
