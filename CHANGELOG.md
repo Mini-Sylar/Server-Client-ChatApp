@@ -5,6 +5,33 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased] - 2021-08-06
+### Added
+- Major Fixes to all color assignment issues. There will be no crashes now
+- Added code to show usernames currently connected to the server
+- Updated Screenshots
+### Changed
+- Reworked the assignment of colors and now they work perfectly 
+  it will mostly assign light colors (fingers crossed) to each user
+- Username has been moved slightly (Color will remain black)
+### Issues
+- The disconnect message is treated as a key and assigning a color, this will be fixed
+<hr>
+
+
+## [Unreleased] - 2021-08-03
+### Added
+- Added usernames to each message to help tell each user apart
+- Added parameter to assign different colors to different users
+- Added function to randomly assign colors to users
+### Changed
+- the default green is no longer assigned as default since having multiple users with that same color will be 
+an eyesore
+### Issues
+- Issue with dictionary not updating member keys and hence cannot assign colors (Causes crashes)
+<hr>
+
+
 ## [Unreleased] - 2021-07-01
 ### Added
 - Added screenshots of the new labels

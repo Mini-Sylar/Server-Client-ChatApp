@@ -6,23 +6,27 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer
 from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
 
-from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN,BUBBLE_COLORS
+from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
 from Client_UI import Ui_MainWindow
 
-import Icons_Resource_rc
-
+import random
 from time import time
 
 HOST = '127.0.0.1'
 PORT = 9090
-# Server Messages
+#Server Messages
 s_messages = ('connected to the server!', 'Disconnected from the server!')
-import random
 
+# Random Color Generator
 def rand_color():
-    r = lambda: random.randint(0,255)
-    return  '#%02X%02X%02X' % (r(),r(),r())
+    r = lambda: random.randint(0, 255)
+    return '#%02X%02X%02X' % (r(), r(), r())
+
+
+# Client List
+clientColor = dict()
+clientUser = list()
 
 
 class ClientCode(Ui_MainWindow, QMainWindow):
@@ -66,9 +70,10 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         message = f"{self.nickname}:{self.textEdit.toPlainText()}\n"
         self.sock.send(message.encode('UTF-8'))
         r_nickname = message.split(':')[0]
+        r_message = message.split(':')[-1]
         # Check if username is in message by splitting up
         if self.nickname == r_nickname:
-            self.model.add_message(USER_ME, message.split(':')[-1], time(),message.split(':')[0],"#90caf9")
+            self.model.add_message(USER_ME, message.split(':')[-1], time(), message.split(':')[0], "#90caf9")
         self.textEdit.clear()
 
     def receive(self):
@@ -82,12 +87,22 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
                 elif any(check in message for check in s_messages):
-                    self.model.add_message(USER_ADMIN, r_message, time(),r_nickname,"#FFFFFF")
+                    self.model.add_message(USER_ADMIN, r_message, time(), r_nickname, "#FFFFFF")
+                    findnames = message[message.find("[") + 1:   message.find("]")]
+
+                    for users in findnames.split(','):
+                        clientUser.append(
+                            users.rstrip("'").lstrip("'").strip("'").replace(" ", '').replace("'", '').replace(
+                                "connectedtotheserver!", ""))
+
+                    for names in clientUser:
+                        clientColor[names] = rand_color()
+                    print("client Final", clientColor)
                 else:
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
                         if self.nickname != r_nickname:
-                            self.model.add_message(USER_THEM,r_message, time(), r_nickname,rand_color())
+                            self.model.add_message(USER_THEM, r_message, time(), r_nickname, clientColor[r_nickname.replace(" ","")])
             except ConnectionAbortedError:
                 break
             except:
@@ -116,7 +131,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 self.UserNickname.setFixedWidth(150)
                 self.UserNickname.setContentsMargins(23, 0, 0, 0)
                 self.UserNickname.setAlignment(Qt.AlignJustify)
-
         else:
             new_width = 50
 
