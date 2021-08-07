@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased] - 2021-08-07
+### Added
+- No new major features just fixes
+### Changed
+- fixed logic causing disconnect message to be treated as a key
+- Fixed colors being re-assigned whenever someone left
+- When someone leaves and rejoins the color will be updated again 
+  (This might be changed to retain the old color)
+### Issues
+- No issues found
+<hr>
+
+
 ## [Unreleased] - 2021-08-06
 ### Added
 - Major Fixes to all color assignment issues. There will be no crashes now
@@ -16,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Username has been moved slightly (Color will remain black)
 - Server messages are now formatted properly
 ### Issues
-- The disconnect message is treated as a key and assigning a color, this will be fixed
+- All major issues have been fixed
 <hr>
 
 

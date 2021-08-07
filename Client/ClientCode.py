@@ -18,7 +18,6 @@ PORT = 9090
 # Server Messages
 s_messages = ('connected to the server!', 'Disconnected from the server!')
 
-
 # Random Color Generator
 def rand_color():
     r = lambda: random.randint(0, 255)
@@ -90,14 +89,16 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 elif any(check in message for check in s_messages):
                     self.model.add_message(USER_ADMIN, r_message, time(), r_nickname, "#FFFFFF")
                     findnames = message[message.find("[") + 1:   message.find("]")]
-
+                    # Append color to any user who joins by stripping connected server
                     for users in findnames.split(','):
-                        clientUser.append(
-                            users.rstrip("'").lstrip("'").strip("'").replace(" ", '').replace("'", '').replace(
-                                "connectedtotheserver!", ""))
-
-                    for names in clientUser:
-                        clientColor[names] = rand_color()
+                        if s_messages[1] in users:
+                            break
+                        else:
+                            clientUser.append(
+                                users.rstrip("'").lstrip("'").strip("'").replace(" ", '').replace("'", '').replace(
+                                    "connectedtotheserver!", ""))
+                        for names in clientUser:
+                            clientColor[names] = rand_color()
                     print("client Final", clientColor)
                 else:
                     if self.gui_done:
