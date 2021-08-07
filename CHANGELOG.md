@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Reworked the assignment of colors and now they work perfectly 
   it will mostly assign light colors (fingers crossed) to each user
 - Username has been moved slightly (Color will remain black)
+- Server messages are now formatted properly
 ### Issues
 - The disconnect message is treated as a key and assigning a color, this will be fixed
 <hr>

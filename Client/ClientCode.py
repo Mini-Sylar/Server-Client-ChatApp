@@ -15,8 +15,9 @@ from time import time
 
 HOST = '127.0.0.1'
 PORT = 9090
-#Server Messages
+# Server Messages
 s_messages = ('connected to the server!', 'Disconnected from the server!')
+
 
 # Random Color Generator
 def rand_color():
@@ -73,7 +74,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         r_message = message.split(':')[-1]
         # Check if username is in message by splitting up
         if self.nickname == r_nickname:
-            self.model.add_message(USER_ME, message.split(':')[-1], time(), message.split(':')[0], "#90caf9")
+            self.model.add_message(USER_ME, r_message, time(), message.split(':')[0], "#90caf9")
         self.textEdit.clear()
 
     def receive(self):
@@ -102,7 +103,8 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
                         if self.nickname != r_nickname:
-                            self.model.add_message(USER_THEM, r_message, time(), r_nickname, clientColor[r_nickname.replace(" ","")])
+                            self.model.add_message(USER_THEM, r_message, time(), r_nickname,
+                                                   clientColor[r_nickname.replace(" ", "")])
             except ConnectionAbortedError:
                 break
             except:
