@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased] - 2021-08-24
+### Added
+- No new major features just fixes
+### Changed
+- changed the logic for assigning colors. This fixes colors being re-assigned when someone joins or leaves
+- Name aligns properly with message now
+### Issues
+- No issues found
+<hr>
+
+
 ## [Unreleased] - 2021-08-07
 ### Added
 - No new major features just fixes

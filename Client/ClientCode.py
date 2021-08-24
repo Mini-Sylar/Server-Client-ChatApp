@@ -97,8 +97,10 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                             clientUser.append(
                                 users.rstrip("'").lstrip("'").strip("'").replace(" ", '').replace("'", '').replace(
                                     "connectedtotheserver!", ""))
-                        for names in clientUser:
+                    for names in clientUser:
+                        if names not in clientColor:
                             clientColor[names] = rand_color()
+
                     print("client Final", clientColor)
                 else:
                     if self.gui_done:

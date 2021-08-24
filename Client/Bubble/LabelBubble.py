@@ -16,8 +16,6 @@ USER_TRANSLATE = {USER_ME: QPoint(20, 0), USER_THEM: QPoint(0, 0), USER_ADMIN: Q
 
 BUBBLE_PADDING = QMargins(15, 5, 35, 5)
 TEXT_PADDING = QMargins(25, 15, 45, 15)
-
-
 # for ADMIN (right down left up)
 
 class MessageDelegate(QStyledItemDelegate):
@@ -92,7 +90,7 @@ class MessageDelegate(QStyledItemDelegate):
         if user == USER_ADMIN:
             painter.drawText(textrect.center(), "")
         else:
-            painter.drawText(textrect.topLeft() + QPoint(0, 5), username)
+            painter.drawText(textrect.topLeft() + QPoint(5, 5), username)
 
         # draw the text
         doc = QTextDocument(text)
