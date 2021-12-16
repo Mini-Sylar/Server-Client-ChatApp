@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased] - 2021-12-16
+### Added
+- No new major features just fixes
+### Changed
+- !! Should color be unassigned for some reason, a default color will automatically be assigned
+- !! Fix issue where users with similar names won't have their messages sent. 
+  - Suggestions made by: [Martin](https://www.mfitzp.com/forum/u/martin) to use UUID
+### Issues
+- No issues found
+<hr>
+
+
 ## [Unreleased] - 2021-08-24
 ### Added
 - No new major features just fixes

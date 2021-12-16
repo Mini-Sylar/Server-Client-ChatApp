@@ -58,11 +58,11 @@ Updates have been moved into
 [Changelog](CHANGELOG.md)
 
 ## Plans
-- Add custom labels like in whatsapp/telegram (ADDED!)
-- Make usernames colored in console like chat are (In Progress)
-- Encrypted server messages 
-- Settings menu to change username,profileIcon,text window style etc.
-- Admin powers, kick user etc.
+- [x] Add custom labels like in whatsapp/telegram (ADDED!)
+- [ ] Make usernames colored in console like chat are (In Progress)
+- [ ] Encrypted server messages 
+- [ ] Settings menu to change username,profileIcon,text window style etc.
+- [ ] Admin powers, kick user etc.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
