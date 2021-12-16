@@ -12,6 +12,7 @@ from Client_UI import Ui_MainWindow
 
 import random
 from time import time
+import uuid
 
 HOST = '127.0.0.1'
 PORT = 9090
@@ -45,6 +46,8 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.uiFunctions()
         self.threading()
         self.bubbleChat()
+        # unique Identifier
+        self.uuid = uuid.uuid4().hex
 
     def threading(self):
         receive_thread = threading.Thread(target=self.receive)
@@ -68,13 +71,15 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
-        message = f"{self.nickname}:{self.textEdit.toPlainText()}\n"
+        message = f"{self.nickname}:{self.uuid}:{self.textEdit.toPlainText()}\n"
         self.sock.send(message.encode('UTF-8'))
-        r_nickname = message.split(':')[0]
-        r_message = message.split(':')[-1]
-        # Check if username is in message by splitting up
-        if self.nickname == r_nickname:
-            self.model.add_message(USER_ME, r_message, time(), message.split(':')[0], "#90caf9")
+        w_userID = message.split(':')[1]
+        w_nickname = message.split(':')[0]
+        w_message = message.split(':')[-1]
+        # print('wUder:',w_userID)
+        # Check if userID matches and then display
+        if self.uuid == w_userID:
+            self.model.add_message(USER_ME, w_message, time(), w_nickname, "#90caf9")
         self.textEdit.clear()
 
     def receive(self):
@@ -101,18 +106,17 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     for names in clientUser:
                         if names not in clientColor:
                             clientColor[names] = rand_color()
-
-                    print("client Final", clientColor)
+                    # print("client Final", clientColor)
                 else:
                     if self.gui_done:
                         self.textBrowser.insertPlainText(message + "\n")
-                        if self.nickname != r_nickname:
+                        if self.uuid !=  message.split(':')[1]:
                             self.model.add_message(USER_THEM, r_message, time(), r_nickname,
                                                    clientColor[r_nickname.replace(" ", "")])
             except ConnectionAbortedError:
                 break
-            except:
-                print("error")
+            except OSError as e:
+                print(e)
                 self.sock.close()
                 break
 
