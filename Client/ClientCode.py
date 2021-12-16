@@ -18,10 +18,11 @@ PORT = 9090
 # Server Messages
 s_messages = ('connected to the server!', 'Disconnected from the server!')
 
+
 # Random Color Generator
-def rand_color():
+def rand_color(def_color='#a5d6a7'):
     r = lambda: random.randint(0, 255)
-    return '#%02X%02X%02X' % (r(), r(), r())
+    return '#%02X%02X%02X' % (r(), r(), r()) if r else def_color
 
 
 # Client List
