@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
-from Client_UI import Ui_MainWindow
+from Client.Client_UI import Ui_MainWindow
 
 import random
 from time import time
@@ -134,7 +134,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             new_width = 180
             if ' ' in self.UserNickname.text():
                 self.UserNickname.setFixedWidth(110)
-                self.UserNickname.setContentsMargins(0, 0, 30, 0)
+                self.UserNickname.setContentsMargins(0, 0, 30, 0) 
                 self.UserNickname.setWordWrap(True)
                 self.UserNickname.setAlignment(Qt.AlignHCenter)
             else:
@@ -154,16 +154,16 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     # ---------BUBBLE STUFF--------------
     def bubbleChat(self):
-        self.textBrowser.setDisabled(True)
+        # self.textBrowser.setDisabled(True)
         # Start listview here
-        self.messagesView = QListView(self.MainChat)
-        self.messagesView.setResizeMode(QListView.Adjust)
+        # self.messagesView = QListView(self.MainChat)
+        # self.messagesView.setResizeMode(QListView.Adjust)
         # Use our delegate to draw items in this view.
         self.messagesView.setItemDelegate(MessageDelegate())
         self.model = MessageModel()
         self.messagesView.setModel(self.model)
         # Add layout to grid here Done
-        self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
+        # self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
 
     def resizeEvent(self, e):
         self.model.layoutChanged.emit()
