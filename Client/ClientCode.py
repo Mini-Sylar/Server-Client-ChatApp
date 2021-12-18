@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QListView
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
-from Client_UI import Ui_MainWindow
+from Client.Client_UI import Ui_MainWindow
 
 import random
 from time import time
@@ -109,8 +109,9 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     # print("client Final", clientColor)
                 else:
                     if self.gui_done:
-                        self.textBrowser.insertPlainText(message + "\n")
-                        if self.uuid !=  message.split(':')[1]:
+                        # No Longer Need Text Browser for now
+                        # self.textBrowser.insertPlainText(message + "\n")
+                        if self.uuid != message.split(':')[1]:
                             self.model.add_message(USER_THEM, r_message, time(), r_nickname,
                                                    clientColor[r_nickname.replace(" ", "")])
             except ConnectionAbortedError:
@@ -132,18 +133,11 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         width = self.SlidingMenu.width()
         if width == 50:
             new_width = 180
-            if ' ' in self.UserNickname.text():
-                self.UserNickname.setFixedWidth(110)
-                self.UserNickname.setContentsMargins(0, 0, 30, 0)
-                self.UserNickname.setWordWrap(True)
-                self.UserNickname.setAlignment(Qt.AlignHCenter)
-            else:
-                self.UserNickname.setFixedWidth(150)
-                self.UserNickname.setContentsMargins(23, 0, 0, 0)
-                self.UserNickname.setAlignment(Qt.AlignJustify)
+            self.UserLayout.setContentsMargins(-53, 0, -51, 9)
+
         else:
             new_width = 50
-
+            self.UserLayout.setContentsMargins(51,0,51,9)
         # Animate the transition
         self.animation = QPropertyAnimation(self.SlidingMenu, b"minimumWidth")
         self.animation.setDuration(250)
@@ -152,18 +146,26 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
+        self.marginAnimation = QPropertyAnimation(self.UserLayout,b'setContentsMargins')
+        self.marginAnimation.setDuration(125)
+        self.marginAnimation.setStartValue(width)
+        self.marginAnimation.setEndValue(new_width)
+        self.marginAnimation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+        self.marginAnimation.start()
+
     # ---------BUBBLE STUFF--------------
     def bubbleChat(self):
-        self.textBrowser.setDisabled(True)
+        """Attach model view to message view here, creating a list view is no longer needed as it pre-created  """
+        # self.textBrowser.setDisabled(True)
         # Start listview here
-        self.messagesView = QListView(self.MainChat)
-        self.messagesView.setResizeMode(QListView.Adjust)
+        # self.messagesView = QListView(self.MainChat)
+        # self.messagesView.setResizeMode(QListView.Adjust)
         # Use our delegate to draw items in this view.
         self.messagesView.setItemDelegate(MessageDelegate())
         self.model = MessageModel()
         self.messagesView.setModel(self.model)
         # Add layout to grid here Done
-        self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
+        # self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
 
     def resizeEvent(self, e):
         self.model.layoutChanged.emit()
