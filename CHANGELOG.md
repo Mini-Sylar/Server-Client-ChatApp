@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <hr>
 
 
-##<span style="color:orange"> [Unreleased] - 2021-12-16
+## <span style="color:orange"> [Unreleased] - 2021-12-16
 ### <span style="color:teal"> <span style="color:teal">Added
 - No new major features just fixes
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
