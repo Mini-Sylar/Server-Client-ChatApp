@@ -212,6 +212,7 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Poppins\'; font-size:10pt; font-weight:600; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.getTextStyles = self.textEdit.toHtml()
 import Icons_Resource_rc
 
 
