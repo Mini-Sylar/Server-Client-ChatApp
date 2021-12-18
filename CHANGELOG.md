@@ -15,9 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Font in side-panel now match
 - Colors have been further darkened
 - Window title changed (idk why this wasn't done earlier)
+- Fixed issue where text indent would reset after sending a message
 ### <span style="color:red">Issues
 - Send button can still send empty messages
-- After sending a message, text box indent resets
+- ~~After sending a message, text box indent resets~~
 <hr>
 
 

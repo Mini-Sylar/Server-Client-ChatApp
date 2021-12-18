@@ -76,11 +76,11 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         w_userID = message.split(':')[1]
         w_nickname = message.split(':')[0]
         w_message = message.split(':')[-1]
-        # print('wUder:',w_userID)
         # Check if userID matches and then display
         if self.uuid == w_userID:
             self.model.add_message(USER_ME, w_message, time(), w_nickname, "#90caf9")
         self.textEdit.clear()
+        self.textEdit.setHtml(self.getTextStyles)
 
     def receive(self):
         """While client is running decode every message from the server and insert it as plain text
