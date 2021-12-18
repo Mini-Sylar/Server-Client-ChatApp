@@ -52,7 +52,11 @@ Server is connected to your localhost, it can be configured to use any ip addres
 <img width="380" src="/Screenshots/005_IpsumLorem_Scaled.png" alt="IpsumLorem Scaled">
 <img width="380" src="/Screenshots/005_IpsumLorem_Scaled_NOuser.png" alt="Ipsum Lorem Scaled2">
 </div>
-
+<hr>
+<div>
+<img width="380" src="/Screenshots/DecemberScreenshots.png" alt="New Interface">
+<img width="380" src="/Screenshots/DecemberScreenshots2.png" alt="New Interface">
+</div>
 ## Updates
 Updates have been moved into
 [Changelog](CHANGELOG.md)
