@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## <span style="color:orange">[Unreleased] - 2021-12-18</span>
 ### <span style="color:teal"> <span style="color:teal">Added
+- Added Emoji Support
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Reworked UI to include emoji button. For testing purposes, 6 are available, more will be included
+### <span style="color:red">Issues
+- Quality of emoji is a bit grainy(Might just be the font)
+<hr>
+
+
+## <span style="color:orange">[Unreleased] - 2021-12-18</span>
+### <span style="color:teal"> <span style="color:teal">Added
 - Some UI Changes
 - Rounded Text input area
 - Re-designed send button

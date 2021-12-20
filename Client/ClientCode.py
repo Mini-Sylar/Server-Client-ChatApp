@@ -56,6 +56,16 @@ class ClientCode(Ui_MainWindow, QMainWindow):
     def uiFunctions(self):
         self.Hamburger.clicked.connect(self.slide_left_menu)
         self.Send_Button.clicked.connect(self.write)
+        self.emojiButton.clicked.connect(self.emoji_pane)
+        # Emojis
+        # Get emojis from text file
+        emojis = []
+        with open('EmojiList.txt', 'r', encoding="utf8") as file:
+            emojis = file.read().splitlines()
+        for index, item in enumerate(self.Smiles.children()[1:]):
+            item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
+            print(index, item.text())
+
         # Add a timer to keep refreshing the Qlistview
         self.timer = QTimer()
         self.timer.timeout.connect(lambda: self.model.layoutChanged.emit())
@@ -146,12 +156,21 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
-        self.marginAnimation = QPropertyAnimation(self.UserLayout,b'setContentsMargins')
-        self.marginAnimation.setDuration(125)
-        self.marginAnimation.setStartValue(width)
-        self.marginAnimation.setEndValue(new_width)
-        self.marginAnimation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
-        self.marginAnimation.start()
+    def emoji_pane(self):
+        """Function To create Sliding Left Menu With QFrame"""
+        width = self.EmojiPane.width()
+        if width == 0:
+            new_width = 240
+
+        else:
+            new_width = 0
+        # Animate the transition
+        self.emoji_panel = QPropertyAnimation(self.EmojiPane, b"minimumWidth")
+        self.emoji_panel.setDuration(250)
+        self.emoji_panel.setStartValue(width)
+        self.emoji_panel.setEndValue(new_width)
+        self.emoji_panel.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+        self.emoji_panel.start()
 
     # ---------BUBBLE STUFF--------------
     def bubbleChat(self):

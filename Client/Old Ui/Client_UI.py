@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '2021ChatLayoutEmoji.ui'
+# Form implementation generated from reading ui file 'Client_UI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(754, 613)
+        MainWindow.resize(754, 535)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -27,9 +27,7 @@ class Ui_MainWindow(object):
         font.setFamily("Helvetica")
         font.setPointSize(14)
         MainWindow.setFont(font)
-        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -97,7 +95,6 @@ class Ui_MainWindow(object):
         self.UserLayout.addWidget(self.UserNickname, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.Button_layout_side.addLayout(self.UserLayout, 1, 0, 1, 1)
         self.Hamburger = QtWidgets.QPushButton(self.SlidingMenu)
-        self.Hamburger.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Hamburger.setStyleSheet("QPushButton{\n"
 "border:none;\n"
 "border-radius:5px;\n"
@@ -105,11 +102,6 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover{\n"
 "    background-color: rgb(38, 38, 38);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(53, 53, 53);\n"
-"\n"
 "}")
         self.Hamburger.setText("")
         icon = QtGui.QIcon()
@@ -125,7 +117,6 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.Settings_button.setFont(font)
-        self.Settings_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Settings_button.setStyleSheet("QPushButton{\n"
 "border:none;\n"
 "color: rgb(255, 255, 255);\n"
@@ -151,234 +142,7 @@ class Ui_MainWindow(object):
 "background-color: rgb(35, 35, 35);")
         self.MainChat.setObjectName("MainChat")
         self.gridLayout = QtWidgets.QGridLayout(self.MainChat)
-        self.gridLayout.setContentsMargins(9, -1, -1, -1)
         self.gridLayout.setObjectName("gridLayout")
-        self.Send_Button = QtWidgets.QPushButton(self.MainChat)
-        self.Send_Button.setMinimumSize(QtCore.QSize(0, 55))
-        font = QtGui.QFont()
-        font.setFamily("Poppins SemiBold")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.Send_Button.setFont(font)
-        self.Send_Button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Send_Button.setStyleSheet("QPushButton {\n"
-"    color: #FFFFFF;\n"
-"   border:none;\n"
-"background-color: None;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"border-radius:25px;\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(28, 164, 141, 135), stop:0.732955 rgba(128, 194, 194, 203));\n"
-"\n"
-"}\n"
-"")
-        self.Send_Button.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/Icons/content+send+icon-1320087227200139227.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.Send_Button.setIcon(icon2)
-        self.Send_Button.setIconSize(QtCore.QSize(50, 50))
-        self.Send_Button.setDefault(False)
-        self.Send_Button.setFlat(False)
-        self.Send_Button.setObjectName("Send_Button")
-        self.gridLayout.addWidget(self.Send_Button, 1, 3, 1, 1)
-        self.emojiButton = QtWidgets.QPushButton(self.MainChat)
-        self.emojiButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.emojiButton.setStyleSheet("QPushButton {\n"
-"    color: #FFFFFF;\n"
-"   border:none;\n"
-"background-color: None;\n"
-"height:35px\n"
-"}\n"
-"QPushButton:hover {\n"
-"border-radius:15px;\n"
-"}\n"
-"\n"
-"")
-        self.emojiButton.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon3.addPixmap(QtGui.QPixmap(":/Emojis/EmojiClicked.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
-        icon3.addPixmap(QtGui.QPixmap(":/Emojis/EmojiClicked.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.emojiButton.setIcon(icon3)
-        self.emojiButton.setIconSize(QtCore.QSize(32, 50))
-        self.emojiButton.setCheckable(True)
-        self.emojiButton.setChecked(False)
-        self.emojiButton.setFlat(False)
-        self.emojiButton.setObjectName("emojiButton")
-        self.gridLayout.addWidget(self.emojiButton, 1, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
-        self.EmojiPane = QtWidgets.QTabWidget(self.MainChat)
-        self.EmojiPane.setMinimumSize(QtCore.QSize(0, 0))
-        self.EmojiPane.setMaximumSize(QtCore.QSize(0, 16777215))
-        self.EmojiPane.setStyleSheet("QTabBar::tab {\n"
-"    color: #b1b1b1;\n"
-"    border: 1px solid #444;\n"
-"    border-bottom-style: none;\n"
-"    background-color: #323232;\n"
-"    padding-left: 10px;\n"
-"    padding-right: 10px;\n"
-"    padding-top: 3px;\n"
-"    padding-bottom: 2px;\n"
-"    margin-right: -1px;\n"
-"}\n"
-"\n"
-"QTabWidget::pane {\n"
-"    border: 1px solid #444;\n"
-"    top: 1px;\n"
-"}\n"
-"\n"
-"QTabBar::tab:last\n"
-"{\n"
-"    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */\n"
-"    border-top-right-radius: 3px;\n"
-"}\n"
-"\n"
-"QTabBar::tab:first:!selected\n"
-"{\n"
-" margin-left: 0px; /* the last selected tab has nothing to overlap with on the right */\n"
-"\n"
-"\n"
-"    border-top-left-radius: 3px;\n"
-"}\n"
-"\n"
-"QTabBar::tab:!selected\n"
-"{\n"
-"    color: #b1b1b1;\n"
-"    border-bottom-style: solid;\n"
-"    margin-top: 3px;\n"
-"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:.4 #343434);\n"
-"}\n"
-"\n"
-"QTabBar::tab:selected\n"
-"{\n"
-"    border-top-left-radius: 3px;\n"
-"    border-top-right-radius: 3px;\n"
-"    margin-bottom: 0px;\n"
-"}\n"
-"\n"
-"QTabBar::tab:!selected:hover\n"
-"{\n"
-"    /*border-top: 2px solid #fdf6e3;\n"
-"    padding-bottom: 3px;*/\n"
-"    border-top-left-radius: 3px;\n"
-"    border-top-right-radius: 3px;\n"
-"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #fdf6e3);\n"
-"}\n"
-"\n"
-"")
-        self.EmojiPane.setTabShape(QtWidgets.QTabWidget.Rounded)
-        self.EmojiPane.setElideMode(QtCore.Qt.ElideNone)
-        self.EmojiPane.setUsesScrollButtons(False)
-        self.EmojiPane.setDocumentMode(False)
-        self.EmojiPane.setTabsClosable(False)
-        self.EmojiPane.setMovable(False)
-        self.EmojiPane.setTabBarAutoHide(False)
-        self.EmojiPane.setObjectName("EmojiPane")
-        self.Smiles = QtWidgets.QWidget()
-        self.Smiles.setEnabled(True)
-        self.Smiles.setStyleSheet("QPushButton {\n"
-"    border: 2px solid #8f8f91;\n"
-"    border-radius: 6px;\n"
-"   \n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(6, 37, 32, 135), stop:0.732955 rgba(128, 194, 194, 203));\n"
-"}\n"
-"\n"
-"QPushButton:flat {\n"
-"    border: none; /* no border for a flat push button */\n"
-"}\n"
-"\n"
-"QPushButton:default {\n"
-"    border-color: None; /* make the default button prominent */\n"
-"}")
-        self.Smiles.setObjectName("Smiles")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.Smiles)
-        self.gridLayout_3.setContentsMargins(9, -1, -1, -1)
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face-with-sweat_1f605.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face-with-big-eyes_1f603.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(":/EmojisOpened/beaming-face-with-smiling-eyes_1f601.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-squinting-face_1f606.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face-with-smiling-eyes_1f604.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face_1f600.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Smiles, icon10, "")
-        self.emoji_1 = QtWidgets.QPushButton(self.Smiles)
-        self.emoji_1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.emoji_1.setDefault(True)
-        self.emoji_1.setFlat(True)
-        self.emoji_1.setIcon(icon9)
-        self.emoji_1.setIconSize(QtCore.QSize(32, 32))
-        self.emoji_1.setObjectName("emoji_1")
-        self.emoji_1.setStyleSheet("")
-        self.emoji_1.setText("")
-        self.emoji_2 = QtWidgets.QPushButton(self.Smiles)
-        self.emoji_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.emoji_2.setDefault(True)
-        self.emoji_2.setIcon(icon5)
-        self.emoji_2.setIconSize(QtCore.QSize(32, 32))
-        self.emoji_2.setObjectName("emoji_2")
-        self.emoji_2.setStyleSheet("")
-        self.emoji_2.setText("")
-        self.emoji_3 = QtWidgets.QPushButton(self.Smiles)
-        self.emoji_3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.emoji_3.setDefault(True)
-        self.emoji_3.setIcon(icon8)
-        self.emoji_3.setIconSize(QtCore.QSize(32, 32))
-        self.emoji_3.setObjectName("emoji_3")
-        self.emoji_3.setText("")
-        self.emoji_4 = QtWidgets.QPushButton(self.Smiles)
-        self.emoji_4.setCheckable(False)
-        self.emoji_4.setChecked(False)
-        self.emoji_4.setDefault(True)
-        self.emoji_4.setIcon(icon6)
-        self.emoji_4.setIconSize(QtCore.QSize(32, 32))
-        self.emoji_4.setObjectName("emoji_4")
-        self.emoji_4.setStyleSheet("")
-        self.emoji_4.setText("")
-        self.emoji_5 = QtWidgets.QPushButton(self.Smiles)
-        self.emoji_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.emoji_5.setFlat(True)
-        self.emoji_5.setIcon(icon7)
-        self.emoji_5.setIconSize(QtCore.QSize(32, 32))
-        self.emoji_5.setObjectName("emoji_5")
-        self.emoji_5.setText("")
-        self.emoji_6 = QtWidgets.QPushButton(self.Smiles)
-        self.emoji_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.emoji_6.setFlat(True)
-        self.emoji_6.setIcon(icon4)
-        self.emoji_6.setIconSize(QtCore.QSize(32, 32))
-        self.emoji_6.setObjectName("emoji_6")
-        self.emoji_6.setText("")
-        self.gridLayout_3.addWidget(self.emoji_1, 0, 1, 1, 1)
-        self.gridLayout_3.addWidget(self.emoji_2, 0, 5, 1, 1)
-        self.gridLayout_3.addWidget(self.emoji_3, 0, 6, 1, 1)
-        self.gridLayout_3.addWidget(self.emoji_4, 0, 7, 1, 1)
-        self.gridLayout_3.addWidget(self.emoji_5, 0, 8, 1, 1)
-        self.gridLayout_3.addWidget(self.emoji_6, 0, 2, 1, 1)
-        self.Flags = QtWidgets.QWidget()
-        self.Flags.setStyleSheet("border:none")
-        self.Flags.setObjectName("Flags")
-        self.EmojiPane.addTab(self.Flags, "")
-        self.gridLayout.addWidget(self.EmojiPane, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        self.messagesView = QtWidgets.QListView(self.MainChat)
-        self.messagesView.setMinimumSize(QtCore.QSize(0, 1))
-        self.messagesView.setStyleSheet("border:none;")
-        self.messagesView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.messagesView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.messagesView.setResizeMode(QtWidgets.QListView.Adjust)
-        self.messagesView.setLayoutMode(QtWidgets.QListView.SinglePass)
-        self.messagesView.setObjectName("messagesView")
-        self.gridLayout.addWidget(self.messagesView, 0, 2, 1, 2)
         self.textEdit = QtWidgets.QTextEdit(self.MainChat)
         self.textEdit.setMaximumSize(QtCore.QSize(16777215, 55))
         font = QtGui.QFont()
@@ -395,12 +159,47 @@ class Ui_MainWindow(object):
         self.textEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.textEdit.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
         self.textEdit.setObjectName("textEdit")
-        self.gridLayout.addWidget(self.textEdit, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.textEdit, 1, 0, 1, 1)
+        self.Send_Button = QtWidgets.QPushButton(self.MainChat)
+        self.Send_Button.setMinimumSize(QtCore.QSize(0, 55))
+        font = QtGui.QFont()
+        font.setFamily("Poppins SemiBold")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.Send_Button.setFont(font)
+        self.Send_Button.setStyleSheet("QPushButton {\n"
+"    color: #FFFFFF;\n"
+"   border:none;\n"
+"background-color: None;\n"
+"}\n"
+"QPushButton:hover {\n"
+"border-radius:25px;\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(28, 164, 141, 135), stop:0.732955 rgba(128, 194, 194, 203));\n"
+"\n"
+"}")
+        self.Send_Button.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/Icons/content+send+icon-1320087227200139227.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.Send_Button.setIcon(icon2)
+        self.Send_Button.setIconSize(QtCore.QSize(50, 50))
+        self.Send_Button.setDefault(False)
+        self.Send_Button.setFlat(False)
+        self.Send_Button.setObjectName("Send_Button")
+        self.gridLayout.addWidget(self.Send_Button, 1, 1, 1, 1)
+        self.messagesView = QtWidgets.QListView(self.MainChat)
+        self.messagesView.setMinimumSize(QtCore.QSize(0, 1))
+        self.messagesView.setStyleSheet("border:none;")
+        self.messagesView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.messagesView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.messagesView.setResizeMode(QtWidgets.QListView.Adjust)
+        self.messagesView.setLayoutMode(QtWidgets.QListView.SinglePass)
+        self.messagesView.setObjectName("messagesView")
+        self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
         self.horizontalLayout.addWidget(self.MainChat)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.EmojiPane.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -408,7 +207,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Client Server Chat "))
         self.UserNickname.setText(_translate("MainWindow", "UserName"))
         self.Settings_button.setText(_translate("MainWindow", "Settings"))
-        self.EmojiPane.setTabText(self.EmojiPane.indexOf(self.Flags), _translate("MainWindow", "Tab 2"))
         self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
