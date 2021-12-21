@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## <span style="color:orange">[Unreleased] - 2021-12-18</span>
+
+## <span style="color:orange">[Unreleased] - 2021-12-21</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added More Emojis
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Reworked logic to add more emojis, some of them haven't been added to the official emoji list hence will display a placeholder
+### <span style="color:red">Issues
+- Some emoji orders are messed up
+<hr>
+
+
+## <span style="color:orange">[Unreleased] - 2021-12-20</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - Added Emoji Support
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
