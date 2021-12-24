@@ -58,24 +58,24 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     def create_emojis(self):
         buttons = {}
-
-        for i in range(10): # controls rows
+        for i in range(58): # controls rows
             for j in range(6): # controls columns
                 # keep a reference to the buttons
-                buttons[(i, j)] = QPushButton(self.Smiles)
+                buttons[(i, j)] = QPushButton(self.Emo_Smiles)
                 buttons[(i, j)].setObjectName(f'emoji_{j}')
                 buttons[(i, j)].setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
                 buttons[(i, j)].setFlat(True)
                 # add to the layout
-                self.gridLayout_3.addWidget(buttons[(i, j)], i, j)
+                self.gridLayout_2.addWidget(buttons[(i, j)], i, j)
+        # Display Emojis
         icons = []
-        curr_moji_length = len(self.Smiles.children()[1:])
+        curr_moji_length = len(self.Emo_Smiles.children()[1:])
         for items in range(1,curr_moji_length+1):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/EmojisOpened/emoji_{items}.png"), QtGui.QIcon.Normal,
                             QtGui.QIcon.Off)
             icons.append(icon)
-        for index, item in enumerate(self.Smiles.children()[1:]):
+        for index, item in enumerate(self.Emo_Smiles.children()[1:]):
             item.setIcon(icons[index])
             item.setIconSize(QtCore.QSize(32, 32))
 
@@ -88,7 +88,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         emojis = []
         with open('EmojiList.txt', 'r', encoding="utf8") as file:
             emojis = file.read().splitlines()
-        for index, item in enumerate(self.Smiles.children()[1:]):
+        for index, item in enumerate(self.Emo_Smiles.children()[1:]):
             item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
 
         # Add a timer to keep refreshing the Qlistview
@@ -185,7 +185,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         """Function To create Sliding Left Menu With QFrame"""
         width = self.EmojiPane.width()
         if width == 0:
-            new_width = 240
+            new_width = 296
 
         else:
             new_width = 0

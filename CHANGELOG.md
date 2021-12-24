@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## <span style="color:orange">[Unreleased] - 2021-12-24</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added more emojis
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Emoji order is still wrong because I used [EmojiPedia](https://emojipedia.org/google/) layout. It getting it in the right order will just break me so for now it'll be kept like this
+### <span style="color:red">Issues
+- No issues present in this build
+<hr>
+
+
 ## <span style="color:orange">[Unreleased] - 2021-12-21</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - Added More Emojis
