@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '2021ChatLayoutEmoji2.ui'
+# Form implementation generated from reading ui file '2021ChatLayoutEmoji.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(781, 613)
+        MainWindow.resize(754, 613)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -27,63 +27,7 @@ class Ui_MainWindow(object):
         font.setFamily("Helvetica")
         font.setPointSize(14)
         MainWindow.setFont(font)
-        MainWindow.setStyleSheet("QScrollBar:vertical {              \n"
-"       border: 1px solid #999999;\n"
-"        background:white;\n"
-"        width:10px;    \n"
-"        margin: 0px 0px 0px 0px;\n"
-"    }\n"
-"    QScrollBar::handle:vertical {\n"
-"\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(28, 164, 141, 135), stop:0.732955 rgba(128, 194, 194, 203));\n"
-"        min-height: 0px;\n"
-"    }\n"
-"    QScrollBar::add-line:vertical {\n"
-"        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
-"        stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
-"        height: 0px;\n"
-"        subcontrol-position: bottom;\n"
-"        subcontrol-origin: margin;\n"
-"    }\n"
-"\n"
-"\n"
-"    QScrollBar::sub-line:vertical {\n"
-"       background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
-"        stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
-"        height: 0 px;\n"
-"        subcontrol-position: top;\n"
-"       subcontrol-origin: margin;\n"
-"    }\n"
-"    \n"
-"/*-------------------------Horizontal------------------------*/\n"
-"QScrollBar:horizontal {              \n"
-"       border: 1px solid #999999;\n"
-"        background:white;\n"
-"        width:10px;    \n"
-"        margin: 0px 0px 0px 0px;\n"
-"    }\n"
-"    QScrollBar::handle:horizontal {\n"
-"\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(28, 164, 141, 135), stop:0.732955 rgba(128, 194, 194, 203));\n"
-"        min-height: 0px;\n"
-"    }\n"
-"    QScrollBar::add-line:horizontal {\n"
-"        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
-"        stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
-"        height: 0px;\n"
-"        subcontrol-position: bottom;\n"
-"        subcontrol-origin: margin;\n"
-"    }\n"
-"\n"
-"\n"
-"    QScrollBar::sub-line:horizontal {\n"
-"       background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
-"        stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
-"        height: 0 px;\n"
-"        subcontrol-position: top;\n"
-"       subcontrol-origin: margin;\n"
-"    }\n"
-"    ")
+        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
@@ -271,11 +215,11 @@ class Ui_MainWindow(object):
 "    border: 1px solid #444;\n"
 "    border-bottom-style: none;\n"
 "    background-color: #323232;\n"
-"    padding-left: 1px;\n"
-"    padding-right: 1px;\n"
+"    padding-left: 10px;\n"
+"    padding-right: 10px;\n"
 "    padding-top: 3px;\n"
 "    padding-bottom: 2px;\n"
-"  \n"
+"    margin-right: -1px;\n"
 "}\n"
 "\n"
 "QTabWidget::pane {\n"
@@ -321,14 +265,14 @@ class Ui_MainWindow(object):
 "    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #fdf6e3);\n"
 "}\n"
 "\n"
-"\n"
-"QScrollArea{\n"
-"border:none;\n"
-"}\n"
 "")
         self.EmojiPane.setTabShape(QtWidgets.QTabWidget.Rounded)
-        self.EmojiPane.setIconSize(QtCore.QSize(17, 16))
+        self.EmojiPane.setElideMode(QtCore.Qt.ElideNone)
         self.EmojiPane.setUsesScrollButtons(False)
+        self.EmojiPane.setDocumentMode(False)
+        self.EmojiPane.setTabsClosable(False)
+        self.EmojiPane.setMovable(False)
+        self.EmojiPane.setTabBarAutoHide(False)
         self.EmojiPane.setObjectName("EmojiPane")
         self.Smiles = QtWidgets.QWidget()
         self.Smiles.setEnabled(True)
@@ -348,170 +292,88 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:default {\n"
 "    border-color: None; /* make the default button prominent */\n"
-"}\n"
-"\n"
-"")
+"}")
         self.Smiles.setObjectName("Smiles")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.Smiles)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_2.setSpacing(6)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.scrollSmiles = QtWidgets.QScrollArea(self.Smiles)
-        self.scrollSmiles.setStyleSheet("")
-        self.scrollSmiles.setWidgetResizable(True)
-        self.scrollSmiles.setObjectName("scrollSmiles")
-        self.Emo_Smiles = QtWidgets.QWidget()
-        self.Emo_Smiles.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Smiles.setStyleSheet("QScrollBar:vertical {              \n"
-"       border: 1px solid #999999;\n"
-"        background:white;\n"
-"        width:10px;    \n"
-"        margin: 0px 0px 0px 0px;\n"
-"    }")
-        self.Emo_Smiles.setObjectName("Emo_Smiles")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.Emo_Smiles)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.scrollSmiles.setWidget(self.Emo_Smiles)
-        self.verticalLayout_2.addWidget(self.scrollSmiles)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Smiles, icon4, "")
-        self.Animals = QtWidgets.QWidget()
-        self.Animals.setStyleSheet("")
-        self.Animals.setObjectName("Animals")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.Animals)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.scrollAnimals = QtWidgets.QScrollArea(self.Animals)
-        self.scrollAnimals.setWidgetResizable(True)
-        self.scrollAnimals.setObjectName("scrollAnimals")
-        self.Emo_Animals = QtWidgets.QWidget()
-        self.Emo_Animals.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Animals.setObjectName("Emo_Animals")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.Emo_Animals)
-        self.gridLayout_3.setHorizontalSpacing(6)
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.Smiles)
+        self.gridLayout_3.setContentsMargins(9, -1, -1, -1)
         self.gridLayout_3.setObjectName("gridLayout_3")
-        self.scrollAnimals.setWidget(self.Emo_Animals)
-        self.verticalLayout_3.addWidget(self.scrollAnimals)
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/Emojis/Bear_Tab.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Animals, icon5, "")
-        self.Food = QtWidgets.QWidget()
-        self.Food.setObjectName("Food")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Food)
-        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_4.setSpacing(0)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.ScrollFood = QtWidgets.QScrollArea(self.Food)
-        self.ScrollFood.setWidgetResizable(True)
-        self.ScrollFood.setObjectName("ScrollFood")
-        self.Emo_Food = QtWidgets.QWidget()
-        self.Emo_Food.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Food.setObjectName("Emo_Food")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.Emo_Food)
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.ScrollFood.setWidget(self.Emo_Food)
-        self.verticalLayout_4.addWidget(self.ScrollFood)
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(":/Emojis/burger.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Food, icon6, "")
-        self.Activity = QtWidgets.QWidget()
-        self.Activity.setObjectName("Activity")
-        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.Activity)
-        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_5.setObjectName("verticalLayout_5")
-        self.scrollActivity = QtWidgets.QScrollArea(self.Activity)
-        self.scrollActivity.setWidgetResizable(True)
-        self.scrollActivity.setObjectName("scrollActivity")
-        self.Emo_Activity = QtWidgets.QWidget()
-        self.Emo_Activity.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Activity.setObjectName("Emo_Activity")
-        self.gridLayout_5 = QtWidgets.QGridLayout(self.Emo_Activity)
-        self.gridLayout_5.setObjectName("gridLayout_5")
-        self.scrollActivity.setWidget(self.Emo_Activity)
-        self.verticalLayout_5.addWidget(self.scrollActivity)
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(":/Emojis/football.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Activity, icon7, "")
-        self.Travel = QtWidgets.QWidget()
-        self.Travel.setObjectName("Travel")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.Travel)
-        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.scrollTravel = QtWidgets.QScrollArea(self.Travel)
-        self.scrollTravel.setWidgetResizable(True)
-        self.scrollTravel.setObjectName("scrollTravel")
-        self.Emo_Travel = QtWidgets.QWidget()
-        self.Emo_Travel.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Travel.setObjectName("Emo_Travel")
-        self.gridLayout_6 = QtWidgets.QGridLayout(self.Emo_Travel)
-        self.gridLayout_6.setObjectName("gridLayout_6")
-        self.scrollTravel.setWidget(self.Emo_Travel)
-        self.verticalLayout_6.addWidget(self.scrollTravel)
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(":/Emojis/building.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Travel, icon8, "")
-        self.Objects = QtWidgets.QWidget()
-        self.Objects.setObjectName("Objects")
-        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.Objects)
-        self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.scrollObjects = QtWidgets.QScrollArea(self.Objects)
-        self.scrollObjects.setWidgetResizable(True)
-        self.scrollObjects.setObjectName("scrollObjects")
-        self.Emo_Objects = QtWidgets.QWidget()
-        self.Emo_Objects.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Objects.setObjectName("Emo_Objects")
-        self.gridLayout_7 = QtWidgets.QGridLayout(self.Emo_Objects)
-        self.gridLayout_7.setObjectName("gridLayout_7")
-        self.scrollObjects.setWidget(self.Emo_Objects)
-        self.verticalLayout_7.addWidget(self.scrollObjects)
-        icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap(":/Emojis/light_bulb.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Objects, icon9, "")
-        self.Symbols = QtWidgets.QWidget()
-        self.Symbols.setObjectName("Symbols")
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.Symbols)
-        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.scrollSymbols = QtWidgets.QScrollArea(self.Symbols)
-        self.scrollSymbols.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.scrollSymbols.setWidgetResizable(True)
-        self.scrollSymbols.setObjectName("scrollSymbols")
-        self.Emo_Symbols = QtWidgets.QWidget()
-        self.Emo_Symbols.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Symbols.setObjectName("Emo_Symbols")
-        self.gridLayout_8 = QtWidgets.QGridLayout(self.Emo_Symbols)
-        self.gridLayout_8.setObjectName("gridLayout_8")
-        self.scrollSymbols.setWidget(self.Emo_Symbols)
-        self.verticalLayout_8.addWidget(self.scrollSymbols)
         icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap(":/Emojis/symbols.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Symbols, icon10, "")
-        self.Flag = QtWidgets.QWidget()
-        self.Flag.setObjectName("Flag")
-        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.Flag)
-        self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_9.setObjectName("verticalLayout_9")
-        self.scrollFlag = QtWidgets.QScrollArea(self.Flag)
-        self.scrollFlag.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.scrollFlag.setWidgetResizable(True)
-        self.scrollFlag.setObjectName("scrollFlag")
-        self.Emo_Flag = QtWidgets.QWidget()
-        self.Emo_Flag.setGeometry(QtCore.QRect(0, 0, 18, 505))
-        self.Emo_Flag.setObjectName("Emo_Flag")
-        self.gridLayout_9 = QtWidgets.QGridLayout(self.Emo_Flag)
-        self.gridLayout_9.setObjectName("gridLayout_9")
-        self.scrollFlag.setWidget(self.Emo_Flag)
-        self.verticalLayout_9.addWidget(self.scrollFlag)
-        icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap(":/Emojis/flag.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Flag, icon11, "")
+        icon10.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face-with-sweat_1f605.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face-with-big-eyes_1f603.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/EmojisOpened/beaming-face-with-smiling-eyes_1f601.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-squinting-face_1f606.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face-with-smiling-eyes_1f604.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(":/EmojisOpened/grinning-face_1f600.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Smiles, icon10, "")
+        self.emoji_1 = QtWidgets.QPushButton(self.Smiles)
+        self.emoji_1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.emoji_1.setDefault(True)
+        self.emoji_1.setFlat(True)
+        self.emoji_1.setIcon(icon9)
+        self.emoji_1.setIconSize(QtCore.QSize(32, 32))
+        self.emoji_1.setObjectName("emoji_1")
+        self.emoji_1.setStyleSheet("")
+        self.emoji_1.setText("")
+        self.emoji_2 = QtWidgets.QPushButton(self.Smiles)
+        self.emoji_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.emoji_2.setDefault(True)
+        self.emoji_2.setIcon(icon5)
+        self.emoji_2.setIconSize(QtCore.QSize(32, 32))
+        self.emoji_2.setObjectName("emoji_2")
+        self.emoji_2.setStyleSheet("")
+        self.emoji_2.setText("")
+        self.emoji_3 = QtWidgets.QPushButton(self.Smiles)
+        self.emoji_3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.emoji_3.setDefault(True)
+        self.emoji_3.setIcon(icon8)
+        self.emoji_3.setIconSize(QtCore.QSize(32, 32))
+        self.emoji_3.setObjectName("emoji_3")
+        self.emoji_3.setText("")
+        self.emoji_4 = QtWidgets.QPushButton(self.Smiles)
+        self.emoji_4.setCheckable(False)
+        self.emoji_4.setChecked(False)
+        self.emoji_4.setDefault(True)
+        self.emoji_4.setIcon(icon6)
+        self.emoji_4.setIconSize(QtCore.QSize(32, 32))
+        self.emoji_4.setObjectName("emoji_4")
+        self.emoji_4.setStyleSheet("")
+        self.emoji_4.setText("")
+        self.emoji_5 = QtWidgets.QPushButton(self.Smiles)
+        self.emoji_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.emoji_5.setFlat(True)
+        self.emoji_5.setIcon(icon7)
+        self.emoji_5.setIconSize(QtCore.QSize(32, 32))
+        self.emoji_5.setObjectName("emoji_5")
+        self.emoji_5.setText("")
+        self.emoji_6 = QtWidgets.QPushButton(self.Smiles)
+        self.emoji_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.emoji_6.setFlat(True)
+        self.emoji_6.setIcon(icon4)
+        self.emoji_6.setIconSize(QtCore.QSize(32, 32))
+        self.emoji_6.setObjectName("emoji_6")
+        self.emoji_6.setText("")
+        self.gridLayout_3.addWidget(self.emoji_1, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.emoji_2, 0, 5, 1, 1)
+        self.gridLayout_3.addWidget(self.emoji_3, 0, 6, 1, 1)
+        self.gridLayout_3.addWidget(self.emoji_4, 0, 7, 1, 1)
+        self.gridLayout_3.addWidget(self.emoji_5, 0, 8, 1, 1)
+        self.gridLayout_3.addWidget(self.emoji_6, 0, 2, 1, 1)
+        self.Flags = QtWidgets.QWidget()
+        self.Flags.setStyleSheet("border:none")
+        self.Flags.setObjectName("Flags")
+        self.EmojiPane.addTab(self.Flags, "")
         self.gridLayout.addWidget(self.EmojiPane, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.messagesView = QtWidgets.QListView(self.MainChat)
         self.messagesView.setMinimumSize(QtCore.QSize(0, 1))
         self.messagesView.setStyleSheet("border:none;")
-        self.messagesView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.messagesView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.messagesView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.messagesView.setResizeMode(QtWidgets.QListView.Adjust)
         self.messagesView.setLayoutMode(QtWidgets.QListView.SinglePass)
@@ -546,6 +408,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Client Server Chat "))
         self.UserNickname.setText(_translate("MainWindow", "UserName"))
         self.Settings_button.setText(_translate("MainWindow", "Settings"))
+        self.EmojiPane.setTabText(self.EmojiPane.indexOf(self.Flags), _translate("MainWindow", "Tab 2"))
         self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

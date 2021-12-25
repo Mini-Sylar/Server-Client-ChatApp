@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt, QSize
-from PyQt5.QtGui import QColor, QTextDocument, QTextOption
+from PyQt5.QtGui import QColor, QTextDocument, QTextOption, QFont
 # from PyQt5.QtGui import
 from PyQt5.QtWidgets import (
     QStyledItemDelegate,
@@ -71,25 +71,24 @@ class MessageDelegate(QStyledItemDelegate):
 
         # draw the timestamp
         font = painter.font()
-        font.setPointSize(7)
+        # font.setPointSize(7)
+        font.setPointSize(8)
         painter.setFont(font)
         painter.setPen(Qt.black)
         time_str = datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
         # painter timestamp depending on who said
         if user == USER_ADMIN:
-            painter.drawText(textrect.center() + QPoint(-40, 25), time_str)
+            # painter.drawText(textrect.center() + QPoint(-40, 25), time_str) => default
+            painter.drawText(textrect.center() + QPoint(-50, 30), time_str)
         else:
-            painter.drawText(textrect.bottomLeft() + QPoint(0, 5), time_str)
+            painter.drawText(textrect.bottomLeft() + QPoint(5, 5), time_str)
         # End timestamp Here
 
         # Draw User-name here
-        font = painter.font()
-        font.setPointSize(8)
-        painter.setFont(font)
-        painter.setPen(Qt.black)
         if user == USER_ADMIN:
             painter.drawText(textrect.center(), "")
         else:
+            painter.setFont(QFont("Segoe UI", 9, QFont.ExtraBold))
             painter.drawText(textrect.topLeft() + QPoint(5, 5), username)
 
         # draw the text
@@ -97,6 +96,10 @@ class MessageDelegate(QStyledItemDelegate):
         doc.setTextWidth(textrect.width())
         doc.setDefaultTextOption(toption)
         doc.setDocumentMargin(0)
+        # Set font here, you must also set font in the size hinting
+        textfont = QFont('Segoe UI', 10)
+        doc.setDefaultFont(textfont)
+
         # Set where text should be drawn
         # For admin text
         if user == USER_ADMIN:
@@ -120,6 +123,9 @@ class MessageDelegate(QStyledItemDelegate):
         doc.setTextWidth(textrect.width())
         doc.setDefaultTextOption(toption)
         doc.setDocumentMargin(0)
+        # You must also set font size here
+        textfont = QFont('Segoe UI', 10)
+        doc.setDefaultFont(textfont)
 
         textrect.setHeight(int(doc.size().height()))
         textrect = textrect.marginsAdded(TEXT_PADDING)
