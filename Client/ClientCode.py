@@ -3,9 +3,9 @@ import sys
 import threading
 
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import QPropertyAnimation, Qt, QTimer
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QApplication, QListView,QPushButton
+from PyQt5.QtCore import QPropertyAnimation, QTimer
+from PyQt5.QtGui import QIcon, QTextCursor
+from PyQt5.QtWidgets import QMainWindow, QApplication,QPushButton
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
@@ -62,15 +62,15 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             for j in range(6): # controls columns
                 # keep a reference to the buttons
                 buttons[(i, j)] = QPushButton(self.Emo_Smiles)
-                buttons[(i, j)].setObjectName(f'emoji_{j}')
+                buttons[(i, j)].setObjectName(f'emoji_{j}_smiles')
                 buttons[(i, j)].setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
                 buttons[(i, j)].setFlat(True)
                 # add to the layout
                 self.gridLayout_2.addWidget(buttons[(i, j)], i, j)
         # Display Emojis
         icons = []
-        curr_moji_length = len(self.Emo_Smiles.children()[1:])
-        for items in range(1,curr_moji_length+1):
+        curr_moji_length = len(self.Emo_Smiles.children()[1:])+1
+        for items in range(1,curr_moji_length):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/EmojisOpened/emoji_{items}.png"), QtGui.QIcon.Normal,
                             QtGui.QIcon.Off)
@@ -86,10 +86,27 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         # Emojis
         # Get emojis from text file
         emojis = []
+        textArea = self.textEdit.document()
+        cursor = QTextCursor(textArea)
         with open('EmojiList.txt', 'r', encoding="utf8") as file:
             emojis = file.read().splitlines()
         for index, item in enumerate(self.Emo_Smiles.children()[1:]):
-            item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
+            # Add option to insert html image instead of plain text after inserting images in qlistview
+            # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
+            item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
+#             item.clicked.connect(lambda checked, text=index: self.textEdit.insertHtml("<p style=\" margin-top:0px; "
+#                                                                                       "margin-bottom:0px; "
+#                                                                                       "margin-left:0px; "
+#                                                                                       "margin-right:0px; "
+#                                                                                       "-qt-block-indent:0; "
+#
+#                                                                                       "text-indent:0px;\"><img "
+#                                                                                       "style=\"width:10pt\""
+#                                                                                       "src=\":/EmojisOpened/emoji_1.png\"/>"
+#
+#                                                                                       "</p> "
+# ))
+
 
         # Add a timer to keep refreshing the Qlistview
         self.timer = QTimer()

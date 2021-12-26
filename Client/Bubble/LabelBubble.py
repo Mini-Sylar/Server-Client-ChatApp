@@ -99,6 +99,18 @@ class MessageDelegate(QStyledItemDelegate):
         # Set font here, you must also set font in the size hinting
         textfont = QFont('Segoe UI', 10)
         doc.setDefaultFont(textfont)
+        # doc.setHtml("<p style=\" margin-top:0px; "
+        #                                                                           "margin-bottom:0px; "
+        #                                                                           "margin-left:0px; "
+        #                                                                           "margin-right:0px; "
+        #                                                                           "-qt-block-indent:0; "
+        #
+        #                                                                           "text-indent:0px;\"><img "
+        #                                                                           "style=\"width:10pt\""
+        #                                                                           "src=\":/EmojisOpened/emoji_1.png\"/>"
+        #
+        #                                                                           "</p> "
+        #                                                                           )
 
         # Set where text should be drawn
         # For admin text
