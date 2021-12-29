@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>781</width>
+    <height>613</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>2</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Helvetica</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Client Server Chat </string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QScrollBar:vertical {              
+       border: 1px solid #999999;
+        background:white;
+        width:10px;    
+        margin: 0px 0px 0px 0px;
+    }
+    QScrollBar::handle:vertical {
+
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(28, 164, 141, 135), stop:0.732955 rgba(128, 194, 194, 203));
+        min-height: 0px;
+    }
+    QScrollBar::add-line:vertical {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+        height: 0px;
+        subcontrol-position: bottom;
+        subcontrol-origin: margin;
+    }
+
+
+    QScrollBar::sub-line:vertical {
+       background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+        height: 0 px;
+        subcontrol-position: top;
+       subcontrol-origin: margin;
+    }
+    
+/*-------------------------Horizontal------------------------*/
+QScrollBar:horizontal {              
+       border: 1px solid #999999;
+        background:white;
+        width:10px;    
+        margin: 0px 0px 0px 0px;
+    }
+    QScrollBar::handle:horizontal {
+
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(28, 164, 141, 135), stop:0.732955 rgba(128, 194, 194, 203));
+        min-height: 0px;
+    }
+    QScrollBar::add-line:horizontal {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+        height: 0px;
+        subcontrol-position: bottom;
+        subcontrol-origin: margin;
+    }
+
+
+    QScrollBar::sub-line:horizontal {
+       background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+        height: 0 px;
+        subcontrol-position: top;
+       subcontrol-origin: margin;
+    }
+    </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="SlidingMenu">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(26, 26, 26);
+border:None</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QGridLayout" name="Button_layout_side">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetNoConstraint</enum>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="horizontalSpacing">
+          <number>6</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>170</number>
+         </property>
+         <item row="1" column="0">
+          <layout class="QVBoxLayout" name="UserLayout">
+           <property name="spacing">
+            <number>7</number>
+           </property>
+           <property name="sizeConstraint">
+            <enum>QLayout::SetNoConstraint</enum>
+           </property>
+           <property name="leftMargin">
+            <number>51</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>51</number>
+           </property>
+           <property name="bottomMargin">
+            <number>9</number>
+           </property>
+           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+            <widget class="QLabel" name="UserIcon">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color:white;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../Icons_Resource.qrc">:/Icons/824-8246267_time-left-user-icon-round-png.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+            <widget class="QLabel" name="UserNickname">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+               <horstretch>85</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>4</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>11</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+             <property name="lineWidth">
+              <number>2</number>
+             </property>
+             <property name="text">
+              <string>UserName</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>false</bool>
+             </property>
+             <property name="margin">
+              <number>0</number>
+             </property>
+             <property name="indent">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="Hamburger">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+border:none;
+border-radius:5px;
+}
+
+QPushButton:hover{
+	background-color: rgb(38, 38, 38);
+}
+
+QPushButton:pressed {
+	background-color: rgb(53, 53, 53);
+
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../Icons_Resource.qrc">
+             <normaloff>:/Icons/white-menu-icon-12.jpg</normaloff>:/Icons/white-menu-icon-12.jpg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QPushButton" name="Settings_button">
+           <property name="font">
+            <font>
+             <family>Poppins</family>
+             <pointsize>11</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+border:none;
+color: rgb(255, 255, 255);
+padding:10px;
+padding-left:72px;
+height:50px;
+}
+QPushButton:hover{
+	border-radius:5px;
+	background-color: rgb(38, 38, 38);
+}</string>
+           </property>
+           <property name="text">
+            <string>Settings</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../Icons_Resource.qrc">
+             <normaloff>:/Icons/setting-icon-png-18.jpg</normaloff>:/Icons/setting-icon-png-18.jpg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="MainChat" native="true">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(65, 65, 65);
+background-color: rgb(35, 35, 35);</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="Send_Button">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>55</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Poppins SemiBold</family>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #FFFFFF;
+   border:none;
+background-color: None;
+}
+QPushButton:pressed {
+border-radius:25px;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(28, 164, 141, 135), stop:0.732955 rgba(128, 194, 194, 203));
+
+}
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons_Resource.qrc">
+           <normaloff>:/Icons/content+send+icon-1320087227200139227.png</normaloff>:/Icons/content+send+icon-1320087227200139227.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" alignment="Qt::AlignHCenter">
+        <widget class="QTabWidget" name="EmojiPane">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>0</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QTabBar::tab {
+    color: #b1b1b1;
+    border: 1px solid #444;
+    border-bottom-style: none;
+    background-color: #323232;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 3px;
+    padding-bottom: 2px;
+  
+}
+
+QTabWidget::pane {
+    border: 1px solid #444;
+    top: 1px;
+}
+
+QTabBar::tab:last
+{
+    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */
+    border-top-right-radius: 3px;
+}
+
+QTabBar::tab:first:!selected
+{
+ margin-left: 0px; /* the last selected tab has nothing to overlap with on the right */
+
+
+    border-top-left-radius: 3px;
+}
+
+QTabBar::tab:!selected
+{
+    color: #b1b1b1;
+    border-bottom-style: solid;
+    margin-top: 3px;
+    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:.4 #343434);
+}
+
+QTabBar::tab:selected
+{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-bottom: 0px;
+}
+
+QTabBar::tab:!selected:hover
+{
+    /*border-top: 2px solid #fdf6e3;
+    padding-bottom: 3px;*/
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #fdf6e3);
+}
+
+
+QScrollArea{
+border:none;
+}
+</string>
+         </property>
+         <property name="tabShape">
+          <enum>QTabWidget::Rounded</enum>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>17</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="usesScrollButtons">
+          <bool>false</bool>
+         </property>
+         <widget class="QWidget" name="Smiles">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    border: 2px solid #8f8f91;
+    border-radius: 6px;
+   
+}
+
+QPushButton:pressed {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(6, 37, 32, 135), stop:0.732955 rgba(128, 194, 194, 203));
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: None; /* make the default button prominent */
+}
+
+</string>
+          </property>
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/EmojiUnclicked.png</normaloff>:/Emojis/EmojiUnclicked.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="scrollSmiles">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Smiles">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QScrollBar:vertical {              
+       border: 1px solid #999999;
+        background:white;
+        width:10px;    
+        margin: 0px 0px 0px 0px;
+    }</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_2"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Animals">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/Bear_Tab.png</normaloff>:/Emojis/Bear_Tab.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="scrollAnimals">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Animals">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <property name="horizontalSpacing">
+                <number>6</number>
+               </property>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Food">
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/burger.png</normaloff>:/Emojis/burger.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="ScrollFood">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Food">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_4"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Activity">
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/football.png</normaloff>:/Emojis/football.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="scrollActivity">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Activity">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_5"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Travel">
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/building.png</normaloff>:/Emojis/building.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="scrollTravel">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Travel">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_6"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Objects">
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/light_bulb.png</normaloff>:/Emojis/light_bulb.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="scrollObjects">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Objects">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_7"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Symbols">
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/symbols.png</normaloff>:/Emojis/symbols.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="scrollSymbols">
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAsNeeded</enum>
+             </property>
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Symbols">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_8"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Flag">
+          <attribute name="icon">
+           <iconset resource="../Icons_Resource.qrc">
+            <normaloff>:/Emojis/flag.png</normaloff>:/Emojis/flag.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="scrollFlag">
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAsNeeded</enum>
+             </property>
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="Emo_Flag">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>18</width>
+                <height>505</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_9"/>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <widget class="QPushButton" name="emojiButton">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #FFFFFF;
+   border:none;
+background-color: None;
+height:35px
+}
+QPushButton:hover {
+border-radius:15px;
+}
+
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons_Resource.qrc">
+           <normaloff>:/Emojis/EmojiUnclicked.png</normaloff>
+           <activeon>:/Emojis/EmojiClicked.png</activeon>
+           <selectedon>:/Emojis/EmojiClicked.png</selectedon>:/Emojis/EmojiUnclicked.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QTextEdit" name="textEdit">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>55</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Poppins</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(102, 102, 102);
+color: white;
+border-radius:20px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="lineWrapMode">
+          <enum>QTextEdit::WidgetWidth</enum>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Poppins'; font-size:10pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:20px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" colspan="2">
+        <widget class="QListView" name="messagesView">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>1</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:none;</string>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="resizeMode">
+          <enum>QListView::Adjust</enum>
+         </property>
+         <property name="layoutMode">
+          <enum>QListView::SinglePass</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="attachButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+ color: #FFFFFF;
+  border:none;
+background-color: None;
+height:50px;
+width:50px;
+}
+QPushButton:pressed {
+border-radius:25px;
+	background-color: rgb(49, 49, 49);
+}
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../Icons_Resource.qrc">
+           <normaloff>:/Icons/attachItem.png</normaloff>:/Icons/attachItem.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../Icons_Resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

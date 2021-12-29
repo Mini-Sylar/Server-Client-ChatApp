@@ -238,31 +238,6 @@ class Ui_MainWindow(object):
         self.Send_Button.setFlat(False)
         self.Send_Button.setObjectName("Send_Button")
         self.gridLayout.addWidget(self.Send_Button, 1, 3, 1, 1)
-        self.emojiButton = QtWidgets.QPushButton(self.MainChat)
-        self.emojiButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.emojiButton.setStyleSheet("QPushButton {\n"
-"    color: #FFFFFF;\n"
-"   border:none;\n"
-"background-color: None;\n"
-"height:35px\n"
-"}\n"
-"QPushButton:hover {\n"
-"border-radius:15px;\n"
-"}\n"
-"\n"
-"")
-        self.emojiButton.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon3.addPixmap(QtGui.QPixmap(":/Emojis/EmojiClicked.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
-        icon3.addPixmap(QtGui.QPixmap(":/Emojis/EmojiClicked.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.emojiButton.setIcon(icon3)
-        self.emojiButton.setIconSize(QtCore.QSize(32, 50))
-        self.emojiButton.setCheckable(True)
-        self.emojiButton.setChecked(False)
-        self.emojiButton.setFlat(False)
-        self.emojiButton.setObjectName("emojiButton")
-        self.gridLayout.addWidget(self.emojiButton, 1, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.EmojiPane = QtWidgets.QTabWidget(self.MainChat)
         self.EmojiPane.setMinimumSize(QtCore.QSize(0, 0))
         self.EmojiPane.setMaximumSize(QtCore.QSize(0, 16777215))
@@ -373,9 +348,9 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.scrollSmiles.setWidget(self.Emo_Smiles)
         self.verticalLayout_2.addWidget(self.scrollSmiles)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Smiles, icon4, "")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Smiles, icon3, "")
         self.Animals = QtWidgets.QWidget()
         self.Animals.setStyleSheet("")
         self.Animals.setObjectName("Animals")
@@ -393,9 +368,9 @@ class Ui_MainWindow(object):
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.scrollAnimals.setWidget(self.Emo_Animals)
         self.verticalLayout_3.addWidget(self.scrollAnimals)
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/Emojis/Bear_Tab.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Animals, icon5, "")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/Emojis/Bear_Tab.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Animals, icon4, "")
         self.Food = QtWidgets.QWidget()
         self.Food.setObjectName("Food")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Food)
@@ -412,9 +387,9 @@ class Ui_MainWindow(object):
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.ScrollFood.setWidget(self.Emo_Food)
         self.verticalLayout_4.addWidget(self.ScrollFood)
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(":/Emojis/burger.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Food, icon6, "")
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/Emojis/burger.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Food, icon5, "")
         self.Activity = QtWidgets.QWidget()
         self.Activity.setObjectName("Activity")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.Activity)
@@ -430,9 +405,9 @@ class Ui_MainWindow(object):
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.scrollActivity.setWidget(self.Emo_Activity)
         self.verticalLayout_5.addWidget(self.scrollActivity)
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(":/Emojis/football.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Activity, icon7, "")
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/Emojis/football.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Activity, icon6, "")
         self.Travel = QtWidgets.QWidget()
         self.Travel.setObjectName("Travel")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.Travel)
@@ -448,9 +423,9 @@ class Ui_MainWindow(object):
         self.gridLayout_6.setObjectName("gridLayout_6")
         self.scrollTravel.setWidget(self.Emo_Travel)
         self.verticalLayout_6.addWidget(self.scrollTravel)
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(":/Emojis/building.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Travel, icon8, "")
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/Emojis/building.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Travel, icon7, "")
         self.Objects = QtWidgets.QWidget()
         self.Objects.setObjectName("Objects")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.Objects)
@@ -466,9 +441,9 @@ class Ui_MainWindow(object):
         self.gridLayout_7.setObjectName("gridLayout_7")
         self.scrollObjects.setWidget(self.Emo_Objects)
         self.verticalLayout_7.addWidget(self.scrollObjects)
-        icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap(":/Emojis/light_bulb.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Objects, icon9, "")
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(":/Emojis/light_bulb.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Objects, icon8, "")
         self.Symbols = QtWidgets.QWidget()
         self.Symbols.setObjectName("Symbols")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.Symbols)
@@ -485,9 +460,9 @@ class Ui_MainWindow(object):
         self.gridLayout_8.setObjectName("gridLayout_8")
         self.scrollSymbols.setWidget(self.Emo_Symbols)
         self.verticalLayout_8.addWidget(self.scrollSymbols)
-        icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap(":/Emojis/symbols.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Symbols, icon10, "")
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(":/Emojis/symbols.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Symbols, icon9, "")
         self.Flag = QtWidgets.QWidget()
         self.Flag.setObjectName("Flag")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.Flag)
@@ -504,19 +479,35 @@ class Ui_MainWindow(object):
         self.gridLayout_9.setObjectName("gridLayout_9")
         self.scrollFlag.setWidget(self.Emo_Flag)
         self.verticalLayout_9.addWidget(self.scrollFlag)
-        icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap(":/Emojis/flag.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.EmojiPane.addTab(self.Flag, icon11, "")
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap(":/Emojis/flag.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.EmojiPane.addTab(self.Flag, icon10, "")
         self.gridLayout.addWidget(self.EmojiPane, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
-        self.messagesView = QtWidgets.QListView(self.MainChat)
-        self.messagesView.setMinimumSize(QtCore.QSize(0, 1))
-        self.messagesView.setStyleSheet("border:none;")
-        self.messagesView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.messagesView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.messagesView.setResizeMode(QtWidgets.QListView.Adjust)
-        self.messagesView.setLayoutMode(QtWidgets.QListView.SinglePass)
-        self.messagesView.setObjectName("messagesView")
-        self.gridLayout.addWidget(self.messagesView, 0, 2, 1, 2)
+        self.emojiButton = QtWidgets.QPushButton(self.MainChat)
+        self.emojiButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.emojiButton.setStyleSheet("QPushButton {\n"
+"    color: #FFFFFF;\n"
+"   border:none;\n"
+"background-color: None;\n"
+"height:35px\n"
+"}\n"
+"QPushButton:hover {\n"
+"border-radius:15px;\n"
+"}\n"
+"\n"
+"")
+        self.emojiButton.setText("")
+        icon11 = QtGui.QIcon()
+        icon11.addPixmap(QtGui.QPixmap(":/Emojis/EmojiUnclicked.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon11.addPixmap(QtGui.QPixmap(":/Emojis/EmojiClicked.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
+        icon11.addPixmap(QtGui.QPixmap(":/Emojis/EmojiClicked.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.emojiButton.setIcon(icon11)
+        self.emojiButton.setIconSize(QtCore.QSize(32, 50))
+        self.emojiButton.setCheckable(True)
+        self.emojiButton.setChecked(False)
+        self.emojiButton.setFlat(False)
+        self.emojiButton.setObjectName("emojiButton")
+        self.gridLayout.addWidget(self.emojiButton, 1, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.textEdit = QtWidgets.QTextEdit(self.MainChat)
         self.textEdit.setMaximumSize(QtCore.QSize(16777215, 55))
         font = QtGui.QFont()
@@ -534,6 +525,36 @@ class Ui_MainWindow(object):
         self.textEdit.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
         self.textEdit.setObjectName("textEdit")
         self.gridLayout.addWidget(self.textEdit, 1, 2, 1, 1)
+        self.messagesView = QtWidgets.QListView(self.MainChat)
+        self.messagesView.setMinimumSize(QtCore.QSize(0, 1))
+        self.messagesView.setStyleSheet("border:none;")
+        self.messagesView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.messagesView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.messagesView.setResizeMode(QtWidgets.QListView.Adjust)
+        self.messagesView.setLayoutMode(QtWidgets.QListView.SinglePass)
+        self.messagesView.setObjectName("messagesView")
+        self.gridLayout.addWidget(self.messagesView, 0, 2, 1, 2)
+        self.attachButton = QtWidgets.QPushButton(self.MainChat)
+        self.attachButton.setStyleSheet("QPushButton {\n"
+" color: #FFFFFF;\n"
+"  border:none;\n"
+"background-color: None;\n"
+"height:50px;\n"
+"width:50px;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"border-radius:25px;\n"
+"    background-color: rgb(49, 49, 49);\n"
+"}\n"
+"")
+        self.attachButton.setText("")
+        icon12 = QtGui.QIcon()
+        icon12.addPixmap(QtGui.QPixmap(":/Icons/attachItem.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.attachButton.setIcon(icon12)
+        self.attachButton.setIconSize(QtCore.QSize(32, 32))
+        self.attachButton.setFlat(True)
+        self.attachButton.setObjectName("attachButton")
+        self.gridLayout.addWidget(self.attachButton, 1, 1, 1, 1)
         self.horizontalLayout.addWidget(self.MainChat)
         MainWindow.setCentralWidget(self.centralwidget)
 

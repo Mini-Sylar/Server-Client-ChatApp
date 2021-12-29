@@ -1,10 +1,10 @@
 from datetime import datetime
-
-from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt, QSize
-from PyQt5.QtGui import QColor, QTextDocument, QTextOption, QFont
+from PIL.ImageQt import ImageQt
+from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt, QSize,QByteArray
+from PyQt5.QtGui import QColor, QTextDocument, QTextOption, QFont, QPixmap
 # from PyQt5.QtGui import
 from PyQt5.QtWidgets import (
-    QStyledItemDelegate,
+    QStyledItemDelegate
 )
 
 USER_ME = 0
@@ -28,7 +28,7 @@ class MessageDelegate(QStyledItemDelegate):
     def paint(self, painter, option, index):
         painter.save()
         # Retrieve the user,message tuple from our model.data method.
-        user, text, timestamp, username, user_color = index.model().data(index, Qt.DisplayRole)
+        user, text, timestamp, username, user_color,image = index.model().data(index, Qt.DisplayRole)
         # ... add timestamp param, keep the rest the same until top...
 
         trans = USER_TRANSLATE[user]
@@ -52,6 +52,12 @@ class MessageDelegate(QStyledItemDelegate):
         color = QColor(user_color)
         painter.setBrush(color)
         painter.drawRoundedRect(bubblerect, 10, 10)
+
+        # TODO Draw User Image Here
+        painter.setPen(Qt.NoPen)
+        d_image = QPixmap(image)
+        painter.drawPixmap(textrect, d_image)
+        # painter.drawRoundedRect(bubblerect, 10, 10)
 
         # draw the triangle bubble-pointer, starting from the top left/right.
         if user == USER_ME:
@@ -125,7 +131,7 @@ class MessageDelegate(QStyledItemDelegate):
         painter.restore()
 
     def sizeHint(self, option, index):
-        _, text, _, _,_ = index.model().data(index, Qt.DisplayRole)
+        _, text, _, _,_,image = index.model().data(index, Qt.DisplayRole)
         textrect = option.rect.marginsRemoved(TEXT_PADDING)
 
         toption = QTextOption()
@@ -141,6 +147,9 @@ class MessageDelegate(QStyledItemDelegate):
 
         textrect.setHeight(int(doc.size().height()))
         textrect = textrect.marginsAdded(TEXT_PADDING)
+
+        if image:
+            textrect.setHeight(int(doc.size().height()+200))
         return textrect.size() + QSize(0, 15)
 
 
@@ -160,9 +169,9 @@ class MessageModel(QAbstractListModel):
     def rowCount(self, index):
         return len(self.messages)
 
-    def add_message(self, who, text, timestamp, username,user_color):
+    def add_message(self, who, text, timestamp, username,user_color,image=None):
         if text:  # Don't add empty strings.
             # Access the list via the model.
-            self.messages.append((who, text, timestamp, username,user_color))
+            self.messages.append((who, text, timestamp, username,user_color,image))
             # Trigger refresh.
             self.layoutChanged.emit()

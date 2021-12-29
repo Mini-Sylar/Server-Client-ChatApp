@@ -4,12 +4,14 @@ import threading
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation, QTimer
-from PyQt5.QtGui import QIcon, QTextCursor
-from PyQt5.QtWidgets import QMainWindow, QApplication,QPushButton
+from PyQt5.QtGui import QIcon, QTextCursor, QPixmap, QImage
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QFileDialog
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
 from Client.Client_UI import Ui_MainWindow
+
+
 
 import random
 from time import time
@@ -45,6 +47,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.gui_done = True
         self.running = True
         self.create_emojis()
+        # self.myPixmap = QPixmap(600, 600)
         self.uiFunctions()
         self.threading()
         self.bubbleChat()
@@ -83,6 +86,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.Hamburger.clicked.connect(self.slide_left_menu)
         self.Send_Button.clicked.connect(self.write)
         self.emojiButton.clicked.connect(self.emoji_pane)
+        self.attachButton.clicked.connect(self.openfile)
         # Emojis
         # Get emojis from text file
         emojis = []
@@ -121,6 +125,25 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             self.UserNickname.setText(self.nickname)
         self.windowAvailable = None
 
+    def openfile(self):
+        openFile_file = QFileDialog.getOpenFileName(None, 'Open File:', '', 'Images (*.png *.bmp *.jpg)')
+        # openFile_ok = openFile_file[0]
+        image = QImage()
+        with open(openFile_file[0], 'rb') as file:
+            openFile_ok = file.read()
+        image.loadFromData(openFile_ok)
+        # For now use arbituary message "sentIMage to denote message sent"
+        message = f"{self.nickname}:{self.uuid}:DefaultMessage:{openFile_ok}:\n"
+        self.sock.send(message.encode('UTF-8'))
+        w_userID = message.split(':')[1]
+        w_nickname = message.split(':')[0]
+        w_message = message.split(':')[-1]
+        # Check if userID matches and then display
+        if self.uuid == w_userID:
+            self.model.add_message(USER_ME, w_message, time(), w_nickname, "#90caf9",image)
+        self.textEdit.clear()
+        self.textEdit.setHtml(self.getTextStyles)
+
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
         message = f"{self.nickname}:{self.uuid}:{self.textEdit.toPlainText()}\n"
@@ -139,13 +162,17 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         Close connection if there is a disconnect or error"""
         while self.running:
             try:
+                # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
+                # break into pieces
                 message = self.sock.recv(1024).decode('UTF-8')
-                r_nickname = message.split(':')[0]
-                r_message = message.split(':')[-1]
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
+                #     Parse Everything here including usernames and color (admin)
                 elif any(check in message for check in s_messages):
-                    self.model.add_message(USER_ADMIN, r_message, time(), r_nickname, "#FFFFFF")
+                    # Now you can Check admin messages here
+                    r_adminNick = message.split(':')[0]
+                    r_adminMessage = message.split(':')[-1]
+                    self.model.add_message(USER_ADMIN, r_adminMessage, time(), r_adminNick, "#FFFFFF")
                     findnames = message[message.find("[") + 1:   message.find("]")]
                     # Append color to any user who joins by stripping connected server
                     for users in findnames.split(','):
@@ -158,14 +185,22 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     for names in clientUser:
                         if names not in clientColor:
                             clientColor[names] = rand_color()
+                    # print('client User',clientUser)
                     # print("client Final", clientColor)
                 else:
                     if self.gui_done:
-                        # No Longer Need Text Browser for now
-                        # self.textBrowser.insertPlainText(message + "\n")
+                        # Now you can Check user messages and other things here since you have received message sent
+                        # by user not admin! very important!!!!
+                        # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
+                        r_nickname = message.split(':')[0]
+                        r_message = message.split(':')[2]
+                        data = [].append(message.split(':')[-1])
+                        print("data is",data)
+
                         if self.uuid != message.split(':')[1]:
                             self.model.add_message(USER_THEM, r_message, time(), r_nickname,
-                                                   clientColor[r_nickname.replace(" ", "")])
+                                                   clientColor[r_nickname]) # clientColor[r_nickname]
+
             except ConnectionAbortedError:
                 break
             except OSError as e:
