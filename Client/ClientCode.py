@@ -146,7 +146,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
-        message = f"{self.nickname}:{self.uuid}:{self.textEdit.toPlainText()}\n"
+        message = f"{self.nickname}: {self.uuid}: {self.textEdit.toPlainText()}\n"
         self.sock.send(message.encode('UTF-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
@@ -169,7 +169,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     r_adminNick = message.split(':')[0]
                     r_adminMessage = message.split(':')[-1]
                     self.model.add_message(USER_ADMIN, r_adminMessage, time(), r_adminNick, "#FFFFFF")
-
                     # Find Users and Append Them to List
                     find_names = message[message.find("(") + 1:   message.find(")")]
                     found_names = find_names.split(" ")[0]
@@ -187,17 +186,16 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 else:
                     if self.gui_done:
                         # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
-                        r_nickname = message.split(':')[0]
-                        r_message = message.split(':')[2]
-                        print(r_message)
                         fragments = []
                         if not message:
                             break
                         fragments.append(message)
-                        if self.uuid != message.split(':')[1]:
-                            self.model.add_message(USER_THEM, r_message, time(), r_nickname,
-                                                   clientColor[r_nickname]) # clientColor[r_nickname]
-
+                        userID = " ".join(fragments).split(" ")[1].replace(":","")
+                        # if self.uuid != userID:
+                        #     r_nickname = message.split(':')[0]
+                        #     r_message = message.split(':')[2]
+                        #     self.model.add_message(USER_THEM, r_message, time(), r_nickname,
+                        #                            clientColor[r_nickname]) # clientColor[r_nickname]
 
             except ConnectionAbortedError:
                 break
