@@ -1,5 +1,7 @@
+import pickle
 import socket
 import threading
+import json
 
 '''Enter your own ip address as HOST or the server's ip address and PORT'''
 HOST = '127.0.0.1'  # Enter your own ip address here (find with ipconfig)
@@ -31,7 +33,7 @@ def handle(client):
             clients.remove(client)
             client.close()
             nickname = nicknames[index]
-            broadcast(f"{nickname} Disconnected from the server!\n".encode('utf-8'))
+            broadcast(f"{nickname} disconnected from the server!\n".encode('utf-8'))
             nicknames.remove(nickname)
             break
 
@@ -47,10 +49,12 @@ def receive():
 
         nicknames.append(nickname)
         clients.append(client)
+        displayNick  = ",".join(nicknames)
 
         print("Nickname of the client is ", nickname)
         broadcast(f"{nickname} connected to the server!\n".encode('utf-8'))
-        client.send(f"{nicknames}\n".encode('utf-8'))
+        # Display Nicknames without bracket here
+        client.send(f"({displayNick})\n".encode('utf-8'))
         client.send("Connected to the server".encode('utf-8'))
 
         thread = threading.Thread(target=handle, args=(client,))
