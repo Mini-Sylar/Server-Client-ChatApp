@@ -56,6 +56,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.bubbleChat()
         # unique Identifier
         self.uuid = uuid.uuid4().hex
+        self.dummyuuid = uuid.uuid4().hex
 
 
     def threading(self):
@@ -101,19 +102,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             # Add option to insert html image instead of plain text after inserting images in qlistview
             # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
             item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
-#             item.clicked.connect(lambda checked, text=index: self.textEdit.insertHtml("<p style=\" margin-top:0px; "
-#                                                                                       "margin-bottom:0px; "
-#                                                                                       "margin-left:0px; "
-#                                                                                       "margin-right:0px; "
-#                                                                                       "-qt-block-indent:0; "
-#
-#                                                                                       "text-indent:0px;\"><img "
-#                                                                                       "style=\"width:10pt\""
-#                                                                                       "src=\":/EmojisOpened/emoji_1.png\"/>"
-#
-#                                                                                       "</p> "
-# ))
-
 
         # Add a timer to keep refreshing the Qlistview
         self.timer = QTimer()
@@ -136,7 +124,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         image.loadFromData(openFile_ok)
         tobesent = bytearray(openFile_ok)
         # For now use arbitrary message "sentIMage to denote message sent"
-        message = f"{self.nickname}:{self.uuid}:{tobesent}\n"
+        message = f"{self.nickname}: {self.uuid}:{tobesent} \n"
         self.sock.send(message.encode('UTF-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
@@ -161,6 +149,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             try:
                 # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
                 # break into pieces
+                fragments = []
                 message = self.sock.recv(1024).decode('UTF-8')
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
@@ -186,16 +175,26 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 else:
                     if self.gui_done:
                         # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
-                        fragments = []
                         if not message:
                             break
                         fragments.append(message)
-                        userID = " ".join(fragments).split(" ")[1].replace(":","")
-                        # if self.uuid != userID:
-                        #     r_nickname = message.split(':')[0]
-                        #     r_message = message.split(':')[2]
-                        #     self.model.add_message(USER_THEM, r_message, time(), r_nickname,
-                        #                            clientColor[r_nickname]) # clientColor[r_nickname]
+                        userID = " ".join(fragments)
+                        # print(userID.find(self.username))
+                        # findusername = userID[userID.find(self.nickname):   userID.find(self.uuid)].replace(":","")
+                        finduserID = userID[userID.find(self.uuid):   userID.find("byte")].replace(":","")
+                        foundUserID = finduserID.split(" ")
+                        if foundUserID[0] in self.nickname:
+                            break
+                        print(foundUserID[0])
+                        # print("Their ID",userID[0:5])
+                        if self.uuid != foundUserID[0]:
+                            r_nickname = message.split(':')[0]
+                            r_message = message.split(':')[-1]
+                            self.model.add_message(USER_THEM, r_message, time(), r_nickname,
+                                                   '#27caf9') # clientColor[r_nickname]
+                        else:
+                            pass
+
 
             except ConnectionAbortedError:
                 break
@@ -217,7 +216,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         if width == 50:
             new_width = 180
             self.UserLayout.setContentsMargins(-53, 0, -51, 9)
-
         else:
             new_width = 50
             self.UserLayout.setContentsMargins(51,0,51,9)
@@ -234,7 +232,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         width = self.EmojiPane.width()
         if width == 0:
             new_width = 296
-
         else:
             new_width = 0
         # Animate the transition
@@ -247,7 +244,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     # ---------BUBBLE STUFF--------------
     def bubbleChat(self):
-        """Attach model view to message view here, creating a list view is no longer needed as it pre-created  """
+        """ Attach model view to message view here, creating a list view is no longer needed as it pre-created  """
         # self.textBrowser.setDisabled(True)
         # Start listview here
         # self.messagesView = QListView(self.MainChat)
