@@ -149,7 +149,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             try:
                 # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
                 # break into pieces
-                fragments = []
                 message = self.sock.recv(1024).decode('UTF-8')
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
@@ -177,23 +176,21 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
                         if not message:
                             break
+                        fragments = []
                         fragments.append(message)
                         userID = " ".join(fragments)
                         # print(userID.find(self.username))
                         # findusername = userID[userID.find(self.nickname):   userID.find(self.uuid)].replace(":","")
                         finduserID = userID[userID.find(self.uuid):   userID.find("byte")].replace(":","")
                         foundUserID = finduserID.split(" ")
-                        if foundUserID[0] in self.nickname:
+                        if foundUserID[0] == self.nickname:
                             break
-                        print(foundUserID[0])
-                        # print("Their ID",userID[0:5])
-                        if self.uuid != foundUserID[0]:
+                        print(foundUserID[0], type(foundUserID[0]))
+                        if self.uuid not in foundUserID[0]:
                             r_nickname = message.split(':')[0]
                             r_message = message.split(':')[-1]
                             self.model.add_message(USER_THEM, r_message, time(), r_nickname,
                                                    '#27caf9') # clientColor[r_nickname]
-                        else:
-                            pass
 
 
             except ConnectionAbortedError:
