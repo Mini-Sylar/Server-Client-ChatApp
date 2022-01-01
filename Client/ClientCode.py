@@ -125,10 +125,11 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         tobesent = bytearray(openFile_ok)
         # For now use arbitrary message "sentIMage to denote message sent"
         message = f"{self.nickname}: {self.uuid}:{tobesent} \n"
+        # message = f"{self.nickname}: {self.uuid}: {self.textEdit.toPlainText()}: {tobesent}\n"
         self.sock.send(message.encode('UTF-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
-            self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.nickname, "#90caf9",image)
+            self.model.add_message(USER_ME, self.textEdit.setText(), time(), self.nickname, "#90caf9",image)
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
 
@@ -179,16 +180,17 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         fragments = []
                         fragments.append(message)
                         userID = " ".join(fragments)
-                        # print(userID.find(self.username))
-                        # findusername = userID[userID.find(self.nickname):   userID.find(self.uuid)].replace(":","")
+                        # Find username and ID by using self.find hack then compare
+                        findusername = userID[userID.find(self.nickname): userID.find(self.uuid)].replace(":","")
+                        print(findusername)
                         finduserID = userID[userID.find(self.uuid):   userID.find("byte")].replace(":","")
                         foundUserID = finduserID.split(" ")
-                        if foundUserID[0] == self.nickname:
+                        if self.nickname == foundUserID[0]:
                             break
                         print(foundUserID[0], type(foundUserID[0]))
                         if self.uuid not in foundUserID[0]:
                             r_nickname = message.split(':')[0]
-                            r_message = message.split(':')[-1]
+                            r_message = message.split(':')[-1].replace(" ","",1)
                             self.model.add_message(USER_THEM, r_message, time(), r_nickname,
                                                    '#27caf9') # clientColor[r_nickname]
 
