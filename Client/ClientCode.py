@@ -177,12 +177,8 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         print(find_names)
                     # Append color to any user who joins by stripping connected server
                     for users in find_names.split(','):
-                        if s_messages[1] in users:
-                            break
-                        else:
-                            clientList.append(users)
-
-
+                        clientList.append(users)
+                    # Add and assign user color here
                     for names in clientList:
                         if names not in clientColor:
                             clientColor[names] = rand_color()
