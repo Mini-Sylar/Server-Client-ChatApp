@@ -37,6 +37,14 @@ clientUser = list()
 clientList = list()
 
 
+def find_nth_overlapping(haystack, needle, n):
+    start = haystack.find(needle)
+    while start >= 0 and n > 1:
+        start = haystack.find(needle, start + 1)
+        n -= 1
+    return start
+
+
 class ClientCode(Ui_MainWindow, QMainWindow):
     def __init__(self, host, port):
         super(ClientCode, self).__init__()
@@ -122,20 +130,20 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         with open(openFile_file[0], 'rb') as file:
             openFile_ok = file.read()
         image.loadFromData(openFile_ok)
-        tobesent = bytearray(openFile_ok)
+        tobesent = openFile_ok
         # For now use arbitrary message "sentIMage to denote message sent"
-        message = f"{self.nickname}: {self.uuid}:{tobesent} \n"
-        # message = f"{self.nickname}: {self.uuid}: {self.textEdit.toPlainText()}: {tobesent}\n"
+        message = f"{self.nickname}: {self.uuid}: SentImage: {tobesent} \n"
+        findmessage = message[find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":","").strip()
         self.sock.send(message.encode('UTF-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
-            self.model.add_message(USER_ME, self.textEdit.setText(), time(), self.nickname, "#90caf9",image)
+            self.model.add_message(USER_ME, findmessage, time(), self.nickname, "#90caf9",image)
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
 
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
-        message = f"{self.nickname}: {self.uuid}: {self.textEdit.toPlainText()}\n"
+        message = f"{self.nickname}: {self.uuid}: {self.textEdit.toPlainText()} \n"
         self.sock.send(message.encode('UTF-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
@@ -160,13 +168,20 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     self.model.add_message(USER_ADMIN, r_adminMessage, time(), r_adminNick, "#FFFFFF")
                     # Find Users and Append Them to List
                     find_names = message[message.find("(") + 1:   message.find(")")]
-                    found_names = find_names.split(" ")[0]
+                    if s_messages[0] in find_names:
+                        find_names = find_names.replace(s_messages[0],"").rstrip()
+                    elif s_messages[1] in find_names:
+                        find_names = find_names.replace(s_messages[1],"").rstrip()
+                    else:
+                        find_names  = find_names.replace("\n","")
+                        print(find_names)
                     # Append color to any user who joins by stripping connected server
-                    for users in found_names.split(','):
+                    for users in find_names.split(','):
                         if s_messages[1] in users:
                             break
                         else:
                             clientList.append(users)
+
 
                     for names in clientList:
                         if names not in clientColor:
@@ -179,20 +194,42 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                             break
                         fragments = []
                         fragments.append(message)
-                        userID = " ".join(fragments)
-                        # Find username and ID by using self.find hack then compare
-                        findusername = userID[userID.find(self.nickname): userID.find(self.uuid)].replace(":","")
-                        print(findusername)
-                        finduserID = userID[userID.find(self.uuid):   userID.find("byte")].replace(":","")
-                        foundUserID = finduserID.split(" ")
-                        if self.nickname == foundUserID[0]:
+                        # Get all data from databytes
+                        databytes = " ".join(fragments)
+                        # !Username Find Properly
+                        findusername = databytes[0:find_nth_overlapping(databytes,":",1)].strip('\n')
+                        # !Find ID
+                        finduserID = databytes[find_nth_overlapping(databytes,":",1):find_nth_overlapping(databytes,":",2)]
+                        finduserID = finduserID.replace(':',"",1).replace(" ","",1)
+                        # !Find Message Here
+                        findmessage = databytes[find_nth_overlapping(databytes," ",2):find_nth_overlapping(databytes,"b'",1)].strip('\n')
+                        findmessage = findmessage.replace(' ','',1)
+                        # !Find the rest here
+                        foundbytes =  databytes[find_nth_overlapping(databytes," ",2):].replace(" ","",1)
+                        # print(findusername)
+                        # print(finduserID)
+                        # print(findmessage)
+
+                        # Fail Safe Here
+                        if self.nickname == finduserID:
                             break
-                        print(foundUserID[0], type(foundUserID[0]))
-                        if self.uuid not in foundUserID[0]:
+                        if "SentImage" in findmessage:
+                            break
+                        else:
+                            pass
+
+                        if len(foundbytes)>0:
+                            foundbytes.encode('utf-8')
+                        else:
+                            foundbytes = None
+
+                        # print(findusername)
+
+                        if self.uuid not in finduserID:
                             r_nickname = message.split(':')[0]
                             r_message = message.split(':')[-1].replace(" ","",1)
                             self.model.add_message(USER_THEM, r_message, time(), r_nickname,
-                                                   '#27caf9') # clientColor[r_nickname]
+                                                   clientColor[findusername],foundbytes) # clientColor[r_nickname]
 
 
             except ConnectionAbortedError:

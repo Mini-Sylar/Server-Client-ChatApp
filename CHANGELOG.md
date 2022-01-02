@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## <span style="color:orange">[Unreleased] - 2022-01-2</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added Image Support (In testing)
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Reworked Order of messages, they are now uniform across every client
+- Reworked the finding of usernames, userID, Messages for more accurate results
+- Above changes caused color assignment to be broken, fixed now
+### <span style="color:red">Issues
+- Images show byte code in your chat window as received when it is not so
+<hr>
+
+
 ## <span style="color:orange">[Unreleased] - 2021-12-24</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - Added more emojis
