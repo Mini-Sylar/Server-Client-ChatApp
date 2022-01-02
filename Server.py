@@ -24,7 +24,7 @@ def handle(client):
     '''This function handles individual connections to the client, it sends it to the main window'''
     while True:
         try:
-            message = client.recv(1024)
+            message = client.recv(8192)
             log_message = str(message)
             print(f"{nicknames[clients.index(client)]} says {log_message.split(':')[-1]}")
             broadcast(message)
@@ -45,7 +45,7 @@ def receive():
         print("Connected with ", str(address))
 
         client.send("NICK".encode('utf-8'))
-        nickname = client.recv(1024).decode('utf-8')
+        nickname = client.recv(8192).decode('utf-8')
 
         nicknames.append(nickname)
         clients.append(client)

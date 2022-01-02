@@ -10,10 +10,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added Image Support (In testing)
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
 - Reworked Order of messages, they are now uniform across every client
-- Reworked the finding of usernames, userID, Messages for more accurate results
-- Above changes caused color assignment to be broken, fixed now
+- Reworked the finding of usernames, userID, Messages for more accurate results (Final Fix Hopefully)
+- Above changes caused color assignment to be broken, (final fix)
+- Fixed issue where message would include uuid when username had spaces between them
+- Fixed issue where colors won't assign with users with spaces between their names
+- Increased byte size received from 1024 to 8192 to reduce number of chunks of data sent to the server
 ### <span style="color:red">Issues
-- Images show byte code in your chat window as received when it is not so
+- Images which are eventually sent in chunks still show byte code in chat window
+- Image is reveived in other client window but is not displayed
 <hr>
 
 
