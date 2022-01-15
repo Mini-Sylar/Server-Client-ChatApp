@@ -4,16 +4,12 @@ import threading
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation, QTimer
-from PyQt5.QtGui import QIcon, QTextCursor, QPixmap, QImage
+from PyQt5.QtGui import QIcon, QTextCursor, QImage
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QFileDialog
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
 from Client.Client_UI import Ui_MainWindow
-
-import PIL.Image as PillowImage
-import io
-
 
 import random
 from time import time
@@ -65,8 +61,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.bubbleChat()
         # unique Identifier
         self.uuid = uuid.uuid4().hex
-        self.dummyuuid = uuid.uuid4().hex
-
 
     def threading(self):
         receive_thread = threading.Thread(target=self.receive)
@@ -74,8 +68,8 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     def create_emojis(self):
         buttons = {}
-        for i in range(58): # controls rows
-            for j in range(6): # controls columns
+        for i in range(58):  # controls rows
+            for j in range(6):  # controls columns
                 # keep a reference to the buttons
                 buttons[(i, j)] = QPushButton(self.Emo_Smiles)
                 buttons[(i, j)].setObjectName(f'emoji_{j}_smiles')
@@ -85,11 +79,11 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 self.gridLayout_2.addWidget(buttons[(i, j)], i, j)
         # Display Emojis
         icons = []
-        curr_moji_length = len(self.Emo_Smiles.children()[1:])+1
-        for items in range(1,curr_moji_length):
+        curr_moji_length = len(self.Emo_Smiles.children()[1:]) + 1
+        for items in range(1, curr_moji_length):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/EmojisOpened/emoji_{items}.png"), QtGui.QIcon.Normal,
-                            QtGui.QIcon.Off)
+                           QtGui.QIcon.Off)
             icons.append(icon)
         for index, item in enumerate(self.Emo_Smiles.children()[1:]):
             item.setIcon(icons[index])
@@ -130,20 +124,19 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         image = QImage()
         with open(openFile_file[0], 'rb') as file:
             openFile_ok = file.read()
-
         image.loadFromData(openFile_ok)
         tobesent = openFile_ok
-        print("TobeSent",tobesent)
-
+        print(tobesent)
         # For now use arbitrary message "sentIMage to denote message sent"
         message = f"{self.nickname}: {self.uuid}: SentImage: {tobesent} \n"
-        findmessage = message[find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":","").strip()
+        findmessage = message[find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":",
+                                                                                                                   "").strip()
         self.sock.send(message.encode('utf-8'))
         with open("C:\\Users\\Andy\\OneDrive\\Desktop\\new\\test.png", 'wb') as file:
             file.write(message.encode('utf-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
-            self.model.add_message(USER_ME, findmessage, time(), self.nickname, "#90caf9",image)
+            self.model.add_message(USER_ME, findmessage, time(), self.nickname, "#90caf9", image)
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
 
@@ -156,7 +149,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.nickname, "#90caf9")
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
-
 
     def receive(self):
         """While client is running decode every message from the server and insert it as plain text
@@ -178,11 +170,11 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     # Find Users and Append Them to List
                     find_names = message[message.find("(") + 1:   message.find(")")]
                     if s_messages[0] in find_names:
-                        find_names = find_names.replace(s_messages[0],"").rstrip()
+                        find_names = find_names.replace(s_messages[0], "").rstrip()
                     elif s_messages[1] in find_names:
-                        find_names = find_names.replace(s_messages[1],"").rstrip()
+                        find_names = find_names.replace(s_messages[1], "").rstrip()
                     else:
-                        find_names  = find_names.replace("\n","")
+                        find_names = find_names.replace("\n", "")
                         # print(find_names)
                     # Append color to any user who joins by stripping connected server
                     for users in find_names.split(','):
@@ -197,56 +189,52 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         if not message:
                             break
                         fragments.append(message)
+                        print(fragments)
                         # Get all data from databytes
-                        databytes = "".join(fragments).strip("\n")
+                        data_bytes = "".join(fragments).strip("\n")
                         # !Username Find Properly
-                        findusername = databytes[0:find_nth_overlapping(databytes,":",1)].strip('\n')
+                        findusername = data_bytes[0:find_nth_overlapping(data_bytes, ":", 1)].strip('\n')
                         # !Find ID
-                        finduserID = databytes[find_nth_overlapping(databytes,":",1):find_nth_overlapping(databytes,":",2)]
-                        finduserID = finduserID.replace(':',"",1).replace(" ","",1)
+                        find_user_ID = data_bytes[
+                                       find_nth_overlapping(data_bytes, ":", 1):find_nth_overlapping(data_bytes, ":",
+                                                                                                     2)]
+                        find_user_ID = find_user_ID.replace(':', "", 1).replace(" ", "", 1)
                         # !Find Message Here
-                        findmessage = databytes[find_nth_overlapping(databytes,":",2)+1:find_nth_overlapping(databytes,"b'",1)].strip('\n')
-                        findmessage = findmessage.replace(' ','',1)
+                        find_message = data_bytes[
+                                       find_nth_overlapping(data_bytes, ":", 2) + 1:find_nth_overlapping(data_bytes,
+                                                                                                         "b'",
+                                                                                                         1)].strip('\n')
+                        find_message = find_message.replace(' ', '', 1)
                         # !Find the rest here
-                        foundbytes =  databytes[find_nth_overlapping(databytes," ",3):].replace(" ","",1)
-
+                        found_bytes = data_bytes[find_nth_overlapping(data_bytes, " ", 3):].replace(" ", "", 1)
                         image = QImage()
                         # testimage = PillowImage.open(io.BytesIO(prepImage))
                         # testimage.show()
-                        if len(foundbytes)>1:
-                            prepImage = eval(foundbytes)
+                        if len(found_bytes) > 1:
+                            prepImage = eval(found_bytes)
                         else:
                             prepImage = None
                         image.loadFromData(prepImage)
                         # Fail Safe Here
-                        if self.nickname == finduserID:
+                        if self.nickname == find_user_ID:
                             break
-                        print(databytes)
-                        print("Findusername:",findusername)
-                        print("Findmessage:",findmessage)
-                        print("FindID:", finduserID)
-                        print("FoundBytes:",foundbytes)
-                        print("prepimage:",prepImage)
-                        print("image",image)
+                        print(data_bytes)
+                        print("Findusername:", findusername)
+                        print("Findmessage:", find_message)
+                        print("FindID:", find_user_ID)
+                        print("FoundBytes:", found_bytes)
+                        print("prepimage:", prepImage)
+                        print("image", image)
                         print("==================================")
 
-
-                        if self.uuid not in finduserID:
-                            if len(foundbytes)<1:
-                                self.model.add_message(USER_THEM, findmessage, time(), findusername,
+                        if self.uuid not in find_user_ID:
+                            if len(found_bytes) < 1:
+                                self.model.add_message(USER_THEM, find_message, time(), findusername,
                                                        clientColor[findusername])  # clientColor[r_nickname]
                             else:
-                                # r_nickname = message.split(':')[0]
-                                self.model.add_message(USER_THEM, findmessage, time(), findusername,
-                                                       clientColor[findusername],image)  # clientColor[r_nickname]
-
-
+                                self.model.add_message(USER_THEM, find_message, time(), findusername,
+                                                       clientColor[findusername], image)  # clientColor[r_nickname]
                         fragments.clear()
-
-
-
-
-
             except ConnectionAbortedError:
                 break
             except OSError as e:
@@ -269,7 +257,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             self.UserLayout.setContentsMargins(-53, 0, -51, 9)
         else:
             new_width = 50
-            self.UserLayout.setContentsMargins(51,0,51,9)
+            self.UserLayout.setContentsMargins(51, 0, 51, 9)
         # Animate the transition
         self.animation = QPropertyAnimation(self.SlidingMenu, b"minimumWidth")
         self.animation.setDuration(250)
@@ -296,20 +284,14 @@ class ClientCode(Ui_MainWindow, QMainWindow):
     # ---------BUBBLE STUFF--------------
     def bubbleChat(self):
         """ Attach model view to message view here, creating a list view is no longer needed as it pre-created  """
-        # self.textBrowser.setDisabled(True)
         # Start listview here
-        # self.messagesView = QListView(self.MainChat)
-        # self.messagesView.setResizeMode(QListView.Adjust)
         # Use our delegate to draw items in this view.
         self.messagesView.setItemDelegate(MessageDelegate())
         self.model = MessageModel()
         self.messagesView.setModel(self.model)
-        # Add layout to grid here Done
-        # self.gridLayout.addWidget(self.messagesView, 0, 0, 1, 2)
 
     def resizeEvent(self, e):
         self.model.layoutChanged.emit()
-
 
 
 if __name__ == "__main__":
