@@ -221,14 +221,14 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         # Fail Safe Here
                         if self.nickname == finduserID:
                             break
-                        # print(databytes)
-                        # print("Findusername:",findusername)
-                        # print("Findmessage:",findmessage)
-                        # print("FindID:", finduserID)
-                        # print("FoundBytes:",foundbytes)
-                        # print("prepimage:",prepImage)
-                        # print("image",image)
-                        # print("==================================")
+                        print(databytes)
+                        print("Findusername:",findusername)
+                        print("Findmessage:",findmessage)
+                        print("FindID:", finduserID)
+                        print("FoundBytes:",foundbytes)
+                        print("prepimage:",prepImage)
+                        print("image",image)
+                        print("==================================")
 
 
                         if self.uuid not in finduserID:

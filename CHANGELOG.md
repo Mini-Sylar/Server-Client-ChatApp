@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
 - Fixed issue where image would get loaded but won't display 
 ### <span style="color:red">Issues
-- No issues found as at now
+- Works with only images that are very small
 <hr>
 
 ## <span style="color:orange">[Unreleased] - 2022-01-2</span>
