@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## <span style="color:orange">[Unreleased] - 2022-01-15</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added image support (working but in beta)
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Fixed issue where image would get loaded but won't display 
+### <span style="color:red">Issues
+- No issues found as at now
+<hr>
+
 ## <span style="color:orange">[Unreleased] - 2022-01-2</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - Added Image Support (In testing)

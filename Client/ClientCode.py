@@ -1,6 +1,4 @@
-import pickle
 import socket
-import struct
 import sys
 import threading
 
@@ -13,6 +11,8 @@ from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, US
 from Client.Username.Choose_Draggable import Draggable
 from Client.Client_UI import Ui_MainWindow
 
+import PIL.Image as PillowImage
+import io
 
 
 import random
@@ -130,14 +130,17 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         image = QImage()
         with open(openFile_file[0], 'rb') as file:
             openFile_ok = file.read()
-        # with open("C:\\Users\\Andy\\OneDrive\\Desktop\\new\\test.txt",'w') as file:
-        #     file.write(str(openFile_ok))
+
         image.loadFromData(openFile_ok)
         tobesent = openFile_ok
+        print("TobeSent",tobesent)
+
         # For now use arbitrary message "sentIMage to denote message sent"
         message = f"{self.nickname}: {self.uuid}: SentImage: {tobesent} \n"
         findmessage = message[find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":","").strip()
-        self.sock.send(message.encode('UTF-8'))
+        self.sock.send(message.encode('utf-8'))
+        with open("C:\\Users\\Andy\\OneDrive\\Desktop\\new\\test.png", 'wb') as file:
+            file.write(message.encode('utf-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
             self.model.add_message(USER_ME, findmessage, time(), self.nickname, "#90caf9",image)
@@ -154,6 +157,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
 
+
     def receive(self):
         """While client is running decode every message from the server and insert it as plain text
         Close connection if there is a disconnect or error"""
@@ -161,7 +165,9 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             try:
                 # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
                 # break into pieces
-                message = self.sock.recv(8192).decode('UTF-8')
+                text = self.sock.recv(8192)
+                message = text.decode()
+
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
                 #     Parse Everything here including usernames and color (admin)
@@ -198,42 +204,42 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         # !Find ID
                         finduserID = databytes[find_nth_overlapping(databytes,":",1):find_nth_overlapping(databytes,":",2)]
                         finduserID = finduserID.replace(':',"",1).replace(" ","",1)
-
                         # !Find Message Here
                         findmessage = databytes[find_nth_overlapping(databytes,":",2)+1:find_nth_overlapping(databytes,"b'",1)].strip('\n')
                         findmessage = findmessage.replace(' ','',1)
                         # !Find the rest here
                         foundbytes =  databytes[find_nth_overlapping(databytes," ",3):].replace(" ","",1)
+
                         image = QImage()
-                        if len(foundbytes)<1:
-                            prepImage = None
+                        # testimage = PillowImage.open(io.BytesIO(prepImage))
+                        # testimage.show()
+                        if len(foundbytes)>1:
+                            prepImage = eval(foundbytes)
                         else:
-                            prepImage = foundbytes.replace("b'","").replace(" ","").encode('utf-8')
+                            prepImage = None
                         image.loadFromData(prepImage)
-
-
-
-
                         # Fail Safe Here
                         if self.nickname == finduserID:
                             break
-                        print(databytes)
-                        print("Findusername:",findusername)
-                        print("Findmessage:",findmessage)
-                        print("FindID:", finduserID)
-                        print("FoundBytes:",foundbytes)
-                        print("prepimage:",prepImage)
-                        print("image",image)
-                        print("==================================")
+                        # print(databytes)
+                        # print("Findusername:",findusername)
+                        # print("Findmessage:",findmessage)
+                        # print("FindID:", finduserID)
+                        # print("FoundBytes:",foundbytes)
+                        # print("prepimage:",prepImage)
+                        # print("image",image)
+                        # print("==================================")
+
 
                         if self.uuid not in finduserID:
                             if len(foundbytes)<1:
                                 self.model.add_message(USER_THEM, findmessage, time(), findusername,
                                                        clientColor[findusername])  # clientColor[r_nickname]
                             else:
-                                r_nickname = message.split(':')[0]
+                                # r_nickname = message.split(':')[0]
                                 self.model.add_message(USER_THEM, findmessage, time(), findusername,
                                                        clientColor[findusername],image)  # clientColor[r_nickname]
+
 
                         fragments.clear()
 
