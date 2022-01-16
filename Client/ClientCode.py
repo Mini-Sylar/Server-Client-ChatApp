@@ -21,10 +21,20 @@ PORT = 9090
 s_messages = ('connected to the server!', 'Disconnected from the server!')
 
 
+# ============ Helpers ==============
 # Random Color Generator
 def rand_color(def_color='#a5d6a7'):
     r = lambda: random.randint(0, 255)
     return '#%02X%02X%02X' % (r(), r(), r()) if r else def_color
+
+
+# Find Character at a given position
+def find_nth_overlapping(haystack, needle, n):
+    start = haystack.find(needle)
+    while start >= 0 and n > 1:
+        start = haystack.find(needle, start + 1)
+        n -= 1
+    return start
 
 
 # Client List
@@ -32,14 +42,6 @@ clientColor = dict()
 clientUser = list()
 clientList = list()
 fragments = list()
-
-
-def find_nth_overlapping(haystack, needle, n):
-    start = haystack.find(needle)
-    while start >= 0 and n > 1:
-        start = haystack.find(needle, start + 1)
-        n -= 1
-    return start
 
 
 class ClientCode(Ui_MainWindow, QMainWindow):
