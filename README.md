@@ -4,10 +4,7 @@ A configured sever which receives messages from the client and broadcasts it to 
 ## Installation
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the following libraries.
 - pyqt5
-- sys
-- socket
-- threading
-- Other modules are provided in the Client folder
+- Other modules are provided in the Client folder or are provided in the python setup
 
 ```bash
 pip install PyQt5
@@ -35,6 +32,7 @@ Server is connected to your localhost, it can be configured to use any ip addres
 <img width="380" src="/Screenshots/DecemberScreenshots.png" alt="New Interface">
 <img width="380" src="/Screenshots/DecemberScreenshots2.png" alt="New Interface">
 </div>
+
 ## Updates
 Updates have been moved into
 [Changelog](CHANGELOG.md)
