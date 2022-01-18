@@ -121,26 +121,28 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             self.UserNickname.setText(self.nickname)
         self.windowAvailable = None
 
-    def openfile(self):
-        openFile_file = QFileDialog.getOpenFileName(None, 'Open File:', '', 'Images (*.png *.bmp *.jpg)')
-        image = QImage()
-        with open(openFile_file[0], 'rb') as file:
-            openFile_ok = file.read()
-        image.loadFromData(openFile_ok)
-        tobesent = openFile_ok
-        print(tobesent)
-        # For now use arbitrary message "sentIMage to denote message sent"
-        message = f"{self.nickname}: {self.uuid}: SentImage: {tobesent} \n"
-        findmessage = message[find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":",
+    def openfile(self, open_file=None):
+        if not open_file:
+            open_file = QFileDialog.getOpenFileName(None, 'Open File:', '', 'Images (*.png *.bmp *.jpg)')
+        if open_file[0]:
+            with open(open_file[0], 'rb') as file:
+                openFile_ok = file.read()
+                image = QImage()
+                image.loadFromData(openFile_ok)
+                tobesent = openFile_ok
+                # For now use arbitrary message "sentIMage to denote message sent"
+                message = f"{self.nickname}: {self.uuid}: SentImage: {tobesent} \n"
+                findmessage = message[
+                              find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":",
                                                                                                                    "").strip()
-        self.sock.send(message.encode('utf-8'))
-        with open("C:\\Users\\Andy\\OneDrive\\Desktop\\new\\test.png", 'wb') as file:
-            file.write(message.encode('utf-8'))
-        # Check if userID matches and then display
-        if self.uuid == self.uuid:
-            self.model.add_message(USER_ME, findmessage, time(), self.nickname, "#90caf9", image)
-        self.textEdit.clear()
-        self.textEdit.setHtml(self.getTextStyles)
+                self.sock.send(message.encode('utf-8'))
+                # Check if userID matches and then display
+                if self.uuid == self.uuid:
+                    self.model.add_message(USER_ME, findmessage, time(), self.nickname, "#90caf9", image)
+                self.textEdit.clear()
+                self.textEdit.setHtml(self.getTextStyles)
+        else:
+            pass
 
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
@@ -161,7 +163,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 # break into pieces
                 text = self.sock.recv(8192)
                 message = text.decode()
-
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
                 #     Parse Everything here including usernames and color (admin)
@@ -177,7 +178,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         find_names = find_names.replace(s_messages[1], "").rstrip()
                     else:
                         find_names = find_names.replace("\n", "")
-                        # print(find_names)
                     # Append color to any user who joins by stripping connected server
                     for users in find_names.split(','):
                         clientList.append(users)
@@ -190,8 +190,8 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
                         if not message:
                             break
-                        fragments.append(message)
-                        print(fragments)
+                        else:
+                            fragments.append(message)
                         # Get all data from databytes
                         data_bytes = "".join(fragments).strip("\n")
                         # !Username Find Properly
@@ -220,15 +220,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         # Fail Safe Here
                         if self.nickname == find_user_ID:
                             break
-                        print(data_bytes)
-                        print("Findusername:", findusername)
-                        print("Findmessage:", find_message)
-                        print("FindID:", find_user_ID)
-                        print("FoundBytes:", found_bytes)
-                        print("prepimage:", prepImage)
-                        print("image", image)
-                        print("==================================")
-
                         if self.uuid not in find_user_ID:
                             if len(found_bytes) < 1:
                                 self.model.add_message(USER_THEM, find_message, time(), findusername,

@@ -37,7 +37,6 @@ def handle(client):
             nicknames.remove(nickname)
             break
 
-
 def receive():
     '''This function accepts new connections (waits for new connections)'''
     while True:
