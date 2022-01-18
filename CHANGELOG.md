@@ -5,6 +5,31 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## <span style="color:orange">[Unreleased] - 2022-01-15</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added image support (working but in beta)
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Fixed issue where image would get loaded but won't display 
+### <span style="color:red">Issues
+- Works with only images that are very small
+<hr>
+
+## <span style="color:orange">[Unreleased] - 2022-01-2</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added Image Support (In testing)
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Reworked Order of messages, they are now uniform across every client
+- Reworked the finding of usernames, userID, Messages for more accurate results (Final Fix Hopefully)
+- Above changes caused color assignment to be broken, (final fix)
+- Fixed issue where message would include uuid when username had spaces between them
+- Fixed issue where colors won't assign with users with spaces between their names
+- Increased byte size received from 1024 to 8192 to reduce number of chunks of data sent to the server
+### <span style="color:red">Issues
+- Images which are eventually sent in chunks still show byte code in chat window
+- Image is reveived in other client window but is not displayed
+<hr>
+
+
 ## <span style="color:orange">[Unreleased] - 2021-12-24</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - Added more emojis
