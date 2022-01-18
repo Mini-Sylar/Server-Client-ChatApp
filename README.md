@@ -41,7 +41,7 @@ Updates have been moved into
 
 ## Plans
 - [x] Add custom labels like in whatsapp/telegram (ADDED!)
-- [ ] Make usernames colored in console like chat are (In Progress)
+- [ ] <s>Make usernames colored in console like chat are (In Progress)</s> Console version cancelled for now
 - [ ] Encrypted server messages 
 - [ ] Settings menu to change username,profileIcon,text window style etc.
 - [ ] Admin powers, kick user etc.
