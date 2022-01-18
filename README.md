@@ -31,28 +31,6 @@ Server is connected to your localhost, it can be configured to use any ip addres
     <img width="380" src="/Screenshots/Screen-01_EnterUsername.png" alt="Choose A username">
   </p>
 </div>
-<hr>
-<div>
-  <p align="center">
-    <img width="380" src="/Screenshots/MulticolorsScreenshot.png" alt="Multicolored Chat">
-  </p>
-</div>
-<hr>
-<div>
-<img width="380" src="/Screenshots/001_Bubble_Features.png" alt="Bubble Feature new">
-<img width="380" src="/Screenshots/002_RandomUser_Joined.png" alt="Random User Joined">
-</div>
-<hr>
-<div>
-<img width="380" src="/Screenshots/003_ConsoleAndBubble.png" alt="Console and bubble">
-<img width="380" src="/Screenshots/004_ConsoleAndBubble_Aftermath.png" alt="Console & bubble2">
-</div>
-<hr>
-<div>
-<img width="380" src="/Screenshots/005_IpsumLorem_Scaled.png" alt="IpsumLorem Scaled">
-<img width="380" src="/Screenshots/005_IpsumLorem_Scaled_NOuser.png" alt="Ipsum Lorem Scaled2">
-</div>
-<hr>
 <div>
 <img width="380" src="/Screenshots/DecemberScreenshots.png" alt="New Interface">
 <img width="380" src="/Screenshots/DecemberScreenshots2.png" alt="New Interface">
