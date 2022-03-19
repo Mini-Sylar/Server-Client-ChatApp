@@ -104,9 +104,10 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         with open('EmojiList.txt', 'r', encoding="utf8") as file:
             emojis = file.read().splitlines()
         for index, item in enumerate(self.Emo_Smiles.children()[1:]):
+            pass
             # Add option to insert html image instead of plain text after inserting images in qlistview
-            # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
-            item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
+            item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
+            # item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
 
         # Add a timer to keep refreshing the Qlistview
         self.timer = QTimer()
