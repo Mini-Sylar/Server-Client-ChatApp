@@ -4,10 +4,7 @@ A configured sever which receives messages from the client and broadcasts it to 
 ## Installation
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the following libraries.
 - pyqt5
-- sys
-- socket
-- threading
-- Other modules are provided in the Client folder
+- Other modules are provided in the Client folder or are provided in the python setup
 
 ```bash
 pip install PyQt5
@@ -31,39 +28,18 @@ Server is connected to your localhost, it can be configured to use any ip addres
     <img width="380" src="/Screenshots/Screen-01_EnterUsername.png" alt="Choose A username">
   </p>
 </div>
-<hr>
-<div>
-  <p align="center">
-    <img width="380" src="/Screenshots/MulticolorsScreenshot.png" alt="Multicolored Chat">
-  </p>
-</div>
-<hr>
-<div>
-<img width="380" src="/Screenshots/001_Bubble_Features.png" alt="Bubble Feature new">
-<img width="380" src="/Screenshots/002_RandomUser_Joined.png" alt="Random User Joined">
-</div>
-<hr>
-<div>
-<img width="380" src="/Screenshots/003_ConsoleAndBubble.png" alt="Console and bubble">
-<img width="380" src="/Screenshots/004_ConsoleAndBubble_Aftermath.png" alt="Console & bubble2">
-</div>
-<hr>
-<div>
-<img width="380" src="/Screenshots/005_IpsumLorem_Scaled.png" alt="IpsumLorem Scaled">
-<img width="380" src="/Screenshots/005_IpsumLorem_Scaled_NOuser.png" alt="Ipsum Lorem Scaled2">
-</div>
-<hr>
 <div>
 <img width="380" src="/Screenshots/DecemberScreenshots.png" alt="New Interface">
 <img width="380" src="/Screenshots/DecemberScreenshots2.png" alt="New Interface">
 </div>
+
 ## Updates
 Updates have been moved into
 [Changelog](CHANGELOG.md)
 
 ## Plans
 - [x] Add custom labels like in whatsapp/telegram (ADDED!)
-- [ ] Make usernames colored in console like chat are (In Progress)
+- [ ] <s>Make usernames colored in console like chat are (In Progress)</s> Console version cancelled for now
 - [ ] Encrypted server messages 
 - [ ] Settings menu to change username,profileIcon,text window style etc.
 - [ ] Admin powers, kick user etc.
