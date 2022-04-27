@@ -11,9 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
 - Fixed issue where you could resize the window to be very small and hence break the layout
 - Fixed emoji layout, all emojis correspond to their various images now
+- Changed <code>Eval</code> to <code>ast.literal_eval</code> for security reasons
 ### <span style="color:red">Issues
 - Previously stated issues still persist
-- Program breaks when there is a space added after an emoji
+- ~~Program breaks when there is a space added after an emoji~~ !Fixed
 <hr>
 
 

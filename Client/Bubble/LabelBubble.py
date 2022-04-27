@@ -85,7 +85,7 @@ class MessageDelegate(QStyledItemDelegate):
         # painter timestamp depending on who said
         if user == USER_ADMIN:
             # painter.drawText(textrect.center() + QPoint(-40, 25), time_str) => default
-            painter.drawText(textrect.center() + QPoint(-50, 35), time_str)
+            painter.drawText(textrect.center() + QPoint(-50, 30), time_str)
         else:
             painter.drawText(textrect.bottomLeft() + QPoint(5, 5), time_str)
         # End timestamp Here

@@ -15,6 +15,8 @@ import random
 from time import time
 import uuid
 
+import ast
+
 HOST = '127.0.0.1'
 PORT = 9090
 # Server Messages
@@ -100,11 +102,10 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         # Get emojis from text file
         emojis = []
         textArea = self.textEdit.document()
-        cursor = QTextCursor(textArea)
+        # cursor = QTextCursor(textArea)
         with open('EmojiList.txt', 'r', encoding="utf8") as file:
             emojis = file.read().splitlines()
         for index, item in enumerate(self.Emo_Smiles.children()[1:]):
-            pass
             # Add option to insert html image instead of plain text after inserting images in qlistview
             item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
             # item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
@@ -148,7 +149,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
         message = f"{self.nickname}: {self.uuid}: {self.textEdit.toPlainText()} \n"
-        self.sock.send(message.encode('UTF-8'))
+        self.sock.send(message.encode('utf-8'))
         # Check if userID matches and then display
         if self.uuid == self.uuid:
             self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.nickname, "#90caf9")
@@ -163,7 +164,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
                 # break into pieces
                 text = self.sock.recv(8192)
-                message = text.decode()
+                message = text.decode('utf-8')
                 if message == 'NICK':
                     self.sock.send(self.nickname.encode('UTF-8'))
                 #     Parse Everything here including usernames and color (admin)
@@ -194,6 +195,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         else:
                             fragments.append(message)
                         # Get all data from databytes
+                        print(fragments)
                         data_bytes = "".join(fragments).strip("\n")
                         # !Username Find Properly
                         findusername = data_bytes[0:find_nth_overlapping(data_bytes, ":", 1)].strip('\n')
@@ -210,19 +212,24 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                         find_message = find_message.replace(' ', '', 1)
                         # !Find the rest here
                         found_bytes = data_bytes[find_nth_overlapping(data_bytes, " ", 3):].replace(" ", "", 1)
+                        print(found_bytes)
                         image = QImage()
                         # testimage = PillowImage.open(io.BytesIO(prepImage))
                         # testimage.show()
                         if len(found_bytes) > 1:
-                            prepImage = eval(found_bytes)
+                            try:
+                                prepImage = ast.literal_eval(found_bytes)
+                            except (ValueError, NameError,SyntaxError):
+                                prepImage = None
                         else:
                             prepImage = None
+
                         image.loadFromData(prepImage)
                         # Fail Safe Here
                         if self.nickname == find_user_ID:
                             break
                         if self.uuid not in find_user_ID:
-                            if len(found_bytes) < 1:
+                            if  prepImage is None:
                                 self.model.add_message(USER_THEM, find_message, time(), findusername,
                                                        clientColor[findusername])  # clientColor[r_nickname]
                             else:
