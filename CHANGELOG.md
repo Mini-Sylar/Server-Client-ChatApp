@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## <span style="color:orange">[Unreleased] - 2022-04-27</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Code Cleanup
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Fixed issue where you could resize the window to be very small and hence break the layout 
+### <span style="color:red">Issues
+- Previously stated issues still persist
+<hr>
+
+
 ## <span style="color:orange">[Unreleased] - 2022-03-12</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - Added 1554 new emojis
@@ -13,8 +23,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### <span style="color:red">Issues
 - Emoji With different color tones are not grouped
 <hr>
-
-
 
 ## <span style="color:orange">[Unreleased] - 2022-01-15</span>
 ### <span style="color:teal"> <span style="color:teal">Added

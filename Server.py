@@ -1,7 +1,5 @@
-import pickle
 import socket
 import threading
-import json
 
 '''Enter your own ip address as HOST or the server's ip address and PORT'''
 HOST = '127.0.0.1'  # Enter your own ip address here (find with ipconfig)
