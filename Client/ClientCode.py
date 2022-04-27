@@ -82,7 +82,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         # Display Emojis
         icons = []
         curr_moji_length = len(self.Emo_Smiles.children()[1:]) + 1
-        for items in range(1, curr_moji_length):
+        for items in range(0, curr_moji_length):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/EmojisOpened/emoji_{items}.png"), QtGui.QIcon.Normal,
                            QtGui.QIcon.Off)
