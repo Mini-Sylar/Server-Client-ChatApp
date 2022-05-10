@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
 - Messages are now sent in a format that is much much easier to manipulate
 - !!! Message bytes are now dynamically read, what this means is that image sizes can now be read dynamically ==(HUGE UPDATE)==
+- Better handling of leaving and connecting to server
 - General improvements to code base
 ### <span style="color:red">Issues
 - Everything is broken now :)
