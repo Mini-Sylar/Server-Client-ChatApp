@@ -5,11 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+
+
 ## <span style="color:orange">[Unreleased] - 2022-05-10</span>
 ### <span style="color:teal"> <span style="color:teal">Added
-- Complete Server & Client Codebase Rewritr
+- HUGE UPDATE
+  - Re-wrote entire client and server code base to make things somewhat easier
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
-- The entire code base for server and client has been rewritten to make things somewhat easier
+- Messages are now sent in a format that is much much easier to manipulate
+- !!! Message bytes are now dynamically read, what this means is that image sizes can now be read dynamically ==(HUGE UPDATE)==
+- General improvements to code base
 ### <span style="color:red">Issues
 - Everything is broken now :)
 <hr>
@@ -28,6 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Previously stated issues still persist
 - ~~Program breaks when there is a space added after an emoji~~ !Fixed
 <hr>
+
 
 
 ## <span style="color:orange">[Unreleased] - 2022-03-12</span>
