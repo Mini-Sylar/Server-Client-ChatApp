@@ -21,6 +21,7 @@ HOST = '127.0.0.1'
 PORT = 9090
 # Server Messages
 s_messages = ('connected to the server!', 'Disconnected from the server!')
+HEADER_SIZE = 20
 
 
 # ============ Helpers ==============
@@ -156,92 +157,121 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
 
-    def receive(self):
-        """While client is running decode every message from the server and insert it as plain text
-        Close connection if there is a disconnect or error"""
-        while self.running:
-            try:
-                # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
-                # break into pieces
-                text = self.sock.recv(8192)
-                message = text.decode('utf-8')
-                if message == 'NICK':
-                    self.sock.send(self.nickname.encode('UTF-8'))
-                #     Parse Everything here including usernames and color (admin)
-                elif any(check in message for check in s_messages):
-                    r_adminNick = message.split(':')[0]
-                    r_adminMessage = message.split(':')[-1]
-                    self.model.add_message(USER_ADMIN, r_adminMessage, time(), r_adminNick, "#FFFFFF")
-                    # Find Users and Append Them to List
-                    find_names = message[message.find("(") + 1:   message.find(")")]
-                    if s_messages[0] in find_names:
-                        find_names = find_names.replace(s_messages[0], "").rstrip()
-                    elif s_messages[1] in find_names:
-                        find_names = find_names.replace(s_messages[1], "").rstrip()
-                    else:
-                        find_names = find_names.replace("\n", "")
-                    # Append color to any user who joins by stripping connected server
-                    for users in find_names.split(','):
-                        clientList.append(users)
-                    # Add and assign user color here
-                    for names in clientList:
-                        if names not in clientColor:
-                            clientColor[names] = rand_color()
-                else:
-                    if self.gui_done:
-                        # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
-                        if not message:
-                            break
-                        else:
-                            fragments.append(message)
-                        # Get all data from databytes
-                        print(fragments)
-                        data_bytes = "".join(fragments).strip("\n")
-                        # !Username Find Properly
-                        findusername = data_bytes[0:find_nth_overlapping(data_bytes, ":", 1)].strip('\n')
-                        # !Find ID
-                        find_user_ID = data_bytes[
-                                       find_nth_overlapping(data_bytes, ":", 1):find_nth_overlapping(data_bytes, ":",
-                                                                                                     2)]
-                        find_user_ID = find_user_ID.replace(':', "", 1).replace(" ", "", 1)
-                        # !Find Message Here
-                        find_message = data_bytes[
-                                       find_nth_overlapping(data_bytes, ":", 2) + 1:find_nth_overlapping(data_bytes,
-                                                                                                         "b'",
-                                                                                                         1)].strip('\n')
-                        find_message = find_message.replace(' ', '', 1)
-                        # !Find the rest here
-                        found_bytes = data_bytes[find_nth_overlapping(data_bytes, " ", 3):].replace(" ", "", 1)
-                        print(found_bytes)
-                        image = QImage()
-                        # testimage = PillowImage.open(io.BytesIO(prepImage))
-                        # testimage.show()
-                        if len(found_bytes) > 1:
-                            try:
-                                prepImage = ast.literal_eval(found_bytes)
-                            except (ValueError, NameError,SyntaxError):
-                                prepImage = None
-                        else:
-                            prepImage = None
+    # def receive(self):
+    #     """While client is running decode every message from the server and insert it as plain text
+    #     Close connection if there is a disconnect or error"""
+    #     while self.running:
+    #         full_message  = ''
+    #         new_message  = True
+    #         while True:
+    #             text = self.sock.recv(8192)
+    #             if new_message:
+    #                 print(f"New Message Length: {text[:HEADER_SIZE]}")
+    #             try:
+    #                 # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
+    #                 # break into pieces
+    #                 text = self.sock.recv(8192)
+    #                 message = text.decode('utf-8')
+    #                 if message == 'NICK':
+    #                     self.sock.send(self.nickname.encode('UTF-8'))
+    #                 #     Parse Everything here including usernames and color (admin)
+    #                 elif any(check in message for check in s_messages):
+    #                     r_adminNick = message.split(':')[0]
+    #                     r_adminMessage = message.split(':')[-1]
+    #                     self.model.add_message(USER_ADMIN, r_adminMessage, time(), r_adminNick, "#FFFFFF")
+    #                     # Find Users and Append Them to List
+    #                     find_names = message[message.find("(") + 1:   message.find(")")]
+    #                     if s_messages[0] in find_names:
+    #                         find_names = find_names.replace(s_messages[0], "").rstrip()
+    #                     elif s_messages[1] in find_names:
+    #                         find_names = find_names.replace(s_messages[1], "").rstrip()
+    #                     else:
+    #                         find_names = find_names.replace("\n", "")
+    #                     # Append color to any user who joins by stripping connected server
+    #                     for users in find_names.split(','):
+    #                         clientList.append(users)
+    #                     # Add and assign user color here
+    #                     for names in clientList:
+    #                         if names not in clientColor:
+    #                             clientColor[names] = rand_color()
+    #                 else:
+    #                     if self.gui_done:
+    #                         # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
+    #                         if not message:
+    #                             break
+    #                         else:
+    #                             fragments.append(message)
+    #                         # Get all data from databytes
+    #                         print(fragments)
+    #                         data_bytes = "".join(fragments).strip("\n")
+    #                         # !Username Find Properly
+    #                         findusername = data_bytes[0:find_nth_overlapping(data_bytes, ":", 1)].strip('\n')
+    #                         # !Find ID
+    #                         find_user_ID = data_bytes[
+    #                                        find_nth_overlapping(data_bytes, ":", 1):find_nth_overlapping(data_bytes, ":",
+    #                                                                                                      2)]
+    #                         find_user_ID = find_user_ID.replace(':', "", 1).replace(" ", "", 1)
+    #                         # !Find Message Here
+    #                         find_message = data_bytes[
+    #                                        find_nth_overlapping(data_bytes, ":", 2) + 1:find_nth_overlapping(data_bytes,
+    #                                                                                                          "b'",
+    #                                                                                                          1)].strip('\n')
+    #                         find_message = find_message.replace(' ', '', 1)
+    #                         # !Find the rest here
+    #                         found_bytes = data_bytes[find_nth_overlapping(data_bytes, " ", 3):].replace(" ", "", 1)
+    #                         print(found_bytes)
+    #                         image = QImage()
+    #                         # testimage = PillowImage.open(io.BytesIO(prepImage))
+    #                         # testimage.show()
+    #                         if len(found_bytes) > 1:
+    #                             try:
+    #                                 prepImage = ast.literal_eval(found_bytes)
+    #                             except (ValueError, NameError,SyntaxError):
+    #                                 prepImage = None
+    #                         else:
+    #                             prepImage = None
+    #
+    #                         image.loadFromData(prepImage)
+    #                         # Fail Safe Here
+    #                         if self.nickname == find_user_ID:
+    #                             break
+    #                         if self.uuid not in find_user_ID:
+    #                             if  prepImage is None:
+    #                                 self.model.add_message(USER_THEM, find_message, time(), findusername,
+    #                                                        clientColor[findusername])  # clientColor[r_nickname]
+    #                             else:
+    #                                 self.model.add_message(USER_THEM, find_message, time(), findusername,
+    #                                                        clientColor[findusername], image)  # clientColor[r_nickname]
+    #                         fragments.clear()
+    #             except ConnectionAbortedError:
+    #                 break
+    #             except OSError as e:
+    #                 print(e)
+    #                 self.sock.close()
+    #                 break
 
-                        image.loadFromData(prepImage)
-                        # Fail Safe Here
-                        if self.nickname == find_user_ID:
-                            break
-                        if self.uuid not in find_user_ID:
-                            if  prepImage is None:
-                                self.model.add_message(USER_THEM, find_message, time(), findusername,
-                                                       clientColor[findusername])  # clientColor[r_nickname]
-                            else:
-                                self.model.add_message(USER_THEM, find_message, time(), findusername,
-                                                       clientColor[findusername], image)  # clientColor[r_nickname]
-                        fragments.clear()
-            except ConnectionAbortedError:
-                break
-            except OSError as e:
-                print(e)
-                self.sock.close()
-                break
+    def receive(self):
+        while True:
+            full_msg = ''
+            new_msg = True
+            # msglen = 0
+            while True:
+                msg = self.sock.recv(8192)
+                if new_msg:
+                    print(f"new Message length: {msg[:HEADER_SIZE]}")
+                    msglen = int(msg[:HEADER_SIZE])
+                    new_msg = False
+                full_msg += msg.decode('utf-8')
+                if len(full_msg) - HEADER_SIZE == msglen:
+                    print("full_msg receiverd")
+                    print(full_msg[HEADER_SIZE:])
+                    final_message = full_msg[HEADER_SIZE:]
+                    if final_message == 'NICK': # Check the name much better here
+                        self.sock.send(self.nickname.encode('UTF-8'))
+                    # IF THE HEADER SIZES ARE THE SAME DO THE FOLLOWING
+                    new_msg = True
+                    full_msg = ''
+            print("FULL MESSAGE ONLY",full_msg)
 
     def closeEvent(self, event):
         """Close Sock and Exit application"""
