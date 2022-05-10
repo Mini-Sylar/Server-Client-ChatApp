@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## <span style="color:orange">[Unreleased] - 2022-05-10</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Complete Server & Client Codebase Rewritr
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- The entire code base for server and client has been rewritten to make things somewhat easier
+### <span style="color:red">Issues
+- Everything is broken now :)
+<hr>
+
+
+
+
 ## <span style="color:orange">[Unreleased] - 2022-04-27</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - Code Cleanup
