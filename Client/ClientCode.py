@@ -1,10 +1,12 @@
 import socket
 import sys
 import threading
+import select
+import errno
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation, QTimer
-from PyQt5.QtGui import QIcon, QTextCursor, QImage
+from PyQt5.QtGui import QIcon, QImage
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QFileDialog
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
@@ -18,10 +20,10 @@ import uuid
 import ast
 
 HOST = '127.0.0.1'
-PORT = 9090
+PORT = 1234
 # Server Messages
 s_messages = ('connected to the server!', 'Disconnected from the server!')
-HEADER_SIZE = 20
+HEADER_LENGTH = 8192
 
 
 # ============ Helpers ==============
@@ -53,6 +55,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.setupUi(self)
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((host, port))
+        self.sock.setblocking(True)
         # Accept Username here
         self.windowAvailable = None
         self.getUsername()
@@ -120,8 +123,10 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         if self.windowAvailable is None:
             self.windowAvailable = Draggable()
         if self.windowAvailable.exec_():
-            self.nickname = self.windowAvailable.lineEdit.text()
-            self.UserNickname.setText(self.nickname)
+            self.username = self.windowAvailable.lineEdit.text().encode('utf-8')
+            self.username_header = f'{len(self.username):<{HEADER_LENGTH}}'.encode('utf-8')
+            self.sock.send(self.username_header + self.username)
+            self.UserNickname.setText(self.username.decode('utf-8'))
         self.windowAvailable = None
 
     def openfile(self, open_file=None):
@@ -134,14 +139,14 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 image.loadFromData(openFile_ok)
                 tobesent = openFile_ok
                 # For now use arbitrary message "sentIMage to denote message sent"
-                message = f"{self.nickname}: {self.uuid}: SentImage: {tobesent} \n"
+                message = f"{self.username}: {self.uuid}: SentImage: {tobesent} \n"
                 findmessage = message[
                               find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":",
                                                                                                                    "").strip()
                 self.sock.send(message.encode('utf-8'))
                 # Check if userID matches and then display
                 if self.uuid == self.uuid:
-                    self.model.add_message(USER_ME, findmessage, time(), self.nickname, "#90caf9", image)
+                    self.model.add_message(USER_ME, findmessage, time(), self.username, "#90caf9", image)
                 self.textEdit.clear()
                 self.textEdit.setHtml(self.getTextStyles)
         else:
@@ -149,11 +154,16 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
-        message = f"{self.nickname}: {self.uuid}: {self.textEdit.toPlainText()} \n"
-        self.sock.send(message.encode('utf-8'))
+        message = f"{self.username} > {self.textEdit.toPlainText()} \n"
+        # if message:
+        message = message.encode('utf-8')
+        message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
+        self.sock.send(message_header + message)
+        self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.username.decode('utf-8'), "#90caf9")
+
         # Check if userID matches and then display
-        if self.uuid == self.uuid:
-            self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.nickname, "#90caf9")
+        # if self.uuid == self.uuid:
+        #     self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.username.decode('utf-8'), "#90caf9")
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
 
@@ -251,27 +261,35 @@ class ClientCode(Ui_MainWindow, QMainWindow):
     #                 break
 
     def receive(self):
-        while True:
-            full_msg = ''
-            new_msg = True
-            # msglen = 0
+        try:
             while True:
-                msg = self.sock.recv(8192)
-                if new_msg:
-                    print(f"new Message length: {msg[:HEADER_SIZE]}")
-                    msglen = int(msg[:HEADER_SIZE])
-                    new_msg = False
-                full_msg += msg.decode('utf-8')
-                if len(full_msg) - HEADER_SIZE == msglen:
-                    print("full_msg receiverd")
-                    print(full_msg[HEADER_SIZE:])
-                    final_message = full_msg[HEADER_SIZE:]
-                    if final_message == 'NICK': # Check the name much better here
-                        self.sock.send(self.nickname.encode('UTF-8'))
-                    # IF THE HEADER SIZES ARE THE SAME DO THE FOLLOWING
-                    new_msg = True
-                    full_msg = ''
-            print("FULL MESSAGE ONLY",full_msg)
+                username_header = self.sock.recv(HEADER_LENGTH)
+                if not len(username_header):
+                    print("Connection closed by the server")
+                    sys.exit()
+                # Get USERNAME
+                username_length = int(username_header.decode('utf-8').strip())
+                username = self.sock.recv(username_length).decode('utf-8')
+                # GET MESSAGE HERE
+                message_header = self.sock.recv(HEADER_LENGTH)
+                message_length = int(message_header.decode('utf-8').strip())
+                message = self.sock.recv(message_length).decode('utf-8')
+
+                # Print OTHER MESSAGE HERE
+                self.model.add_message(USER_THEM, message, time(), username,"#a5d6a7")  # clientColor[r_nickname]
+                print(f'{username} > {message}')
+                print("Username:",username)
+                print("Message:",message)
+
+        except IOError as e:
+            if e.errno != errno.EAGAIN and e.errno != errno.EWOULDBLOCK:
+                print("reading error:",str(e))
+                sys.exit()
+
+
+        except Exception as e:
+            print('General Error:',str(e))
+            sys.exit()
 
     def closeEvent(self, event):
         """Close Sock and Exit application"""

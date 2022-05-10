@@ -1,7 +1,7 @@
 import socket
 import select
 
-HEADER_LENGTH = 10
+HEADER_LENGTH = 8192
 IP = '127.0.0.1'
 PORT = 1234
 
@@ -57,7 +57,7 @@ while True:
 
             for client_socket in clients:
                 if client_socket != notified_socket:
-                    client_socket.send(user['header'] + user['data'] + message['header'] + ['data'])
+                    client_socket.send(user['header'] + user['data'] + message['header'] + message['data'])
 
     for notified_socket in exception_sockets:
         sockets_list.remove(notified_socket)
