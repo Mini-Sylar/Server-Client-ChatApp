@@ -33,7 +33,7 @@ Server is connected to your localhost, it can be configured to use any ip addres
 <img width="380" src="/Screenshots/DecemberScreenshots2.png" alt="New Interface">
 </div>
 <div>
-<img width="380" src="/Screenshots/SendImageScreenshot.png" alt="Image Sending">
+<img width="100%" src="/Screenshots/SendImageScreenshot.png" alt="Image Sending">
 </div>
 
 ## Updates
