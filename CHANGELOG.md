@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
 - Fixed admin messages
 - Fixed colored bubbles
+- Fixed disconnecting message
 ### <span style="color:red">Issues
 - Image sending is still broken
 <hr>
