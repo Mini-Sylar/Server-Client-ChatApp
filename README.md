@@ -16,6 +16,7 @@ pip install PyQt5
 - Run Client_Code.py
 - Enter your desired nickname and press confirm
 - send messages to everyone connected to the server
+- send images to everyone [NEW]
 ```
 
 ## Notes
@@ -42,7 +43,9 @@ Updates have been moved into
 
 ## Plans
 - [x] Add custom labels like in whatsapp/telegram (ADDED!)
-- [ ] <s>Make usernames colored in console like chat are (In Progress)</s> Console version cancelled for now
+- [x] Add image sending support (ADDED!) [NEW]
+- [ ] Add video sending support [NEW]
+- [ ] Add document sending support [NEW]
 - [ ] Encrypted server messages 
 - [ ] Settings menu to change username,profileIcon,text window style etc.
 - [ ] Admin powers, kick user etc.
