@@ -35,9 +35,6 @@ while True:
         if notified_socket == server_socket:
             client_socket, client_address = server_socket.accept()
             user = receive_message(client_socket)
-            # message = f"{user['data']} Accepted New Connectioon \n".encode('utf-8')
-            # message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
-            # client_socket.send(message_header + message)
             if user is False:
                 continue
             sockets_list.append(client_socket)
@@ -52,7 +49,6 @@ while True:
                 del clients[notified_socket]
                 continue
             user = clients[notified_socket]
-            # username =user["data"].decode("utf-8")
             print(f'Received message from {user["data"].decode("utf-8")}:{message["data"].decode("utf-8")}')
 
             for client_socket in clients:

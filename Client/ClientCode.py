@@ -22,7 +22,7 @@ import ast
 HOST = '127.0.0.1'
 PORT = 1234
 # Server Messages
-s_messages = ('connected to the server!', 'Disconnected from the server!')
+s_messages = ('connected to the server!', 'disconnected from the server!')
 HEADER_LENGTH = 8192
 
 
@@ -49,6 +49,13 @@ clientList = list()
 fragments = list()
 
 
+def set_message_color(username):
+    clientList.append(username)
+    for names in clientList:
+        if names not in clientColor:
+            clientColor[names] = rand_color()
+
+
 class ClientCode(Ui_MainWindow, QMainWindow):
     def __init__(self, host, port):
         super(ClientCode, self).__init__()
@@ -69,7 +76,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.bubbleChat()
         # unique Identifier
         self.uuid = uuid.uuid4().hex
-        self.send_initial()
+        self.send_server_messages()
 
     def threading(self):
         receive_thread = threading.Thread(target=self.receive)
@@ -153,18 +160,22 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         else:
             pass
 
-    def send_initial(self):
-        """Send initial message upon connecting to server"""
-        message = f"{self.username} > connected to the server! \n".encode('utf-8')
-        message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
-        self.sock.send(message_header + message)
-        self.model.add_message(USER_ADMIN, "You Connected To the Server", time(), self.username.decode('utf-8'), "#ffffff")
+    def send_server_messages(self, s_msg_type="Connected"):
+        """Send server messages upon connecting to server or disconnecting"""
+        if s_msg_type == "Connected":
+            message = f"{self.username} > connected to the server! \n".encode('utf-8')
+            message_header = f'{len(message):< {HEADER_LENGTH}}'.encode('utf-8')
+            self.sock.send(message_header + message)
+            self.model.add_message(USER_ADMIN, "You Connected To the Server", time(), self.username.decode('utf-8'),
+                                   "#ffffff")
+        elif s_msg_type == "Disconnected":
+            message = f"{self.username} > disconnected from the server! \n".encode('utf-8')
+            message_header = f'{len(message):< {HEADER_LENGTH}}'.encode('utf-8')
+            self.sock.send(message_header + message)
 
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
-        message = f"{self.username} > {self.textEdit.toPlainText()} \n"
-        # if message:
-        message = message.encode('utf-8')
+        message = f"{self.username} > {self.textEdit.toPlainText()} \n".encode('utf-8')
         message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
         self.sock.send(message_header + message)
         self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.username.decode('utf-8'), "#90caf9")
@@ -279,37 +290,32 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 username_length = int(username_header.decode('utf-8').strip())
                 username = self.sock.recv(username_length).decode('utf-8')
                 # AFTER GETTING USERNAME GET COLOR
-                clientList.append(username)
-                for names in clientList:
-                    if names not in clientColor:
-                        clientColor[names] = rand_color()
+                set_message_color(username)
                 # GET MESSAGE HERE
                 message_header = self.sock.recv(HEADER_LENGTH)
                 message_length = int(message_header.decode('utf-8').strip())
                 message = self.sock.recv(message_length).decode('utf-8')
-                message = message[message.find(">")+1:].replace(" ","",1)
+                message = message[message.find(">") + 1:].replace(" ", "", 1)
                 # Check if admin then print message or nevermind
-                print("Username:", username)
                 if any(check in message.strip("\n") for check in s_messages):
                     self.model.add_message(USER_ADMIN, f'{username} {message}', time(), "", "#FFFFFF")
                 else:
-                    self.model.add_message(USER_THEM, message, time(), username,clientColor[username])  # clientColor[r_nickname]
-                print(f'{username} > {message}')
-                print("Username:",username)
-                print("Message:",message)
+                    self.model.add_message(USER_THEM, message, time(), username, clientColor[username])
+                print("Username:", username)
+                print("Message:", message)
 
         except IOError as e:
             if e.errno != errno.EAGAIN and e.errno != errno.EWOULDBLOCK:
-                print("reading error:",str(e))
+                print("reading error:", str(e))
                 sys.exit()
 
-
         except Exception as e:
-            print('General Error:',str(e))
+            print('General Error:', str(e))
             sys.exit()
 
     def closeEvent(self, event):
         """Close Sock and Exit application"""
+        self.send_server_messages("Disconnected")
         self.running = False
         self.sock.close()
         QMainWindow.closeEvent(self, event)
