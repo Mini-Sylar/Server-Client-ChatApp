@@ -69,6 +69,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.bubbleChat()
         # unique Identifier
         self.uuid = uuid.uuid4().hex
+        self.send_initial()
 
     def threading(self):
         receive_thread = threading.Thread(target=self.receive)
@@ -151,6 +152,13 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 self.textEdit.setHtml(self.getTextStyles)
         else:
             pass
+
+    def send_initial(self):
+        """Send initial message upon connecting to server"""
+        message = f"{self.username} > connected to the server! \n".encode('utf-8')
+        message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
+        self.sock.send(message_header + message)
+        self.model.add_message(USER_ADMIN, "You Connected To the Server", time(), self.username.decode('utf-8'), "#ffffff")
 
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
@@ -270,13 +278,22 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 # Get USERNAME
                 username_length = int(username_header.decode('utf-8').strip())
                 username = self.sock.recv(username_length).decode('utf-8')
+                # AFTER GETTING USERNAME GET COLOR
+                clientList.append(username)
+                for names in clientList:
+                    if names not in clientColor:
+                        clientColor[names] = rand_color()
                 # GET MESSAGE HERE
                 message_header = self.sock.recv(HEADER_LENGTH)
                 message_length = int(message_header.decode('utf-8').strip())
                 message = self.sock.recv(message_length).decode('utf-8')
-
-                # Print OTHER MESSAGE HERE
-                self.model.add_message(USER_THEM, message, time(), username,"#a5d6a7")  # clientColor[r_nickname]
+                message = message[message.find(">")+1:].replace(" ","",1)
+                # Check if admin then print message or nevermind
+                print("Username:", username)
+                if any(check in message.strip("\n") for check in s_messages):
+                    self.model.add_message(USER_ADMIN, f'{username} {message}', time(), "", "#FFFFFF")
+                else:
+                    self.model.add_message(USER_THEM, message, time(), username,clientColor[username])  # clientColor[r_nickname]
                 print(f'{username} > {message}')
                 print("Username:",username)
                 print("Message:",message)

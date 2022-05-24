@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## <span style="color:orange">[Unreleased] - 2022-05-24</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Lots of fixes
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Fixed admin messages
+- Fixed colored bubbles
+### <span style="color:red">Issues
+- Image sending is still broken
+<hr>
+
 
 ## <span style="color:orange">[Unreleased] - 2022-05-10</span>
 ### <span style="color:teal"> <span style="color:teal">Added
