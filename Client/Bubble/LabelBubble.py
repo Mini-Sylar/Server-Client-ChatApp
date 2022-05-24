@@ -153,7 +153,7 @@ class MessageDelegate(QStyledItemDelegate):
 
         if image:
             textrect.setHeight(int(doc.size().height()+400))
-            textrect = textrect.marginsAdded(TEXT_PADDING)
+            textrect = textrect.marginsAdded(BUBBLE_PADDING)
         return textrect.size() + QSize(0, 15)
 
 
