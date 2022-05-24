@@ -8,19 +8,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## <span style="color:orange">[Unreleased] - 2022-05-24</span>
 ### <span style="color:teal"> <span style="color:teal">Added
-- Lots of fixes
+- [NEW] Image sending is now supported
+- Current formats supported:
+  - png
+  - jpg
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
 - Fixed admin messages
 - Fixed colored bubbles
 - Fixed disconnecting message
+- Renamed certain functions to make more sense
+- Cleaned up code
+- Removed uuid message checking (might re-implement)
+- Everything is now handled on the client side instead of the server side
+- Removed bmp support for image sending
+- Added padding to image to keep them in center
 ### <span style="color:red">Issues
-- Image sending is still broken
+- ~~Image sending is still broken~~
+- You can still trigger certain messages if you know the pattern
+- Emojis which have color schemes have not been grouped
+- Certain emojis will not show because the current font does not support it
 <hr>
 
 
 ## <span style="color:orange">[Unreleased] - 2022-05-10</span>
 ### <span style="color:teal"> <span style="color:teal">Added
-- HUGE UPDATE
+- [NEW] HUGE UPDATE!!!
   - Re-wrote entire client and server code base to make things somewhat easier
 ### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
 - Messages are now sent in a format that is much much easier to manipulate

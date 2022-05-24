@@ -1,5 +1,6 @@
 from datetime import datetime
 from PIL.ImageQt import ImageQt
+from PyQt5 import QtCore
 from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt, QSize,QByteArray
 from PyQt5.QtGui import QColor, QTextDocument, QTextOption, QFont, QPixmap
 # from PyQt5.QtGui import
@@ -16,7 +17,8 @@ USER_TRANSLATE = {USER_ME: QPoint(20, 0), USER_THEM: QPoint(0, 0), USER_ADMIN: Q
 
 BUBBLE_PADDING = QMargins(15, 5, 35, 5)
 TEXT_PADDING = QMargins(25, 15, 45, 15)
-# for ADMIN (right down left up)
+IMAGE_PADDING = QMargins(30, 60, 50, 60)
+# for ADMIN (left-margin, top-margin, right margin, bottom margin)
 
 class MessageDelegate(QStyledItemDelegate):
     """
@@ -38,6 +40,7 @@ class MessageDelegate(QStyledItemDelegate):
         # to give us space from the edge to draw our shape.
         bubblerect = option.rect.marginsRemoved(BUBBLE_PADDING)
         textrect = option.rect.marginsRemoved(TEXT_PADDING)
+        imagerect = option.rect.marginsRemoved(IMAGE_PADDING)
 
         # draw the bubble, changing color + arrow position depending on who
         # sent the message. the bubble is a rounded rect, with a triangle in
@@ -56,7 +59,7 @@ class MessageDelegate(QStyledItemDelegate):
         # TODO Draw User Image Here
         painter.setPen(Qt.NoPen)
         d_image = QPixmap(image)
-        painter.drawPixmap(textrect, d_image)
+        painter.drawPixmap(imagerect, d_image)
         # painter.drawRoundedRect(bubblerect, 10, 10)
 
         # draw the triangle bubble-pointer, starting from the top left/right.
@@ -149,7 +152,8 @@ class MessageDelegate(QStyledItemDelegate):
         textrect = textrect.marginsAdded(TEXT_PADDING)
 
         if image:
-            textrect.setHeight(int(doc.size().height()+200))
+            textrect.setHeight(int(doc.size().height()+400))
+            textrect = textrect.marginsAdded(TEXT_PADDING)
         return textrect.size() + QSize(0, 15)
 
 

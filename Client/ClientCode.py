@@ -1,7 +1,6 @@
 import socket
 import sys
 import threading
-import select
 import errno
 
 from PyQt5 import QtCore, QtGui
@@ -16,6 +15,8 @@ from Client.Client_UI import Ui_MainWindow
 import random
 from time import time
 import uuid
+
+from PIL import Image as PillowImage
 
 import ast
 
@@ -74,8 +75,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.uiFunctions()
         self.threading()
         self.bubbleChat()
-        # unique Identifier
-        self.uuid = uuid.uuid4().hex
         self.send_server_messages()
 
     def threading(self):
@@ -109,7 +108,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.Hamburger.clicked.connect(self.slide_left_menu)
         self.Send_Button.clicked.connect(self.write)
         self.emojiButton.clicked.connect(self.emoji_pane)
-        self.attachButton.clicked.connect(self.openfile)
+        self.attachButton.clicked.connect(self.send_image)
         # Emojis
         # Get emojis from text file
         emojis = []
@@ -137,28 +136,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             self.UserNickname.setText(self.username.decode('utf-8'))
         self.windowAvailable = None
 
-    def openfile(self, open_file=None):
-        if not open_file:
-            open_file = QFileDialog.getOpenFileName(None, 'Open File:', '', 'Images (*.png *.bmp *.jpg)')
-        if open_file[0]:
-            with open(open_file[0], 'rb') as file:
-                openFile_ok = file.read()
-                image = QImage()
-                image.loadFromData(openFile_ok)
-                tobesent = openFile_ok
-                # For now use arbitrary message "sentIMage to denote message sent"
-                message = f"{self.username}: {self.uuid}: SentImage: {tobesent} \n"
-                findmessage = message[
-                              find_nth_overlapping(message, " ", 2):find_nth_overlapping(message, " ", 3)].replace(":",
-                                                                                                                   "").strip()
-                self.sock.send(message.encode('utf-8'))
-                # Check if userID matches and then display
-                if self.uuid == self.uuid:
-                    self.model.add_message(USER_ME, findmessage, time(), self.username, "#90caf9", image)
-                self.textEdit.clear()
-                self.textEdit.setHtml(self.getTextStyles)
-        else:
-            pass
 
     def send_server_messages(self, s_msg_type="Connected"):
         """Send server messages upon connecting to server or disconnecting"""
@@ -179,105 +156,26 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
         self.sock.send(message_header + message)
         self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.username.decode('utf-8'), "#90caf9")
-
-        # Check if userID matches and then display
-        # if self.uuid == self.uuid:
-        #     self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.username.decode('utf-8'), "#90caf9")
         self.textEdit.clear()
         self.textEdit.setHtml(self.getTextStyles)
 
-    # def receive(self):
-    #     """While client is running decode every message from the server and insert it as plain text
-    #     Close connection if there is a disconnect or error"""
-    #     while self.running:
-    #         full_message  = ''
-    #         new_message  = True
-    #         while True:
-    #             text = self.sock.recv(8192)
-    #             if new_message:
-    #                 print(f"New Message Length: {text[:HEADER_SIZE]}")
-    #             try:
-    #                 # Don't Check messages here because at when NICK is sent, you haven't received the message yet to
-    #                 # break into pieces
-    #                 text = self.sock.recv(8192)
-    #                 message = text.decode('utf-8')
-    #                 if message == 'NICK':
-    #                     self.sock.send(self.nickname.encode('UTF-8'))
-    #                 #     Parse Everything here including usernames and color (admin)
-    #                 elif any(check in message for check in s_messages):
-    #                     r_adminNick = message.split(':')[0]
-    #                     r_adminMessage = message.split(':')[-1]
-    #                     self.model.add_message(USER_ADMIN, r_adminMessage, time(), r_adminNick, "#FFFFFF")
-    #                     # Find Users and Append Them to List
-    #                     find_names = message[message.find("(") + 1:   message.find(")")]
-    #                     if s_messages[0] in find_names:
-    #                         find_names = find_names.replace(s_messages[0], "").rstrip()
-    #                     elif s_messages[1] in find_names:
-    #                         find_names = find_names.replace(s_messages[1], "").rstrip()
-    #                     else:
-    #                         find_names = find_names.replace("\n", "")
-    #                     # Append color to any user who joins by stripping connected server
-    #                     for users in find_names.split(','):
-    #                         clientList.append(users)
-    #                     # Add and assign user color here
-    #                     for names in clientList:
-    #                         if names not in clientColor:
-    #                             clientColor[names] = rand_color()
-    #                 else:
-    #                     if self.gui_done:
-    #                         # Message form ['Username[0] ', 'UUID[1]', 'Message[2]']
-    #                         if not message:
-    #                             break
-    #                         else:
-    #                             fragments.append(message)
-    #                         # Get all data from databytes
-    #                         print(fragments)
-    #                         data_bytes = "".join(fragments).strip("\n")
-    #                         # !Username Find Properly
-    #                         findusername = data_bytes[0:find_nth_overlapping(data_bytes, ":", 1)].strip('\n')
-    #                         # !Find ID
-    #                         find_user_ID = data_bytes[
-    #                                        find_nth_overlapping(data_bytes, ":", 1):find_nth_overlapping(data_bytes, ":",
-    #                                                                                                      2)]
-    #                         find_user_ID = find_user_ID.replace(':', "", 1).replace(" ", "", 1)
-    #                         # !Find Message Here
-    #                         find_message = data_bytes[
-    #                                        find_nth_overlapping(data_bytes, ":", 2) + 1:find_nth_overlapping(data_bytes,
-    #                                                                                                          "b'",
-    #                                                                                                          1)].strip('\n')
-    #                         find_message = find_message.replace(' ', '', 1)
-    #                         # !Find the rest here
-    #                         found_bytes = data_bytes[find_nth_overlapping(data_bytes, " ", 3):].replace(" ", "", 1)
-    #                         print(found_bytes)
-    #                         image = QImage()
-    #                         # testimage = PillowImage.open(io.BytesIO(prepImage))
-    #                         # testimage.show()
-    #                         if len(found_bytes) > 1:
-    #                             try:
-    #                                 prepImage = ast.literal_eval(found_bytes)
-    #                             except (ValueError, NameError,SyntaxError):
-    #                                 prepImage = None
-    #                         else:
-    #                             prepImage = None
-    #
-    #                         image.loadFromData(prepImage)
-    #                         # Fail Safe Here
-    #                         if self.nickname == find_user_ID:
-    #                             break
-    #                         if self.uuid not in find_user_ID:
-    #                             if  prepImage is None:
-    #                                 self.model.add_message(USER_THEM, find_message, time(), findusername,
-    #                                                        clientColor[findusername])  # clientColor[r_nickname]
-    #                             else:
-    #                                 self.model.add_message(USER_THEM, find_message, time(), findusername,
-    #                                                        clientColor[findusername], image)  # clientColor[r_nickname]
-    #                         fragments.clear()
-    #             except ConnectionAbortedError:
-    #                 break
-    #             except OSError as e:
-    #                 print(e)
-    #                 self.sock.close()
-    #                 break
+    def send_image(self, open_file=None):
+        if not open_file:
+            open_file = QFileDialog.getOpenFileName(None, 'Open File:', '', 'Images (*.png *.jpg)')
+        if open_file[0]:
+            with open(open_file[0], 'rb') as file:
+                openFile_ok = file.read()
+                image = QImage()
+                image.loadFromData(openFile_ok)
+                # For now use arbitrary message "sentIMage to denote message sent"
+                message = f"{self.username} > {openFile_ok} \n".encode('utf-8')
+                message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
+                self.sock.send(message_header + message)
+                self.model.add_message(USER_ME, "Sent Image", time(), self.username.decode('utf-8'), "#90caf9", image)
+                self.textEdit.clear()
+                self.textEdit.setHtml(self.getTextStyles)
+        else:
+            pass
 
     def receive(self):
         try:
@@ -300,7 +198,12 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 if any(check in message.strip("\n") for check in s_messages):
                     self.model.add_message(USER_ADMIN, f'{username} {message}', time(), "", "#FFFFFF")
                 else:
-                    self.model.add_message(USER_THEM, message, time(), username, clientColor[username])
+                    if message.startswith("b'"):
+                        image = QImage()
+                        image.loadFromData(ast.literal_eval(message))
+                        self.model.add_message(USER_THEM, "Received Image", time(), username, clientColor[username],image)
+                    else:
+                        self.model.add_message(USER_THEM, message, time(), username, clientColor[username])
                 print("Username:", username)
                 print("Message:", message)
 
