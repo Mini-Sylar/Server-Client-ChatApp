@@ -20,8 +20,7 @@ pip install PyQt5
 ```
 
 ## Notes
-Server is connected to your localhost, it can be configured to use any ip address you want by changing the values in HOST and PORT
-
+Server is connected to your localhost, it can be configured to use any ip address you want by changing the values in HOST and PORT.
 
 ## Screenshots
 <div>
