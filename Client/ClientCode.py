@@ -6,7 +6,7 @@ import errno
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation, QTimer
 from PyQt5.QtGui import QIcon, QImage
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QFileDialog, QMenu
 
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
@@ -34,6 +34,15 @@ HEADER_LENGTH = 8192
 def rand_color(def_color='#a5d6a7'):
     r = lambda: random.randint(0, 255)
     return '#%02X%02X%02X' % (r(), r(), r()) if r else def_color
+
+
+def fancy_dict(*args):
+    'Pass in a list of tuples, which will be key/value pairs'
+    ret = {}
+    for k, v in args:
+        for i in k:
+            ret[i] = v
+    return ret
 
 
 # Find Character at a given position
@@ -85,7 +94,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     def create_emojis(self):
         buttons = {}
-        for i in range(58):  # controls rows
+        for i in range(27):  # controls rows
             for j in range(6):  # controls columns
                 # keep a reference to the buttons
                 buttons[(i, j)] = QPushButton(self.Emo_Smiles)
@@ -96,15 +105,53 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 self.gridLayout_2.addWidget(buttons[(i, j)], i, j)
         # Display Emojis
         icons = []
-        curr_moji_length = len(self.Emo_Smiles.children()[1:]) + 1
+        curr_moji_length = len(self.Emo_Smiles.children()[1:162]) + 1
         for items in range(0, curr_moji_length):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/EmojisOpened/emoji_{items}.png"), QtGui.QIcon.Normal,
                            QtGui.QIcon.Off)
             icons.append(icon)
-        for index, item in enumerate(self.Emo_Smiles.children()[1:]):
+        for index, item in enumerate(self.Emo_Smiles.children()[1:163]):
             item.setIcon(icons[index])
             item.setIconSize(QtCore.QSize(32, 32))
+
+        self.create_emojis_dropdown()
+
+    def create_emojis_dropdown(self):
+        buttons = {}
+        for i in range(27, 34):  # controls rows
+            for j in range(6):  # controls columns
+                # keep a reference to the buttons
+                buttons[(i, j)] = DropButton(self.Emo_Smiles)
+                buttons[(i, j)].setObjectName(f'emoji_{j}_smiles')
+                buttons[(i, j)].setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+                buttons[(i, j)].setFlat(True)
+                menu = QMenu()
+                menu.addAction('This is Action 1', lambda: print("hello world"))
+                buttons[(i, j)].setMenu(menu)
+                # add to the layout
+                self.gridLayout_2.addWidget(buttons[(i, j)], i, j)
+        # Display Emojis
+        icons = []
+        # Affect Only Emojis 162 to 205 or the number of items in that row
+        curr_moji_length = len(self.Emo_Smiles.children()[163:205])
+        print("current emoji length",curr_moji_length)
+
+        initial_counter  = 163
+        for items in range(0, curr_moji_length):
+            icon = QIcon()
+            icon.addPixmap(QtGui.QPixmap(f":/Yellow/emoji_{initial_counter}.png"), QtGui.QIcon.Normal,
+                                   QtGui.QIcon.Off)
+            print(f":/EmojisOpened/emoji_{initial_counter}.png")
+            initial_counter += 6
+            if initial_counter == 385:
+                initial_counter = 405
+            icons.append(icon)
+
+        for index, item in enumerate(self.Emo_Smiles.children()[163:205]):
+            item.setIcon(icons[index])
+            item.setIconSize(QtCore.QSize(32, 32))
+
 
     def uiFunctions(self):
         self.Hamburger.clicked.connect(self.slide_left_menu)
@@ -137,7 +184,6 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             self.sock.send(self.username_header + self.username)
             self.UserNickname.setText(self.username.decode('utf-8'))
         self.windowAvailable = None
-
 
     def send_server_messages(self, s_msg_type="Connected"):
         """Send server messages upon connecting to server or disconnecting"""
@@ -203,7 +249,8 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                     if message.startswith("b'"):
                         image = QImage()
                         image.loadFromData(ast.literal_eval(message))
-                        self.model.add_message(USER_THEM, "Received Image", time(), username, clientColor[username],image)
+                        self.model.add_message(USER_THEM, "Received Image", time(), username, clientColor[username],
+                                               image)
                     else:
                         self.model.add_message(USER_THEM, message, time(), username, clientColor[username])
                 print("Username:", username)
@@ -247,7 +294,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         """Function To create Sliding Left Menu With QFrame"""
         width = self.EmojiPane.width()
         if width == 0:
-            new_width = 296
+            new_width = 400  # 296
         else:
             new_width = 0
         # Animate the transition

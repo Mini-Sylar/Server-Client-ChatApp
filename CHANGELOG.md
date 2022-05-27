@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+
+## <span style="color:orange">[Unreleased] - 2022-05-27</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added drop-down button on emojis with color changes (WIP)
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- re-arranged all the emojis with interchangeable color
+### <span style="color:red">Issues
+- Emoji order is now broken
+<hr>
+
+
+
 ## <span style="color:orange">[Unreleased] - 2022-05-24</span>
 ### <span style="color:teal"> <span style="color:teal">Added
 - [NEW] Image sending is now supported
