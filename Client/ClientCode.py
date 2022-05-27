@@ -126,23 +126,19 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 buttons[(i, j)].setObjectName(f'emoji_{j}_smiles')
                 buttons[(i, j)].setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
                 buttons[(i, j)].setFlat(True)
-                menu = QMenu()
-                menu.addAction('This is Action 1', lambda: print("hello world"))
-                buttons[(i, j)].setMenu(menu)
                 # add to the layout
                 self.gridLayout_2.addWidget(buttons[(i, j)], i, j)
         # Display Emojis
         icons = []
         # Affect Only Emojis 162 to 205 or the number of items in that row
         curr_moji_length = len(self.Emo_Smiles.children()[163:205])
-        print("current emoji length",curr_moji_length)
 
         initial_counter  = 163
         for items in range(0, curr_moji_length):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/Yellow/emoji_{initial_counter}.png"), QtGui.QIcon.Normal,
                                    QtGui.QIcon.Off)
-            print(f":/EmojisOpened/emoji_{initial_counter}.png")
+
             initial_counter += 6
             if initial_counter == 385:
                 initial_counter = 405
@@ -152,6 +148,21 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             item.setIcon(icons[index])
             item.setIconSize(QtCore.QSize(32, 32))
 
+        self.dynamic_emojis_menu()
+
+
+    def dynamic_emojis_menu(self):
+        # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
+        self.menu_emoji = QMenu()
+        self.menu_emoji.addAction("Sub 1", lambda: self.textEdit.insertPlainText(self.emojis[164]))
+        self.menu_emoji.addAction("Sub 2", lambda: self.textEdit.insertPlainText(self.emojis[165]))
+        self.menu_emoji.addAction("Sub 3", lambda: self.textEdit.insertPlainText(self.emojis[166]))
+        self.menu_emoji.addAction("Sub 4", lambda: self.textEdit.insertPlainText(self.emojis[167]))
+        self.menu_emoji.addAction("Sub 5", lambda: self.textEdit.insertPlainText(self.emojis[168]))
+        for item in self.Emo_Smiles.children()[163:205]:
+            item.setMenu(self.menu_emoji)
+            # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
+
 
     def uiFunctions(self):
         self.Hamburger.clicked.connect(self.slide_left_menu)
@@ -160,14 +171,14 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         self.attachButton.clicked.connect(self.send_image)
         # Emojis
         # Get emojis from text file
-        emojis = []
+        self.emojis = []
         textArea = self.textEdit.document()
         # cursor = QTextCursor(textArea)
         with open('EmojiList.txt', 'r', encoding="utf8") as file:
-            emojis = file.read().splitlines()
+            self.emojis = file.read().splitlines()
         for index, item in enumerate(self.Emo_Smiles.children()[1:]):
             # Add option to insert html image instead of plain text after inserting images in qlistview
-            item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(emojis[text]))
+            item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
             # item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
 
         # Add a timer to keep refreshing the Qlistview

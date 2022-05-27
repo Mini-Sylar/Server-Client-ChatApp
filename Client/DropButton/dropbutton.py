@@ -12,17 +12,17 @@ class DropButton(QtWidgets.QPushButton):
             topRight = self.rect().topRight()
             bottomRight = self.rect().bottomRight()
             frameWidth = self.style().pixelMetric(QtWidgets.QStyle.PM_DefaultFrameWidth)
-            print(topRight, bottomRight, frameWidth)
+            # print(topRight, bottomRight, frameWidth)
             # get the rect from QStyle instead of hardcode numbers here
             arrowTopLeft = QtCore.QPoint(topRight.x() - 20, topRight.y())
             arrowRect = QtCore.QRect(arrowTopLeft, bottomRight)
 
             if arrowRect.contains(event.pos()):
-                print('clicked near arrow')
+                # print('clicked near arrow')
                 # event.accept()
                 QtWidgets.QPushButton.mousePressEvent(self, event)
             else:
-                print('clicked outside')
+                # print('clicked outside')
                 # call the slot connected, without popup the menu
                 # the following code now does not make
                 # the button pressed
