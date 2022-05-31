@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## <span style="color:orange">[Unreleased] - 2022-05-31</span>
+### <span style="color:teal"> <span style="color:teal">Added
+- Added mini icons to emoji sub-menu 
+### <span style="color:green"><span style="color:blue"><span style="color:pink">Changed
+- Fixed emoji order in both emoji table and emoji sub menu
+### <span style="color:red">Issues
+- Currently emojis supporting more than 6 variants such as the handshake emoji have their icons and emojis broken
+<hr>
+
 
 ## <span style="color:orange">[Unreleased] - 2022-05-27</span>
 ### <span style="color:teal"> <span style="color:teal">Added
@@ -15,8 +24,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### <span style="color:red">Issues
 - Emoji order is now broken
 <hr>
-
-
 
 ## <span style="color:orange">[Unreleased] - 2022-05-24</span>
 ### <span style="color:teal"> <span style="color:teal">Added

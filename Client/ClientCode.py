@@ -36,14 +36,14 @@ def rand_color(def_color='#a5d6a7'):
     return '#%02X%02X%02X' % (r(), r(), r()) if r else def_color
 
 
-def fancy_dict(*args):
-    'Pass in a list of tuples, which will be key/value pairs'
-    ret = {}
-    for k, v in args:
-        for i in k:
-            ret[i] = v
-    return ret
-
+# def fancy_dict(*args):
+#     'Pass in a list of tuples, which will be key/value pairs'
+#     ret = {}
+#     for k, v in args:
+#         for i in k:
+#             ret[i] = v
+#     return ret
+#
 
 # Find Character at a given position
 def find_nth_overlapping(haystack, needle, n):
@@ -119,7 +119,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
     def create_emojis_dropdown(self):
         buttons = {}
-        for i in range(27, 34):  # controls rows
+        for i in range(27, 34):  # controls rows example: range(27, 34) means 7 rows
             for j in range(6):  # controls columns
                 # keep a reference to the buttons
                 buttons[(i, j)] = DropButton(self.Emo_Smiles)
@@ -130,15 +130,14 @@ class ClientCode(Ui_MainWindow, QMainWindow):
                 self.gridLayout_2.addWidget(buttons[(i, j)], i, j)
         # Display Emojis
         icons = []
-        # Affect Only Emojis 162 to 205 or the number of items in that row
+        # Affect Only Emojis 162 to 205 or the first 42 emojis (for testing)
         curr_moji_length = len(self.Emo_Smiles.children()[163:205])
 
-        initial_counter  = 163
+        initial_counter = 163
         for items in range(0, curr_moji_length):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/Yellow/emoji_{initial_counter}.png"), QtGui.QIcon.Normal,
                                    QtGui.QIcon.Off)
-
             initial_counter += 6
             if initial_counter == 385:
                 initial_counter = 405
@@ -150,19 +149,43 @@ class ClientCode(Ui_MainWindow, QMainWindow):
 
         self.dynamic_emojis_menu()
 
-
     def dynamic_emojis_menu(self):
         # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
-        self.menu_emoji = QMenu()
-        self.menu_emoji.addAction("Sub 1", lambda: self.textEdit.insertPlainText(self.emojis[164]))
-        self.menu_emoji.addAction("Sub 2", lambda: self.textEdit.insertPlainText(self.emojis[165]))
-        self.menu_emoji.addAction("Sub 3", lambda: self.textEdit.insertPlainText(self.emojis[166]))
-        self.menu_emoji.addAction("Sub 4", lambda: self.textEdit.insertPlainText(self.emojis[167]))
-        self.menu_emoji.addAction("Sub 5", lambda: self.textEdit.insertPlainText(self.emojis[168]))
-        for item in self.Emo_Smiles.children()[163:205]:
-            item.setMenu(self.menu_emoji)
-            # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
+        button_index = 164
+        emoji_index = 0
+        jump=[i for i in range(163,424,6)]
+        # jump_icon = [i for i in range(385,404)]
+        display_icons = []
 
+        # Set Icons HEre
+        for items in range(164, 424):
+            icon = QIcon()
+            icon.addPixmap(QtGui.QPixmap(f":/EmojisOpened/emoji_{items}.png"))
+            # print(items)
+            display_icons.append(icon)
+        #
+
+        for button in self.Emo_Smiles.children()[163:424]:
+            self.menu_emoji = QMenu()
+            if button_index in jump:
+                button_index+=1
+                emoji_index += 1
+            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            button_index+=1
+            emoji_index+=1
+            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            button_index += 1
+            emoji_index += 1
+            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            button_index += 1
+            emoji_index += 1
+            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            button_index += 1
+            emoji_index += 1
+            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            button_index += 1
+            emoji_index += 1
+            button.setMenu(self.menu_emoji)
 
     def uiFunctions(self):
         self.Hamburger.clicked.connect(self.slide_left_menu)
@@ -172,7 +195,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         # Emojis
         # Get emojis from text file
         self.emojis = []
-        textArea = self.textEdit.document()
+        self.textEdit.document()
         # cursor = QTextCursor(textArea)
         with open('EmojiList.txt', 'r', encoding="utf8") as file:
             self.emojis = file.read().splitlines()
