@@ -46,13 +46,7 @@ Updates have been moved into
 [Changelog](CHANGELOG.md)
 
 ## Plans
-- [x] Add custom labels like in whatsapp/telegram (ADDED!)
-- [x] Add image sending support (ADDED!) [NEW]
-- [ ] Add video sending support [NEW]
-- [ ] Add document sending support [NEW]
-- [ ] Encrypted server messages 
-- [ ] Settings menu to change username,profileIcon,text window style etc.
-- [ ] Admin powers, kick user etc.
+Plans have been moved into [Project](https://github.com/users/Mini-Sylar/projects/5)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
