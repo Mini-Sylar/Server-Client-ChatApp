@@ -1,7 +1,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/Mini-Sylar/Server-Client-ChatApp)](https://github.com/Mini-Sylar/Server-Client-ChatApp/issues)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/Mini-Sylar/Server-Client-ChatApp?color=purple)
 [![GitHub forks](https://img.shields.io/github/forks/Mini-Sylar/Server-Client-ChatApp)](https://github.com/Mini-Sylar/Server-Client-ChatApp/network)
-[![GitHub stars](https://img.shields.io/github/stars/Mini-Sylar/Server-Client-ChatApp)](https://github.com/Mini-Sylar/Server-Client-ChatApp/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/Mini-Sylar/Server-Client-ChatApp?color=gold)](https://github.com/Mini-Sylar/Server-Client-ChatApp/stargazers)
 [![GitHub license](https://img.shields.io/github/license/Mini-Sylar/Server-Client-ChatApp)](https://github.com/Mini-Sylar/Server-Client-ChatApp/blob/main/LICENSE)
 
 # Server-Client-ChatApp
