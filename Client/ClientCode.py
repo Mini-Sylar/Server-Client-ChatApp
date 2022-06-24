@@ -8,6 +8,11 @@ from PyQt5.QtCore import QPropertyAnimation, QTimer
 from PyQt5.QtGui import QIcon, QImage
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QFileDialog, QMenu
 
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
+
 from Client.Bubble.LabelBubble import MessageDelegate, MessageModel, USER_ME, USER_THEM, USER_ADMIN
 from Client.Username.Choose_Draggable import Draggable
 from Client.Client_UI import Ui_MainWindow
@@ -33,8 +38,8 @@ HEADER_LENGTH = 8192
 # ============ Helpers ==============
 # Random Color Generator
 def rand_color():
-    h,s,l = random.uniform(0, 360)/360, random.uniform(0.2, 1), random.uniform(0.5, 1)
-    r,g,b = [int(256*i) for i in colorsys.hls_to_rgb(h,l,s)]
+    h, s, l = random.uniform(0, 360) / 360, random.uniform(0.2, 1), random.uniform(0.5, 1)
+    r, g, b = [int(256 * i) for i in colorsys.hls_to_rgb(h, l, s)]
     return '#%02X%02X%02X' % (r, g, b)
 
 
@@ -139,7 +144,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         for items in range(0, curr_moji_length):
             icon = QIcon()
             icon.addPixmap(QtGui.QPixmap(f":/Yellow/emoji_{initial_counter}.png"), QtGui.QIcon.Normal,
-                                   QtGui.QIcon.Off)
+                           QtGui.QIcon.Off)
             initial_counter += 6
             if initial_counter == 385:
                 initial_counter = 405
@@ -155,7 +160,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         # item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
         button_index = 164
         emoji_index = 0
-        jump=[i for i in range(163,424,6)]
+        jump = [i for i in range(163, 424, 6)]
         # jump_icon = [i for i in range(385,404)]
         display_icons = []
 
@@ -170,21 +175,26 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         for button in self.Emo_Smiles.children()[163:424]:
             self.menu_emoji = QMenu()
             if button_index in jump:
-                button_index+=1
+                button_index += 1
                 emoji_index += 1
-            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
-            button_index+=1
-            emoji_index+=1
-            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            self.menu_emoji.addAction(display_icons[emoji_index], "",
+                                      lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
             button_index += 1
             emoji_index += 1
-            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            self.menu_emoji.addAction(display_icons[emoji_index], "",
+                                      lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
             button_index += 1
             emoji_index += 1
-            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            self.menu_emoji.addAction(display_icons[emoji_index], "",
+                                      lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
             button_index += 1
             emoji_index += 1
-            self.menu_emoji.addAction(display_icons[emoji_index],"", lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            self.menu_emoji.addAction(display_icons[emoji_index], "",
+                                      lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
+            button_index += 1
+            emoji_index += 1
+            self.menu_emoji.addAction(display_icons[emoji_index], "",
+                                      lambda index=button_index: self.textEdit.insertPlainText(self.emojis[index]))
             button_index += 1
             emoji_index += 1
             button.setMenu(self.menu_emoji)
