@@ -13,6 +13,7 @@ from Client.Username.Choose_Draggable import Draggable
 from Client.Client_UI import Ui_MainWindow
 
 import random
+import colorsys
 from time import time
 # import uuid
 
@@ -31,9 +32,10 @@ HEADER_LENGTH = 8192
 
 # ============ Helpers ==============
 # Random Color Generator
-def rand_color(def_color='#a5d6a7'):
-    r = lambda: random.randint(0, 255)
-    return '#%02X%02X%02X' % (r(), r(), r()) if r else def_color
+def rand_color():
+    h,s,l = random.uniform(0, 360)/360, random.uniform(0.2, 1), random.uniform(0.5, 1)
+    r,g,b = [int(256*i) for i in colorsys.hls_to_rgb(h,l,s)]
+    return '#%02X%02X%02X' % (r, g, b)
 
 
 # def fancy_dict(*args):
