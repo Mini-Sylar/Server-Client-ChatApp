@@ -153,6 +153,9 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         for index, item in enumerate(self.Emo_Smiles.children()[163:205]):
             item.setIcon(icons[index])
             item.setIconSize(QtCore.QSize(32, 32))
+        # Set dynamic button before sub menu here from dynamic emojis list which contains all yellows
+        for index,item in enumerate(self.Emo_Smiles.children()[163:205]): # starts from button 163 to 205
+            item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.dynamic_emojis[text]))
 
         self.dynamic_emojis_menu()
 
@@ -170,8 +173,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             icon.addPixmap(QtGui.QPixmap(f":/EmojisOpened/emoji_{items}.png"))
             # print(items)
             display_icons.append(icon)
-        #
-
+        # Set actions for sub menus here
         for button in self.Emo_Smiles.children()[163:424]:
             self.menu_emoji = QMenu()
             if button_index in jump:
@@ -207,15 +209,17 @@ class ClientCode(Ui_MainWindow, QMainWindow):
         # Emojis
         # Get emojis from text file
         self.emojis = []
+
         self.textEdit.document()
         # cursor = QTextCursor(textArea)
         with open('EmojiList.txt', 'r', encoding="utf8") as file:
             self.emojis = file.read().splitlines()
-        for index, item in enumerate(self.Emo_Smiles.children()[1:]):
+        for index, item in enumerate(self.Emo_Smiles.children()[1:163]):
             # Add option to insert html image instead of plain text after inserting images in qlistview
             item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
             # item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
-
+        self.dynamic_emojis = self.emojis[163::6]
+        print(self.dynamic_emojis)
         # Add a timer to keep refreshing the Qlistview
         self.timer = QTimer()
         self.timer.timeout.connect(lambda: self.model.layoutChanged.emit())
