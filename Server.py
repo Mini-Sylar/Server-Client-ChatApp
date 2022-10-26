@@ -15,7 +15,7 @@ server_socket.listen()
 sockets_list = [server_socket]
 
 clients = {}
-
+print("Server is running...")
 
 def receive_message(client_socket):
     try:
@@ -58,3 +58,4 @@ while True:
     for notified_socket in exception_sockets:
         sockets_list.remove(notified_socket)
         del clients[notified_socket]
+
