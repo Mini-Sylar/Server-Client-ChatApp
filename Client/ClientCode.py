@@ -146,8 +146,8 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             icon.addPixmap(QtGui.QPixmap(f":/Yellow/emoji_{initial_counter}.png"), QtGui.QIcon.Normal,
                            QtGui.QIcon.Off)
             initial_counter += 6
-            if initial_counter == 385:
-                initial_counter = 405
+            # if initial_counter == 385:
+            #     initial_counter = 405
             icons.append(icon)
 
         for index, item in enumerate(self.Emo_Smiles.children()[163:205]):
