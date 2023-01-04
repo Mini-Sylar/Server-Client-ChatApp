@@ -1,0 +1,8 @@
+#IDEA files
+.idea
+
+#Cache
+__pycache__
+
+#VS code
+.vscode
