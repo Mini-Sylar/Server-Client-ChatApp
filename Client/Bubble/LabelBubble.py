@@ -1,7 +1,6 @@
 from datetime import datetime
-from PIL.ImageQt import ImageQt
-from PyQt5 import QtCore
-from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt, QSize,QByteArray
+
+from PyQt5.QtCore import QAbstractListModel, QMargins, QPoint, Qt, QSize
 from PyQt5.QtGui import QColor, QTextDocument, QTextOption, QFont, QPixmap
 # from PyQt5.QtGui import
 from PyQt5.QtWidgets import (

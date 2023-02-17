@@ -154,7 +154,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             item.setIcon(icons[index])
             item.setIconSize(QtCore.QSize(32, 32))
         # Set dynamic button before sub menu here from dynamic emojis list which contains all yellows
-        for index,item in enumerate(self.Emo_Smiles.children()[163:205]): # starts from button 163 to 205
+        for index, item in enumerate(self.Emo_Smiles.children()[163:205]):  # starts from button 163 to 205
             item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.dynamic_emojis[text]))
 
         self.dynamic_emojis_menu()
@@ -219,7 +219,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
             item.clicked.connect(lambda checked, text=index: self.textEdit.insertPlainText(self.emojis[text]))
             # item.clicked.connect(lambda checked, text=index: cursor.insertImage(f":/EmojisOpened/emoji_{text}.png"))
         self.dynamic_emojis = self.emojis[163::6]
-        print(self.dynamic_emojis)
+        # print(self.dynamic_emojis)
         # Add a timer to keep refreshing the Qlistview
         self.timer = QTimer()
         self.timer.timeout.connect(lambda: self.model.layoutChanged.emit())
@@ -251,7 +251,7 @@ class ClientCode(Ui_MainWindow, QMainWindow):
     def write(self):
         """This function gets the message and sends it to the server which broadcasts it"""
         message = f"{self.username} > {self.textEdit.toPlainText()} \n".encode('utf-8')
-        message_header = f'{len((message)):< {HEADER_LENGTH}}'.encode('utf-8')
+        message_header = f'{len(message):< {HEADER_LENGTH}}'.encode('utf-8')
         self.sock.send(message_header + message)
         self.model.add_message(USER_ME, self.textEdit.toPlainText(), time(), self.username.decode('utf-8'), "#90caf9")
         self.textEdit.clear()
